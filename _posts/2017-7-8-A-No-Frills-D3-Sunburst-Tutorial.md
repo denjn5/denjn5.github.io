@@ -25,10 +25,10 @@ Do good!  —David Richards
 ## Live Example & Outline
 
 
-<iframe src="../d3/sunburst-1.html" height=500 width=500></iframe>
+<iframe src="../d3/sunburst-1.html" id="d3_iframe"></iframe>
 
 
-- [The Web Page](#)
+- [The Web Page](#The-Web-Page)
 - [The Data](#)
 - [Initialize Variables](#)
 - [Setting up our SVG workspace](#)
@@ -36,7 +36,7 @@ Do good!  —David Richards
 - [Formatting the Data](#)
 - [Find the Root Node](#)
 - [Calculate each arc](#)
-- [Putting it all together](#)
+- [Putting it all together](#Putting-it-all-together)
 
 
 ## The Web Page
@@ -264,15 +264,3 @@ Or maybe we should kayak...
 
 ![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
 
-<br>&nbsp;<br>&nbsp;<br>
-
-<nav class="post_navigation">
-  {% if page.previous.url %}
-    <a href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
-  {% endif %}
-  {% if page.next.url %}
-    <a href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
-  {% endif %}
-</nav>
-
-<br>&nbsp;<br>&nbsp;<br>

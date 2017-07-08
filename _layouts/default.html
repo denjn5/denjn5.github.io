@@ -9,6 +9,10 @@
       <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <!-- begin david -->
+    <link rel="icon" type="image/png" href="{{ site.baseurl }}/images/chat.png">
+    <!-- end david -->
+
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
@@ -37,6 +41,23 @@
     <div id="main" role="main" class="container">
       {{ content }}
     </div>
+
+    <!-- begin david -->
+    <br>&nbsp;<br>
+
+    <nav class="post_navigation">
+      {% if page.previous.url %}
+        <a href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+      {% endif %}
+      {% if page.next.url %}
+        <a href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+      {% endif %}
+    </nav>
+
+    <br>&nbsp;<br>
+    <!-- end david -->
+
+
 
     <div class="wrapper-footer">
       <div class="container">
