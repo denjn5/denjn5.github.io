@@ -1,7 +1,7 @@
 ---
 layout: post
 title: B No Frills D3 Sunburst Tutorial
-date: 2017-7-8
+date: 2017-7-9
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
