@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tutorials And...
+title: Tutorials & [well, that may be it]
 ---
 
-I learn by doing. As I do that, I'll post what I learn here. Maybe it'll be helpful.
+I learn by doing. I'll post what I learn. And I'll almost certainly overuse ellipses...
