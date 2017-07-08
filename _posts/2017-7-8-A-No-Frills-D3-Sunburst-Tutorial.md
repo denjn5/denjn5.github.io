@@ -29,6 +29,8 @@ Do good!  —David Richards
 </style>
 <iframe src='../d3/sunburst-1.html' id='d3_iframe'></iframe>
 
+{% include sunburst-1.html %}
+
 
 - [The Web Page](#the-web-page)
 - [The Data](#the-data)
