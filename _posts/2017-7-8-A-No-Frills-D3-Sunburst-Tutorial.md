@@ -2,7 +2,8 @@
 layout: post
 title: A No Frills D3 Sunburst Tutorial
 date: 2017-7-8
-categories: d3 tutorial d3v4 javascript sunburst
+categories: d3 sunburst
+tags: d3 tutorial d3v4 javascript sunburst
 ---
 
 ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
