@@ -24,13 +24,8 @@ Do good!  —David Richards
 
 ## Live Example & Outline<a></a>
 
-<style>
-#d3_iframe {width:500; height=500}
-</style>
-<iframe src='../d3/sunburst-1.html' id='d3_iframe'></iframe>
-
 aaa
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="300" height="300" src="../d3/sunburst-1.html"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="500" height="500" src="../d3/sunburst-1.html"></iframe>
 aaa
 
 zzz
