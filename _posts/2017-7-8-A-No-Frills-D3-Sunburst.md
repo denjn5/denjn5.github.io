@@ -1,12 +1,12 @@
 ---
 layout: post
-title: A No Frills D3 Sunburst
+title: A No Frills D3 Sunburst Tutorial
 ---
 
 
-![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
+In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 
-In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript and d3.
+![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
 
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
