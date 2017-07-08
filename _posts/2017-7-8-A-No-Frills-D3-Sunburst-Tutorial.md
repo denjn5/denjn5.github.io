@@ -12,18 +12,6 @@ categories: d3 tutorial d3v4 javascript sunburst
 ## Welcome
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 
-- [Welcome](#)
-- [Live Example](#)
-- [The Web Page](#)
-- [The Data](#)
-- [Initialize Variables](#)
-- [Setting up our SVG workspace](#)
-	- [Method Chaining & the HTML](#)
-- [Formatting the Data](#)
-- [Find the Root Node](#)
-- [Calculate each arc](#)
-- [Putting it all together](#)
-
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
 
 1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
@@ -34,8 +22,18 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 
 Do good!  —David Richards
 
-## Live Example
-<iframe src="../d3/sunburst-1.html" height=500 width='100%'></iframe>
+## Live Example & Outline
+<iframe src="../d3/sunburst-1.html" height=500 width=100%></iframe>
+
+- [The Web Page](#)
+- [The Data](#)
+- [Initialize Variables](#)
+- [Setting up our SVG workspace](#)
+	- [Method Chaining & the HTML](#)
+- [Formatting the Data](#)
+- [Find the Root Node](#)
+- [Calculate each arc](#)
+- [Putting it all together](#)
 
 
 ## The Web Page
@@ -263,6 +261,8 @@ Or maybe we should kayak...
 
 ![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
 
+<hr>
+
 <nav class="post_navigation">
   {% if page.previous.url %}
     <a href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
@@ -271,3 +271,5 @@ Or maybe we should kayak...
     <a href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
   {% endif %}
 </nav>
+
+<hr>
