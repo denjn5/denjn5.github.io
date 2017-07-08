@@ -7,9 +7,22 @@ categories: d3 tutorial d3v4 javascript sunburst
 
 ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
 
+<!--- Sunburst Tutorial (d3 v4), Part 1 -->
+
+## Welcome
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 
-<!--- Sunburst Tutorial (d3 v4), Part 1 -->
+- [Welcome](#)
+- [Live Example](#)
+- [The Web Page](#)
+- [The Data](#)
+- [Initialize Variables](#)
+- [Setting up our SVG workspace](#)
+	- [Method Chaining & the HTML](#)
+- [Formatting the Data](#)
+- [Find the Root Node](#)
+- [Calculate each arc](#)
+- [Putting it all together](#)
 
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
 
@@ -21,8 +34,8 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 
 Do good!  —David Richards
 
-
-![d3 sunburst]({{ site.baseurl }}/d3/sunburst-1.html)
+## Live Example
+<iframe src="../d3/sunburst-1.html"></iframe>
 
 
 ## The Web Page
