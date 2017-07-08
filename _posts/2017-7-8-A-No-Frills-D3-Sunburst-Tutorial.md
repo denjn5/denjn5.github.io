@@ -8,7 +8,10 @@ categories: d3 tutorial d3v4 javascript sunburst
 ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
 
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
-
+<!-- begin david -->
+<link rel="icon" type="image/png" href="{{ site.baseurl }}/images/chat.png">
+<!-- end david -->
+    
 ## Welcome
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 
