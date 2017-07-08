@@ -23,14 +23,8 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 Do good!  —David Richards
 
 ## Live Example & Outline<a></a>
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
-aaa
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="500" height="500" src="../d3/sunburst-1.html"></iframe>
-aaa
-
-zzz
-{% include sunburst-1.html %}
-zzz
 
 - [The Web Page](#the-web-page)
 - [The Data](#the-data)
