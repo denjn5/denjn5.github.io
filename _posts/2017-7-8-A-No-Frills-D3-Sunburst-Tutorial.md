@@ -14,11 +14,11 @@ excerpt_separator: <!--more-->
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 <!--more-->
 
-x
+<table padding=10><tr><td>
+	![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png width=230)
+	</td><td>
+	In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.</td></tr></table>
 
-| ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png) | In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3. |
-
-x
 
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
 
@@ -33,18 +33,18 @@ Do good!  —David Richards
 ## Live Example & Outline<a></a>
 
 
-<iframe src="../d3/sunburst-1.html" id="d3_iframe"></iframe>
+<iframen width=500 src="../d3/sunburst-1.html" id="d3_iframe"></iframe>
 
 
-- [The Web Page](#The-Web-Page)
-- [The Data](#)
+- [The Web Page](#the-web-page)
+- [The Data](#the-data)
 - [Initialize Variables](#initialize-variables)
-- [Setting up our SVG workspace](#)
-	- [Method Chaining & the HTML](#)
-- [Formatting the Data](#)
-- [Find the Root Node](#)
-- [Calculate each arc](#)
-- [Putting it all together](#Putting-it-all-together)
+- [Setting up our SVG workspace](#setting-up-our-svg-workspace)
+	- [Method Chaining & the HTML](#method-chaining--the-html)
+- [Formatting the Data](#formattingthe-data)
+- [Find the Root Node](#findthe-root-node)
+- [Calculate Each Arc](#calculate-each-arc)
+- [Putting it All Together](#putting-it-all-together)
 
 
 ## The Web Page
