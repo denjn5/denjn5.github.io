@@ -14,6 +14,12 @@ excerpt_separator: <!--more-->
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 <!--more-->
 
+x
+
+| ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png) | In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3. |
+
+x
+
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
 
 1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
@@ -24,7 +30,7 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 
 Do good!  —David Richards
 
-## Live Example & Outline
+## Live Example & Outline<a></a>
 
 
 <iframe src="../d3/sunburst-1.html" id="d3_iframe"></iframe>
@@ -32,7 +38,7 @@ Do good!  —David Richards
 
 - [The Web Page](#The-Web-Page)
 - [The Data](#)
-- [Initialize Variables](#)
+- [Initialize Variables](#initialize-variables)
 - [Setting up our SVG workspace](#)
 	- [Method Chaining & the HTML](#)
 - [Formatting the Data](#)
