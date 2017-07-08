@@ -1,6 +1,8 @@
 ---
 layout: post
 title: A No Frills D3 Sunburst Tutorial
+date: 2017-7-8
+categories: d3 tutorial d3v4 javascript sunburst
 ---
 
 ![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png)
@@ -15,9 +17,12 @@ Each tutorial builds on the previous one, adding new features. I strive to expla
 2. [Sunburst 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af): Add Labels & an external json file to our basic sunburst.
 3. [Sunburst 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601): Add smooth updates and sorting
 
-View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [github page](https://github.com/denjn5/dD3tutorial). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
+View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [blog](https://denjn5.github.io/). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
 Do good!  —David Richards
+
+
+![d3 sunburst]({{ site.baseurl }}/d3/sunburst-1.html)
 
 
 ## The Web Page
