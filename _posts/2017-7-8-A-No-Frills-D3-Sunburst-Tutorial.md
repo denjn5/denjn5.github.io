@@ -16,9 +16,13 @@ In this tutorial we'll complete a detailed walk-through of a basic "no frills" d
 
 x
 
-<img align="right" src="../images/sunburst-1-no-frills.png"> In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
+<img align="left" src="../images/sunburst-1-no-frills.png"> In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 
 q
+
+<img align="left" src="../images/sunburst-1-no-frills.png">{:style="float: left;margin-right: 7px;margin-top: 7px;"} In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
+
+z
 
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
 
