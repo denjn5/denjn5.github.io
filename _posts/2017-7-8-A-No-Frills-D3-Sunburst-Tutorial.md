@@ -35,7 +35,7 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 Do good!  —David Richards
 
 ## Live Example
-<iframe src="../d3/sunburst-1.html"></iframe>
+<iframe src="../d3/sunburst-1.html" height=500 width='100%'></iframe>
 
 
 ## The Web Page
@@ -262,3 +262,12 @@ Voilà! Great job on creating your first, well-understood, hierarchical visualiz
 Or maybe we should kayak...
 
 ![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
+
+<nav class="post_navigation">
+  {% if page.previous.url %}
+    <a href="{{ page.previous.url }}">&laquo; {{ page.previous.title }}</a>
+  {% endif %}
+  {% if page.next.url %}
+    <a href="{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
+  {% endif %}
+</nav>
