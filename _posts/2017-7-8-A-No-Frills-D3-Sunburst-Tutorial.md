@@ -23,7 +23,10 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 Do good!  —David Richards
 
 ## Live Example & Outline
-<iframe src="../d3/sunburst-1.html" height=500 width=100%></iframe>
+
+
+<iframe src="../d3/sunburst-1.html" height=500 width=500></iframe>
+
 
 - [The Web Page](#)
 - [The Data](#)
@@ -261,7 +264,7 @@ Or maybe we should kayak...
 
 ![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
 
-<hr>
+<br>&nbsp;<br>&nbsp;<br>
 
 <nav class="post_navigation">
   {% if page.previous.url %}
@@ -272,4 +275,4 @@ Or maybe we should kayak...
   {% endif %}
 </nav>
 
-<hr>
+<br>&nbsp;<br>&nbsp;<br>
