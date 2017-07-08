@@ -14,17 +14,9 @@ excerpt_separator: <!--more-->
 In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.
 <!--more-->
 
+ttt
 
-<table padding=10><tr><td>
-	![sunburst-1-no-frills.png](../images/sunburst-1-no-frills.png width=230)
-	</td><td>
-	In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.	
-</td></tr></table>
-
-y
-
-
-|![sunburst-1-no-frills.png](../images/sunburst-1-no-frills.png width=230)|In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.|
+|<img src="../images/sunburst-1-no-frills.png" alt="sunburst-1-no-frills.png" width=230>|In this tutorial we'll complete a detailed walk-through of a basic "no frills" d3 Sunburst. Sunbursts are great for explaining relationships in hierarchical data. But the code can get confusing as we mix html, css, svg, json, javascript, and d3.|
 
 z
 
@@ -40,8 +32,10 @@ Do good!  —David Richards
 
 ## Live Example & Outline<a></a>
 
-
-<iframe width=500 src="../d3/sunburst-1.html" id="d3_iframe"></iframe>
+<style>
+#d3_iframe {width:500; height=500}
+</style>
+<iframe src='../d3/sunburst-1.html' id='d3_iframe'></iframe>
 
 
 - [The Web Page](#the-web-page)
