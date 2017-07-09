@@ -7,7 +7,7 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png){:style="float: left;margin-right: 20px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features:
+![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-2-labels-and-json.png){:style="float: left;margin-right: 20px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features:
 
 1. properly-rotated labels
 2. data loaded from external json file
@@ -25,13 +25,22 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 
 Do good!  _—David Richards_
 
+
 ## Tutorial Contents
+- [Live Example](#live-example)
+- [A New Font](#a-new-font)
+- [Get the Data](#get-the-data)
+- [Calculate Each Arc](#calculate-each-arc)
+- [Draw a Slice for Each Node](#draw-a-slice-for-each-node)
+- [Add a Label for Each Node](#add-a-label-for-each-node)
+- [computeTextRotation Function](#computeTextRotation-function)
 
 
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-2.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
  
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-2.html"></iframe>
+
 
 ## A New Font
 I'm not a fan of the default font for our sunburst labels. We'll add a style block to our html to clean it up.
