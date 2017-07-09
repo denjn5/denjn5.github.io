@@ -25,7 +25,14 @@ Do good!  _—David Richards_
 
 ## Tutorial Contents
 - [Live Example](#live-example)
-
+- [Make Labels "Non-Selectable"](#make-labels-non-selectable)
+- [Format Our Page](#format-our-page)
+- [Sort the Slices](#sort-the-slices)
+- [Store Begin States](#store-begin-states)
+- [Slice Variable](#slice-variable)
+- [Get User Input Redraw the Sunburst](#get-user-input-redraw-the-sunburst)
+- [The "Tween" Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
+- [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text Location and Rotation)
 
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-3.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
