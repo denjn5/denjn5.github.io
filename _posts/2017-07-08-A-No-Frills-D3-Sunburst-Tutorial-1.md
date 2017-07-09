@@ -12,11 +12,11 @@ excerpt_separator: <!--more-->
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on bl.ocks.org:
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
 
-1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
-2. [Sunburst 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af): Add Labels & an external json file to our basic sunburst.
-3. [Sunburst 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601): Add smooth updates and sorting
+1. Sunburst 1: A "No Frills" Sunburst
+2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
+3. Sunburst 3: Add smooth updates and sorting
 
 I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
@@ -282,7 +282,7 @@ In the end, this section of our HTML will look something like this (ellipsis ind
 </g>
 ```
 
-Voilà! Great job on creating your first, well-understood, hierarchical visualization in d3. We've just scratched the surface.  If you're ready, join me for [Tutorial 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af).
+Voilà! Great job on creating your first, well-understood, hierarchical visualization in d3. We've just scratched the surface.  If you're ready, join me for Tutorial 2.
 
 Or maybe we should kayak...
 
