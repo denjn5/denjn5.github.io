@@ -20,25 +20,25 @@ Each tutorial builds on the previous one, adding new features. I strive to expla
 
 View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [blog](https://denjn5.github.io/). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
-Do good!  —David Richards
+Do good!  _—David Richards_
 
-
+## Tutorial Contents
 - [Live Example](#live-example)
 - [The Web Page](#the-web-page)
 - [The Data](#the-data)
 - [Initialize Variables](#initialize-variables)
-- [Setting up our SVG workspace](#setting-up-our-svg-workspace)
+- [Set up our SVG workspace](#set-up-our-svg-workspace)
 	- [Method Chaining & the HTML](#method-chaining--the-html)
-- [Formatting the Data](#formattingthe-data)
+- [Format the Data](#format-the-data)
 - [Find the Root Node](#findthe-root-node)
 - [Calculate Each Arc](#calculate-each-arc)
-- [Putting it All Together](#putting-it-all-together)
+- [Put it All Together](#put-it-all-together)
     - [Draw Our Sunburst](#draw-our-sunburst)
-    - [Adding Color](#adding-color)
+    - [Add Color](#add-color)
 
 
 ## Live Example
-Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-1.html) to see it in a seperate tab. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
+Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-1.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
  
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
@@ -108,7 +108,7 @@ We'll set 4 variables that we can use throughout our code:
     * `schemeCategory20b` is a d3 command that returns an array of colors. d3 has several similar options that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ("color") that will return a rainbow of options for our sunburst.
 
 
-## Setting up our SVG workspace
+## Set up our SVG Workspace
 Begin by getting a handle on our SVG and beginning to get things set up.
 
 ``` javascript
@@ -150,7 +150,7 @@ var g = d3.select('svg')  // --> <svg></svg>
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');  // --> <svg width="500" height="500"><g transform="translate(250,250)"></g></svg>
 ```
 
-## Formatting the Data
+## Format the Data
 Like we prepped our SVG above, we'll create a space for our data to go that's specifically formatted for hierarchical visualizations.
 
 ``` javascript
@@ -210,7 +210,7 @@ var arc = d3.arc()  // <-- 2
     * d.y1 is the radian location for the outside arc. If y0 and y1 are the same, our arc will be invisible. 
 
 
-## Putting it All Together
+## Put it All Together
 We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and create our sunburst. And then give it some color.  This is a long section. But it's all one connected series of steps.
 
 ### Draw Our Sunburst
@@ -245,7 +245,7 @@ d3's "update pattern" operates as following:
     * The d attribute contains the actual directions for each line of this svg `<path>` element, see the example below.
     * Don't confuse the the `<path d="">` attribute with the d variable that represents the data within or d3 script. 
 
-### Adding Color
+### Add Color
 If you stopped here, you'd see a sunburst with each slice drawn, but all black with barely visible gray lines separating the slices. We're actually going to finish explaining the block of code we saw above.
 ``` javascript
 g.selectAll('path')
@@ -282,4 +282,4 @@ Voilà! Great job on creating your first, well-understood, hierarchical visualiz
 Or maybe we should kayak...
 
 ![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
-
+_(Independence Day evening on the water to see the fireworks)_
