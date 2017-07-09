@@ -32,7 +32,7 @@ Do good!  _—David Richards_
 - [Slice Variable](#slice-variable)
 - [Get User Input Redraw the Sunburst](#get-user-input-redraw-the-sunburst)
 - [The "Tween" Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
-- [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text Location and Rotation)
+- [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-3.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
