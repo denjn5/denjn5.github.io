@@ -1,15 +1,18 @@
 ---
 layout: post
-title: A No Frills D3 Sunburst Tutorial
+title: A No Frills D3 Sunburst (Tutorial 1)
 date: 2017-7-8
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png){:style="float: left;margin-right: 20px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
+![preview1.png]({{ site.baseurl }}/images/preview1.png){:style="float: left;margin-right: 20px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
 
 <!--more-->
+
+![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png){:style="float: left;margin-right: 20px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
+
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
@@ -71,14 +74,17 @@ Create some data to be presented in our sunburst.
 var nodeData = {
     "name": "TOPICS", "children": [{
         "name": "Topic A",
-        "children": [{"name": "Sub A1", "size": 4}, {"name": "Sub A2", "size": 4}]
+        "children": [{"name": "Sub A1", "size": 4}, 
+	    {"name": "Sub A2", "size": 4}]
     }, {
         "name": "Topic B",
-        "children": [{"name": "Sub B1", "size": 3}, {"name": "Sub B2", "size": 3}, {
-            "name": "Sub B3", "size": 3}]
+        "children": [{"name": "Sub B1", "size": 3}, 
+	    {"name": "Sub B2", "size": 3}, 
+	    {"name": "Sub B3", "size": 3}]
     }, {
         "name": "Topic C",
-        "children": [{"name": "Sub A1", "size": 4}, {"name": "Sub A2", "size": 4}]
+        "children": [{"name": "Sub A1", "size": 4}, 
+	    {"name": "Sub A2", "size": 4}]
     }]
 };
 ```
@@ -116,7 +122,8 @@ var g = d3.select('svg')  // <-- 1
     .attr('width', width)  // <-- 2
     .attr('height', height)
     .append('g')  // <-- 3
-    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');  // <-- 4
+    .attr('transform', 
+        'translate(' + width / 2 + ',' + height / 2 + ')');  // <-- 4
 ```
 
 1. `d3.select('svg')` selects our `<svg></svg>` element so that we can work with it. The `d3.select()` command finds the first element (and only the first, if there are multiple) that matches the specified string. If the select command does not find a match, it returns an empty selection. 
@@ -125,8 +132,8 @@ var g = d3.select('svg')  // <-- 1
 
 3. `.append('g')` adds a `<g>` element to our SVG. `<g>` does not do much directly, it's is a special SVG element that acts as a container; it groups other SVG elements. And transformations applied to the `<g>` element are performed on all of its child elements. And its attributes are inherited by its children. That'll be helpful later.
 
-4. `.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's transform attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system (See [Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics.). For now, we'll simply say that we'll use this transform attribute to move the "center" [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
-    * `'translate(' + width / 2 + ',' + height / 2 + ')'` will resolves to `translate(250, 250)`. This command moves our coordinate system (for `<g>`) 250 units right (x-axis) and 250 units down (y-axis). 
+4. `.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's transform attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system (See [Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics). For now, we'll simply say that we'll use this transform attribute to move the "center" [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
+    * `'translate(' + width / 2 + ',' + height / 2 + ')'` resolves to `translate(250, 250)`. This command moves our coordinate system (for `<g>`) 250 units right (x-axis) and 250 units down (y-axis). 
 
 
 ### Method Chaining & the HTML
@@ -137,7 +144,8 @@ var g = d3.select('svg')  // returns a handle to the <svg> element
     .attr('width', width)  // sets the width of <svg> and then returns the <svg> element again
     .attr('height', height)  // (same as width)
     .append('g')  // adds a <g> element to the <svg> element. It returns the <g> element
-    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');  // takes the <g> element and moves the [0,0] center over and down
+    .attr('transform', 
+        'translate(' + width / 2 + ',' + height / 2 + ')');  // takes the <g> element and moves the [0,0] center over and down
 ```
 Method chaining is key to understanding what's going on in most all d3 code. To fully "get" the meaning of a code block, we must understand both what the method does and what it returns. (Want more? See Scott Murray's [Chaining methods](http://alignedleft.com/tutorials/d3/chaining-methods) article.)
 
@@ -220,10 +228,9 @@ g.selectAll('path')  // <-- 1
     .data(root.descendants())  // <-- 2
     .enter()  // <-- 3
     .append('path')  // <-- 4
-    .attr("display", function (d) { return d.depth ? null : "none"; })  // <-- 5
+    .attr("display", function (d) { 
+        return d.depth ? null : "none"; })  // <-- 5
     .attr("d", arc)  // <-- 6
-    .style('stroke', '#fff')
-    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
 ```
 
 This final block of code takes everything we've built so far and writes it to our `<svg><g></g></svg>` element, using a series of `<path>` elements.
@@ -255,7 +262,8 @@ g.selectAll('path')
     .attr("display", function (d) { return d.depth ? null : "none"; })
     .attr("d", arc) 
     .style('stroke', '#fff')  // <-- 1
-    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });  // <-- 2
+    .style("fill", function (d) { 
+        return color((d.children ? d : d.parent).data.name); });  // <-- 2
 ```
 
 Let's add some color:
