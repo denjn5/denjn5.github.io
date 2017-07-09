@@ -300,14 +300,6 @@ footer {
 
 .share-page {
   float: right;
-    a {
-
-        margin-left: 7px;
-
-        &:hover {
-            border-bottom: 1px dashed #fff;
-        }
-    }
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
