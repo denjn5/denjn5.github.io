@@ -30,14 +30,15 @@ Do good!  _—David Richards_
 - [Sort the Slices](#sort-the-slices)
 - [Store Begin States](#store-begin-states)
 - [Slice Variable](#slice-variable)
-- [Get User Input Redraw the Sunburst](#get-user-input-redraw-the-sunburst)
+- [Get User Input Recalculate the Sunburst](#get-user-input-recalculate-the-sunburst)
+- [Redraw the Sunburst](#redraw-the-sunburst)
 - [The "Tween" Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
 - [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-3.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
  
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-3.html"></iframe>
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="600" height="550" src="../d3/sunburst-3.html"></iframe>
 
 
 ## Make Labels "Non-Selectable"
@@ -65,7 +66,7 @@ We'll begin by dividing our page into 2 sections (main on the left, and sidebar 
 
 In our html body we've added two lines after our `<svg>` tag to get user input. 
 
-`&lt;input class="sizeSelect" type="radio" name="mode" value="size" id="radioSize" checked>` is our actual radio button element.  
+`<input class="sizeSelect" type="radio" name="mode" value="size" id="radioSize" checked>` is our actual radio button element.  
 * class="sizeSelect" so that we can get a hold of it with d3.
 * type="radio" tells html that this is a radio button.
 * name="mode" tells html that all radio buttons with this name act as a unit, so if one is chosen, the others are un-chosen.
@@ -121,10 +122,10 @@ slice.append('path').attr("display", function (d) { return d.depth ? null : "non
 
 Above we create a _slice_ variable that references our <g class="node"> elements.  Then we start with that when we add our <path> elements. We'll use _slice_ often.
 
-## Get User Input; Redraw the Sunburst
+## Get User Input; Recalculate the Sunburst
 We'd like to update our Sunburst based on user input. By default, our node slices are sized based on the "size" attribute within each node (well, it's our default because we built the sunburst that way).  Now we'd like an alternate presentation where the slices are sized based only on the count of child nodes. Happily, we can use d3 to handle web page interaction and events (beyond pure visualization work).
         
-We've added the short section of code below within our d3.json() block. It's the secret sauce to respond to the user's radio button clicks and update the sunburst. In summary, we select our radio buttons, add a click-event watcher, then when the button is clicked we re-calculate the node.value attribute, update our arc size calculations, and then tell d3 to animate the change. The coolest part of this process is we animate both the arc updates and the text motion. 
+We've added the short section of code below within our d3.json() block. It's the secret sauce to respond to the user's radio button clicks and update the sunburst. In summary, we select our radio buttons, add a click-event watcher, then when the button is clicked we re-calculate the node.value attribute, update our arc size calculations, and then tell d3 to animate the change. The coolest part of this process is we animate both the arc updates and the text motion. But we'll save that last bit for the next section.
 
 ``` javascript
 d3.selectAll(".sizeSelect").on("click", function(d,i) {  // <-- 1
@@ -138,10 +139,6 @@ d3.selectAll(".sizeSelect").on("click", function(d,i) {  // <-- 1
     root.sort(function(a, b) { return b.value - a.value; });  // <-- 5
     
     partition(root);  // <-- 6
-
-    slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath);  // <-- 7
-    slice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);  // <-- 8
-
 });
 ```
 
@@ -162,7 +159,26 @@ Let's break down each line above and see what it does:
 
 6. `partition(root)` updates the node value calculations for each arc.  Now we're ready to actually update the visible sunburst on the screen, which means we'll need to update both the slice paths <path d=""> and the label location and rotation (as part of the <text> element). There's a lot happening in these lines, so lets break it into parts...
 
-7. `slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath)`
+## Redraw the Sunburst
+``` javascript
+d3.selectAll(".sizeSelect").on("click", function(d,i) {
+
+    // Determine how to size the slices.
+    if (this.value === "size") {
+      root.sum(function (d) { return d.size; });
+    } else {
+      root.count();
+    }
+    root.sort(function(a, b) { return b.value - a.value; });
+    
+    partition(root);
+
+    slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath);  // <-- 1
+    slice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);  // <-- 2
+});
+```
+
+1. `slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath)`
     1. `slice` is our previously defined d3 handle on our <g class="node"> elements.
     2. `.selectAll("path")` clarifies that we're only referring to the <path> element children of slice.
     3. `.transition()` animates our changes to the sunburst. Instead of applying changes instantaneously, this transition smoothly interpolate each element from one state to the next over a given duration.
@@ -171,7 +187,7 @@ Let's break down each line above and see what it does:
         * `"d"` tells d3 to act upon the d attribute of the path element (e.g., <path d="...">). This "d" does not refer to d3's ubiquitous data variable.
         * `arcTweenPath` is the "tween factory" -- the local function (we'll define it below) that will calculates each step along the way.
 
-8. `slice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText)` has just a few differences from the line above it:
+2. `slice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText)` has just a few differences from the line above it:
     1. `.selectAll("text")` indicates that it's acting on our <text> element.
     2. `.attrTween("transform", arcTweenText)` tells d3 that we're tweening the "transform" attribute of the text element (e.g., `<text transform="...">`).  And we'll use arcTweenText to make the calculations -- d3 calls this our tween factory.
 
