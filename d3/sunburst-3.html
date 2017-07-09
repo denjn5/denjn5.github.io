@@ -16,8 +16,8 @@ text {
 </style>
 <body>
     <svg></svg>
-    <label><input class="sizeSelect" type="radio" name="mode" value="size" checked /> Size</label>
-    <label><input class="sizeSelect"  type="radio" name="mode" value="count" /> Count</label>
+    Size: <label><input class="sizeSelect" type="radio" name="sizeSelect" value="size" checked /> Size</label>
+    <label><input class="sizeSelect"  type="radio" name="sizeSelect" value="count" /> Count</label><br>
 </body>
 
 <script>
@@ -40,9 +40,8 @@ text {
     var partition = d3.partition()
         .size([2 * Math.PI, radius]);
 
-
     // Get the data from our JSON file
-    d3.json("basic-data.json", function(error, nodeData) {
+    d3.json("simple-data.json", function(error, nodeData) {
         if (error) throw error;
 
 
@@ -121,6 +120,7 @@ text {
 
         return tween;
     }
+
 
     /**
      * When switching data: interpolate the text centroids and rotation.

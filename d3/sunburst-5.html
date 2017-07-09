@@ -7,19 +7,40 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 body {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 text {
     pointer-events: none;  /* Make text "non selectable" */
 }
+
+button {
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#leftButton {
+    border-radius: 10px 3px 3px 10px;
+}
+
+#rightButton {
+    border-radius: 3px 10px 10px 3px;
+}
+
 </style>
 <body>
-    <svg></svg>
-    Size: <label><input class="sizeSelect" type="radio" name="sizeSelect" value="size" checked /> Size</label>
-    <label><input class="sizeSelect"  type="radio" name="sizeSelect" value="count" /> Count</label><br>
+
+    <svg></svg><br>
+    Size: <label><input class="sizeSelect" type="radio" name="sizeSelect" value="size" checked> Size</label>
+    <label><input class="sizeSelect"  type="radio" name="sizeSelect" value="count"> Count</label><br>
     Show: <label><input class="showSelect" type="radio" name="showSelect" value="top3"> Top 3</label>
+    <label><input class="showSelect"  type="radio" name="showSelect" value="top6"> Top 6</label>
     <label><input class="showSelect" type="radio" name="showSelect" value="all" checked> All</label>
+
 </body>
 
 <script>
@@ -29,6 +50,11 @@ text {
     var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
+    var color2 = d3.scaleOrdinal(d3.schemeCategory20b);
+
+    d3.selectAll('button').style("background-color",
+    color2()
+    );
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('svg')
@@ -37,13 +63,12 @@ text {
         .append('g')
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-
     // Create our sunburst data structure and size it.
     var partition = d3.partition()
         .size([2 * Math.PI, radius]);
 
     // Get the data from our JSON file
-    d3.json("intermediate-data.json", function(error, nodeData) {
+    d3.json("simple-data.json", function(error, nodeData) {
         if (error) throw error;
 
         allNodes = nodeData;
@@ -51,10 +76,6 @@ text {
         drawSunburst(allNodes);
     });
 
-    /**
-     *
-     * @param data
-     */
     function drawSunburst(data) {
 
         // Find the root node, calculate the node.value, and sort our nodes by node.value
@@ -75,6 +96,18 @@ text {
         newSlice = slice.enter().append('g').attr("class", "node").merge(slice);
         slice.exit().remove();
 
+        // TRY 1: ID selection that's has been drawn previously... (requires us to set "drawn" down below)
+        //newSlice.filter ( function(d) { return !d.drawn; }).append('path')
+        //    .attr("display", function (d) { return d.depth ? null : "none"; }).style('stroke', '#fff');
+
+        // TRY 2: Only create paths on "first run"
+        //if (firstRun) {
+        //    newSlice.append('path').attr("display", function (d) { return d.depth ? null : "none"; }).style('stroke', '#fff');
+        //}
+
+        // TRY 1&2: Set path-d and color always. But this isn't using new arc...?
+        //newSlice.selectAll('path').attr("d", arc).style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+
         // Append <path> elements and draw lines based on the arc calculations. Last, color the lines and the slices.
         slice.selectAll('path').remove();
         newSlice.append('path').attr("display", function (d) { return d.depth ? null : "none"; })
@@ -92,17 +125,12 @@ text {
             .text(function(d) { return d.parent ? d.data.name : "" });
 
         newSlice.on("click", highlightSelectedSlice);
-    }
+    };
 
     d3.selectAll(".showSelect").on("click", showTopTopics);
     d3.selectAll(".sizeSelect").on("click", sliceSizer);
 
-
-    /**
-     * Redraw the Sunburst Based on User Input
-     * @param c
-     * @param i
-     */
+    // Redraw the Sunburst Based on User Input
     function highlightSelectedSlice(c,i) {
 
         clicked = c;
@@ -130,12 +158,7 @@ text {
 
     };
 
-
-    /**
-     * Redraw the Sunburst Based on User Input
-     * @param r
-     * @param i
-     */
+    // Redraw the Sunburst Based on User Input
     function sliceSizer(r, i) {
 
         // Determine how to size the slices.
@@ -152,12 +175,7 @@ text {
         newSlice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);
     };
 
-
-    /**
-     * Redraw the Sunburst Based on User Input
-     * @param r
-     * @param i
-     */
+    // Redraw the Sunburst Based on User Input
     function showTopTopics(r, i) {
         //alert(this.value);
         var showCount;
@@ -165,6 +183,8 @@ text {
         // Determine how to size the slices.
         if (this.value === "top3") {
             showCount = 3;
+        } else if (this.value === "top6") {
+            showCount = 6;
         } else {
             showCount = 100;
         }
@@ -173,8 +193,8 @@ text {
         showNodes.children.splice(showCount, (showNodes.children.length - showCount));
 
         drawSunburst(showNodes);
-    }
 
+    };
 
     /**
      * When switching data: interpolate the arcs in data space.
@@ -196,7 +216,6 @@ text {
         return tween;
     }
 
-
     /**
      * When switching data: interpolate the text centroids and rotation.
      * @param {Node} a
@@ -212,7 +231,6 @@ text {
         }
         return tween;
     }
-
 
     /**
      * Calculate the correct distance to rotate each label based on its location in the sunburst.

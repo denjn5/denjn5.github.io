@@ -61,7 +61,7 @@ The `<style>` block creates boasts a surprisingly powerful set of tools for to e
 In the first tutorial we began with the web page and variable definitions. This time, we'll skip all of that and go right for the first new code: getting data from our *.json file.
 
 ``` javascript
-d3.json("data.json", function(error, nodeData) {
+d3.json("simple-data.json", function(error, nodeData) {
         if (error) throw error;
 
     // Put the code that works with our data here.
@@ -70,7 +70,7 @@ d3.json("data.json", function(error, nodeData) {
 
 d3.json is a super-simple d3 function that allows us to pull our data from a json file (d3 has other similar functions for csv, tsv, etc. files). We include the filename 2 arguments:
 
-1. "data.json" (since we don't have any folder references, it assumes that this file is in the same directory as the current file)
+1. "simple-data.json" (since we don't have any folder references, it assumes that this file is in the same directory as the current file)
 2. A special _anonymous_ function that returns either an error or the data as a variable, "nodeData". All of our code that processes and presents the data typically fits within this anonymous function block.
 
 If you inspect the data.json file, you'll note that we've added some attributes (text, sentiment, source). You can ignore those for this tutorial. We'll use them in the future.

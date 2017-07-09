@@ -61,20 +61,20 @@ We'll begin by dividing our page into 2 sections (main on the left, and sidebar 
 <body>
   <svg></svg>
   <label>
-    <input class="sizeSelect" type="radio" name="mode" value="size" checked /> Size
+    <input class="sizeSelect" type="radio" name="sizeSelect" value="size" checked /> Size
   </label>
   <label>
-    <input class="sizeSelect"  type="radio" name="mode" value="count" /> Count
+    <input class="sizeSelect"  type="radio" name="sizeSelect" value="count" /> Count
   </label>
 </body>
 ```
 
 In our html body we've added two lines after our `<svg>` tag to get user input. 
 
-`<input class="sizeSelect" type="radio" name="mode" value="size" id="radioSize" checked>` is our actual radio button element.  
+`<input class="sizeSelect" type="radio" name="sizeSelect" value="size" id="radioSize" checked>` is our actual radio button element.  
 * class="sizeSelect" so that we can get a hold of it with d3.
 * type="radio" tells html that this is a radio button.
-* name="mode" tells html that all radio buttons with this name act as a unit, so if one is chosen, the others are un-chosen.
+* name="sizeSelect" tells html that all radio buttons with this name act as a unit, so if one is chosen, the others are un-chosen.
 * value="size" is what we'll test for to see which radio button the user clicked.
 * checked sets our default value.
 
