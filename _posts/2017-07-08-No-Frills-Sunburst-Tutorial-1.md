@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A No Frills D3 Sunburst (Tutorial 1)
+title: No Frills (d3 Sunburst Tutorial 1)
 date: 2017-07-08
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
