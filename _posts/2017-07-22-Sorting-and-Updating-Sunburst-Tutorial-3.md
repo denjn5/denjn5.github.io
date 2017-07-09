@@ -58,9 +58,13 @@ We'll begin by dividing our page into 2 sections (main on the left, and sidebar 
 
 ``` html
 <body>
-    <svg></svg>
-    <label><input class="sizeSelect" type="radio" name="mode" value="size" checked /> Size</label>
-    <label><input class="sizeSelect"  type="radio" name="mode" value="count" /> Count</label>
+  <svg></svg>
+  <label>
+    <input class="sizeSelect" type="radio" name="mode" value="size" checked /> Size
+  </label>
+  <label>
+    <input class="sizeSelect"  type="radio" name="mode" value="count" /> Count
+  </label>
 </body>
 ```
 
@@ -114,10 +118,12 @@ var slice = g.selectAll('g')
     .data(root.descendants())
     .enter().append('g').attr("class", "node");
 
-slice.append('path').attr("display", function (d) { return d.depth ? null : "none"; })
+slice.append('path').attr("display", function (d) { 
+        return d.depth ? null : "none"; })
     .attr("d", arc)
     .style('stroke', '#fff')
-    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+    .style("fill", function (d) { 
+        return color((d.children ? d : d.parent).data.name); });
 ```
 
 Above we create a _slice_ variable that references our <g class="node"> elements.  Then we start with that when we add our <path> elements. We'll use _slice_ often.
@@ -163,10 +169,9 @@ Let's break down each line above and see what it does:
 Here's our function from the last section, but we're only showing the last couple of lines.
 ``` javascript
 d3.selectAll(".sizeSelect").on("click", function(d,i) {
-    .
-    .
-    .
-
+    
+    . . .
+    
     slice.selectAll("path").transition().duration(750)
         .attrTween("d", arcTweenPath);  // <-- 1
         
@@ -233,7 +238,8 @@ function arcTweenText(a, i) {
     var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
     function tween(t) {
         var b = oi(t);
-        return "translate(" + arc.centroid(b) + ")rotate(" + computeTextRotation(b) + ")";
+        return "translate(" + arc.centroid(b) 
+            + ")rotate(" + computeTextRotation(b) + ")";
     }
     return tween;
 }
