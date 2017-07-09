@@ -34,7 +34,8 @@ Do good!  —David Richards
 - [Formatting the Data](#formattingthe-data)
 - [Find the Root Node](#findthe-root-node)
 - [Calculate Each Arc](#calculate-each-arc)
-- [Putting it All Together](#putting-it-all-together)
+- [Putting it All Together--Draw Our Sunburst](#putting-it-all-together--draw-our-sunburst)
+    - [Adding Some Color](#adding-some-color)
 
 
 ## The Web Page
@@ -181,7 +182,7 @@ d3 has a specific pattern for retrieving your data and applying it to d3 command
 * "Topic A" has a size of 8, the sum of "Sub A1" and "Sub A2".
 
 
-## Calculate each arc
+## Calculate Each Arc
 Now that we've got our data, we should calculate the size of each node for our sunburst.
 
 ``` javascript
@@ -205,8 +206,8 @@ var arc = d3.arc()  // <-- 2
     * d.y1 is the radian location for the outside arc. If y0 and y1 are the same, our arc will be invisible. 
 
 
-## Putting it all together
-We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and give it some color.
+## Putting it All Together--Draw Our Sunburst
+We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and create our sunburst.
 ``` javascript
 g.selectAll('path')  // <-- 1
     .data(root.descendants())  // <-- 2
@@ -237,11 +238,24 @@ d3's "update pattern" operates as following:
     * The d attribute contains the actual directions for each line of this svg `<path>` element, see the example below.
     * Don't confuse the the `<path d="">` attribute with the d variable that represents the data within or d3 script. 
 
-If you stopped here, you'd see a sunburst with each slice drawn, but all black with barely visible gray lines separating the slices. Let's add some color:
+### Adding Color
+If you stopped here, you'd see a sunburst with each slice drawn, but all black with barely visible gray lines separating the slices. We're actually going to finish explaining the block of code we saw above.
+``` javascript
+g.selectAll('path')
+    .data(root.descendants())
+    .enter()
+    .append('path')
+    .attr("display", function (d) { return d.depth ? null : "none"; })
+    .attr("d", arc) 
+    .style('stroke', '#fff')  // <-- 1
+    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });  // <-- 2
+```
 
-7. `.style('stroke', '#fff')` add `style="stroke: rgb(255, 255, 255);"` to our `<path>` element. Now the lines between our slices are white.
+Let's add some color:
 
-8. `.style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })` combines the `color` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
+1. `.style('stroke', '#fff')` add `style="stroke: rgb(255, 255, 255);"` to our `<path>` element. Now the lines between our slices are white.
+
+2. `.style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })` combines the `color` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
     * `(d.children ? d : d.parent)` is a javascript inline if in the form of (condition ? expr1 : expr2) that says, if the current node has children, return the current node, otherwise, return its parent. 
     * That node's name will be passed to our color variable and then returned to the style attribute within each `<path>` element.
 
