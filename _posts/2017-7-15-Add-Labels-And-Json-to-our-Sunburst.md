@@ -7,10 +7,7 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-2-labels-and-json.png){:style="float: left;margin-right: 20px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features:
-
-1. properly-rotated labels
-2. data loaded from external json file
+![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-2-labels-and-json.png){:style="float: left;margin-right: 20px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
