@@ -7,12 +7,12 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst1.png](../images/sunburst1.png){:style="float: left; margin-right: 20px; width: 400px"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
+![sunburst-1.png](../images/sunburst-1.png){:style="float: left; margin-right: 20px; width: 400px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
 
 1. Sunburst 1: A "No Frills" Sunburst
 2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
@@ -282,9 +282,9 @@ In the end, this section of our HTML will look something like this (ellipsis ind
 </g>
 ```
 
-Voilà! Great job on creating your first, well-understood, hierarchical visualization in d3. We've just scratched the surface.  If you're ready, join me for Tutorial 2.
+_Voilà!_ Great job on creating your first, well-understood, hierarchical visualization in d3. We've just scratched the surface.  If you're ready, join me for Tutorial 2.
 
 Or maybe we should kayak...
 
-![kayaking.png]({{ site.baseurl }}/images/kayaking.png)
-_(Independence Day evening on the water to see the fireworks)_
+![kayaking.png](../images/kayaking.png)
+_(Independence Day evening with the family kayaking on the water to see fireworks.)_

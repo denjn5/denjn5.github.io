@@ -7,12 +7,13 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst3.png]({{ site.baseurl }}/images/sunburst3.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
+![sunburst-3.png](../images/sunburst-3.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 3 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+
 
 1. Sunburst 1: A "No Frills" Sunburst
 2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
@@ -241,4 +242,6 @@ function arcTweenText(a, i) {
 
 The only different line in arcTweenText (from arcTweenPath) is `return "translate(" + arc.centroid(b) + ")rotate(" + computeTextRotation(b) + ")"`.  And we've seen this line before.  It's identical to the line we use to set the <text transform="..."> state when we first added labels in Tutorial 2. However, this time, it'll get called many times in rapid succession in order to animate the movement and rotation of our labels.
 
-Excellent! You've made it through 3 tutorials (right?). I'm hoping that you now have a much better handle on d3 interpolators and tweening. I certainly do. 
+_Excellent!_ You've made it through 3 tutorials (right?). I'm hoping that you now have a much better handle on d3 interpolators and tweening. I certainly do. 
+
+<hr>

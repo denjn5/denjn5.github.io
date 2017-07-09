@@ -7,12 +7,12 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst2.png](../images/sunburst2.png){:style="float: left; margin-right: 20px; ; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![sunburst-2.png](../images/sunburst-2.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
 
 1. Sunburst 1: A "No Frills" Sunburst
 2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
@@ -195,4 +195,9 @@ Three math-rich lines in this function:
 
 3. `return (angle < 180) ? angle - 90 : angle + 90` Alternatively, this line rotates the labels so that they appear in the traditional "spoke" formation. And it avoids any upside-down labels. It's currently commented out.
 
-Nice! You've made it through 2 tutorials (or maybe you wandered directly into this one). Either way, great job on making it this far. You're now able to add labels to your sunburst. We've still just scratched the surface. If you're ready, join me for Tutorial 3.
+_Nice!_ You've made it through 2 tutorials (or maybe you wandered directly into this one). Either way, great job on making it this far. You're now able to add labels to your sunburst. We've still just scratched the surface. If you're ready, join me for Tutorial 3.
+
+<hr>
+
+![jamestown-ships.jpg](../images/jamestown-ships.png)
+_(In December 1606, 144 people set sail for a 4-month, cross-Atlantic trip from London to Virginia. One of my boys and I visited the Jamestown settlement and the recreations of the ships that carried the explorers: Susan Constant, Godspeed, & Discovery.)_
