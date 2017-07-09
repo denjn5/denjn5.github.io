@@ -22,10 +22,8 @@ View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or m
 
 Do good!  —David Richards
 
-## Live Example & Outline<a></a>
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
-
+- [Live Example](#live-example)
 - [The Web Page](#the-web-page)
 - [The Data](#the-data)
 - [Initialize Variables](#initialize-variables)
@@ -34,9 +32,15 @@ Do good!  —David Richards
 - [Formatting the Data](#formattingthe-data)
 - [Find the Root Node](#findthe-root-node)
 - [Calculate Each Arc](#calculate-each-arc)
-- [Putting it All Together--Draw Our Sunburst](#putting-it-all-together--draw-our-sunburst)
-    - [Adding Some Color](#adding-some-color)
+- [Putting it All Together](#putting-it-all-together)
+    - [Draw Our Sunburst](#draw-our-sunburst)
+    - [Adding Color](#adding-color)
 
+
+## Live Example
+Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-1.html) to see it in a seperate tab. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
+ 
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
 ## The Web Page
 Create a bare-bones web page that references the d3 framework and holds our sunburst viz.
@@ -206,8 +210,11 @@ var arc = d3.arc()  // <-- 2
     * d.y1 is the radian location for the outside arc. If y0 and y1 are the same, our arc will be invisible. 
 
 
-## Putting it All Together--Draw Our Sunburst
-We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and create our sunburst.
+## Putting it All Together
+We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and create our sunburst. And then give it some color.  This is a long section. But it's all one connected series of steps.
+
+### Draw Our Sunburst
+Let's talk about the first 6 lines of this code block.
 ``` javascript
 g.selectAll('path')  // <-- 1
     .data(root.descendants())  // <-- 2
@@ -215,8 +222,8 @@ g.selectAll('path')  // <-- 1
     .append('path')  // <-- 4
     .attr("display", function (d) { return d.depth ? null : "none"; })  // <-- 5
     .attr("d", arc)  // <-- 6
-    .style('stroke', '#fff')  // <-- 7
-    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });  // <-- 8
+    .style('stroke', '#fff')
+    .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
 ```
 
 This final block of code takes everything we've built so far and writes it to our `<svg><g></g></svg>` element, using a series of `<path>` elements.
