@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A No Frills D3 Sunburst (Tutorial 1)
-date: 2017-7-8
+date: 2017-07-08
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
@@ -12,13 +12,13 @@ excerpt_separator: <!--more-->
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on bl.ocks.org:
 
 1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
 2. [Sunburst 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af): Add Labels & an external json file to our basic sunburst.
 3. [Sunburst 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601): Add smooth updates and sorting
 
-View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [blog](https://denjn5.github.io/). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
+I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
 Do good!  _—David Richards_
 
