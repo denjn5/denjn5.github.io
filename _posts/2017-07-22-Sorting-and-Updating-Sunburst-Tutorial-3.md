@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sorting & Updating (Sunburst Tutorial 3)
+title: Sorting & Updating (d3 Sunburst Tutorial 3)
 date: 2017-07-22
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
