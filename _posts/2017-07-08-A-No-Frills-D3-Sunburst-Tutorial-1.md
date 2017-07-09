@@ -7,12 +7,12 @@ tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![preview1.png](../images/preview1.png){:style="float: left; margin-right: 20px; width: 300px"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
+![preview1.png](../images/preview1.png){:style="float: left; margin-right: 20px; width: 400px"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
+
+
+![preview1.png](../images/preview1.png){:style="float: left; margin-right: 20px; width: 350px"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
 
 <!--more-->
-
-![sunburst-1-no-frills.png]({{ site.baseurl }}/images/sunburst-1-no-frills.png){:style="float: left;margin-right: 20px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data. 
-
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
 Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
