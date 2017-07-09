@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Add Labels & Json to Our Sunburst
+title: Labels & Json (d3 Sunburst Tutorial 2)
 date: 2017-07-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst2.png](../images/sunburst2.png){:style="float: left; margin-right: 20px; ; width: 400px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![sunburst2.png](../images/sunburst2.png){:style="float: left; margin-right: 20px; ; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
