@@ -160,24 +160,22 @@ Let's break down each line above and see what it does:
 6. `partition(root)` updates the node value calculations for each arc.  Now we're ready to actually update the visible sunburst on the screen, which means we'll need to update both the slice paths <path d=""> and the label location and rotation (as part of the <text> element). There's a lot happening in these lines, so lets break it into parts...
 
 ## Redraw the Sunburst
+Here's our function from the last section, but we're only showing the last couple of lines.
 ``` javascript
 d3.selectAll(".sizeSelect").on("click", function(d,i) {
+    .
+    .
+    .
 
-    // Determine how to size the slices.
-    if (this.value === "size") {
-      root.sum(function (d) { return d.size; });
-    } else {
-      root.count();
-    }
-    root.sort(function(a, b) { return b.value - a.value; });
-    
-    partition(root);
-
-    slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath);  // <-- 1
-    slice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);  // <-- 2
+    slice.selectAll("path").transition().duration(750)
+        .attrTween("d", arcTweenPath);  // <-- 1
+        
+    slice.selectAll("text").transition().duration(750)
+        .attrTween("transform", arcTweenText);  // <-- 2
 });
 ```
 
+Once again, JavaScript chaining means that we've got a lot going on in a little bit of space. Let's, like MC Hammer, break it down (oh-oh oh oh oh-oh-oh):
 1. `slice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath)`
     1. `slice` is our previously defined d3 handle on our <g class="node"> elements.
     2. `.selectAll("path")` clarifies that we're only referring to the <path> element children of slice.
