@@ -199,5 +199,5 @@ _Nice!_ You've made it through 2 tutorials (or maybe you wandered directly into 
 
 <hr>
 
-![jamestown-ships.jpg](../images/jamestown-ships.png)
+![jamestown-ships.png](../images/jamestown-ships.png)
 _(In December 1606, 144 people set sail for a 4-month, cross-Atlantic trip from London to Virginia. One of my boys and I visited the Jamestown settlement and the recreations of the ships that carried the explorers: Susan Constant, Godspeed, & Discovery.)_
