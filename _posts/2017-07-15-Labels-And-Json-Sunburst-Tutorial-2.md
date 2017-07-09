@@ -1,24 +1,24 @@
 ---
 layout: post
-title: Add Labels & Json to Our Sunburst
-date: 2017-7-15
+title: Labels & Json (d3 Sunburst Tutorial 2)
+date: 2017-07-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-2-labels-and-json.png){:style="float: left;margin-right: 20px;"}  In this tutorial, we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![sunburst2.png](../images/sunburst2.png){:style="float: left; margin-right: 20px; ; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
 
-1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
-2. [Sunburst 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af): Add Labels & an external json file to our basic sunburst.
-3. [Sunburst 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601): Add smooth updates and sorting
+1. Sunburst 1: A "No Frills" Sunburst
+2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
+3. Sunburst 3: Add smooth updates and sorting
 
-View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [blog](https://denjn5.github.io/). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
+I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
 Do good!  _—David Richards_
 
@@ -65,7 +65,6 @@ d3.json("data.json", function(error, nodeData) {
         if (error) throw error;
 
     // Put the code that works with our data here.
-    
 });
 ```
 
@@ -134,10 +133,12 @@ Now we add our labels to each of the g elements that we created above. Then we r
 g.selectAll(".node")  // <-- 1
     .append("text")  // <-- 2
     .attr("transform", function(d) {
-        return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; }) // <-- 3
+        return "translate(" + arc.centroid(d) 
+        + ")rotate(" + computeTextRotation(d) + ")"; }) // <-- 3
     .attr("dx", "-20")  // <-- 4
     .attr("dy", ".5em")  // <-- 5
-    .text(function(d) { return d.parent ? d.data.name : "" });  // <-- 6
+    .text(function(d) { 
+        return d.parent ? d.data.name : "" });  // <-- 6
 ```
 
 Now we'll add and populate the `<text>` elements with our data-driven titles.
@@ -194,4 +195,4 @@ Three math-rich lines in this function:
 
 3. `return (angle < 180) ? angle - 90 : angle + 90` Alternatively, this line rotates the labels so that they appear in the traditional "spoke" formation. And it avoids any upside-down labels. It's currently commented out.
 
-Nice! You've made it through 2 tutorials (or maybe you wandered directly into this one). Either way, great job on making it this far. You're now able to add labels to your sunburst. We've still just scratched the surface. If you're ready, join me for [Tutorial 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601).
+Nice! You've made it through 2 tutorials (or maybe you wandered directly into this one). Either way, great job on making it this far. You're now able to add labels to your sunburst. We've still just scratched the surface. If you're ready, join me for Tutorial 3.

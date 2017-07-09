@@ -1,24 +1,24 @@
 ---
 layout: post
-title: Sorting & Updating Our Sunburst
-date: 2017-7-22
+title: Sorting & Updating (d3 Sunburst Tutorial 3)
+date: 2017-07-22
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 ---
 
-![sunburst-2-labels-and-json.png]({{ site.baseurl }}/images/sunburst-2-labels-and-json.png){:style="float: left;margin-right: 20px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
+![sunburst3.png]({{ site.baseurl }}/images/sunburst3.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 3 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. The series includes:
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. To see this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
 
-1. [Sunburst 1](https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5): A "No Frills" Sunburst
-2. [Sunburst 2](https://bl.ocks.org/denjn5/f059c1f78f9c39d922b1c208815d18af): Add Labels & an external json file to our basic sunburst.
-3. [Sunburst 3](https://bl.ocks.org/denjn5/3b74baf5edc4ac93d5e487136481c601): Add smooth updates and sorting
+1. Sunburst 1: A "No Frills" Sunburst
+2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
+3. Sunburst 3: Add smooth updates and sorting
 
-View the entire series on my [bl.ocks.org page](https://bl.ocks.org/denjn5) or my [blog](https://denjn5.github.io/). Maybe they'll help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
+I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
 
 Do good!  _—David Richards_
 
@@ -38,7 +38,7 @@ Do good!  _—David Richards_
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-3.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
  
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="600" height="550" src="../d3/sunburst-3.html"></iframe>
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="700" height="550" src="../d3/sunburst-3.html"></iframe>
 
 
 ## Make Labels "Non-Selectable"
