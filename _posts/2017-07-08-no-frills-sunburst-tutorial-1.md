@@ -47,11 +47,9 @@ To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization
 
 <span id="codeopen">
     <a href="{{ page.codeurl }}" target="_blank" title="open code">
-        <i class="fa fa-code" aria-hidden="true"></i>
-        <img src="../images/code-32.png" alt="open code" /></a>
+        <i class="fa fa-code" aria-hidden="true"></i></a>
     <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
-        <i class="fa fa-external-link" aria-hidden="true"></i>
-        <img src="../images/open-20.png" alt="open viz" /></a>
+        <i class="fa fa-external-link" aria-hidden="true"></i></a>
 </span>
 
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="{{ page.htmlurl }}"></iframe>
