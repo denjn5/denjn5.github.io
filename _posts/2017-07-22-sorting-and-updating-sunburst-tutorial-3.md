@@ -51,7 +51,7 @@ To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization
         <i class="fa fa-external-link" aria-hidden="true"></i></a>
 </span>
 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="700" height="550" src="{{ page.htmlurl }}"></iframe>
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
 
 
 ## Make Labels "Non-Selectable"
