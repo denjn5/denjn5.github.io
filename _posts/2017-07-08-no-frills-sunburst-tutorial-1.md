@@ -40,8 +40,8 @@ Do good!  _—David Richards_
 ## Live Example
 Let's first take a look at our goal, our final product. Click [here](https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html) to see the raw code and [here](../d3/sunburst-1.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
 
-<a href="https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html" target="_blank" title="open code"><img src="../images/js-16.png" alt="open code" /></a>
-<a href="../d3/sunburst-1.html" target="_blank" title="open in seperate tab"><img src="../images/open-16.png" alt="open d3 in seperate tab" /></a>
+<a href="https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html" target="_blank" title="open code"><img src="../images/code-32.png" alt="open code" /></a>
+<a href="../d3/sunburst-1.html" target="_blank" title="open in seperate tab"><img src="../images/open-32.png" alt="open d3 in seperate tab" /></a>
 
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
