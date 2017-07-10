@@ -5,6 +5,11 @@ date: 2017-07-22
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
+
+pngurl: ../images/sunburst-3.png
+htmlurl: ../d3/sunburst-3.html
+codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.html
+blocksurl: https://bl.ocks.org/denjn5
 ---
 
 ![sunburst-3.png](../images/sunburst-3.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
