@@ -12,7 +12,7 @@ codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.ht
 blocksurl: https://bl.ocks.org/denjn5
 ---
 
-![sunburst-3.png](../images/sunburst-3.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
+![viz]({{ page.pngurl }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 3 -->
@@ -42,9 +42,16 @@ Do good!  _—David Richards_
 - [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
 ## Live Example
-Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-3.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
- 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="700" height="550" src="../d3/sunburst-3.html"></iframe>
+To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+
+<span id="codeopen">
+    <a href="{{ page.codeurl }}" target="_blank" title="open code">
+        <i class="fa fa-code" aria-hidden="true"></i></a>
+    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
+        <i class="fa fa-external-link" aria-hidden="true"></i></a>
+</span>
+
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="700" height="550" src="{{ page.htmlurl }}"></iframe>
 
 
 ## Make Labels "Non-Selectable"

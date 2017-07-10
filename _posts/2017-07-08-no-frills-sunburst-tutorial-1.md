@@ -52,7 +52,7 @@ To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization
         <i class="fa fa-external-link" aria-hidden="true"></i></a>
 </span>
 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="{{ page.htmlurl }}"></iframe>
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
 
 ## The Web Page
 Create a bare-bones web page that references the d3 framework and holds our sunburst viz.

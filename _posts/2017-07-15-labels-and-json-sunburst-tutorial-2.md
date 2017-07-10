@@ -12,7 +12,7 @@ codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-2.ht
 blocksurl: https://bl.ocks.org/denjn5
 ---
 
-![sunburst-2.png](../images/sunburst-2.png){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![viz]({{ page.pngurl }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
@@ -39,9 +39,16 @@ Do good!  _—David Richards_
 
 
 ## Live Example
-Let's first take a look at our goal, our final product. Click [here](../d3/sunburst-2.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
- 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-2.html"></iframe>
+To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+
+<span id="codeopen">
+    <a href="{{ page.codeurl }}" target="_blank" title="open code">
+        <i class="fa fa-code" aria-hidden="true"></i></a>
+    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
+        <i class="fa fa-external-link" aria-hidden="true"></i></a>
+</span>
+
+<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
 
 
 ## A New Font
