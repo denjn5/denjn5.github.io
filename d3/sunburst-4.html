@@ -99,44 +99,39 @@ text {
 
 
     /**
-     * Redraw the Sunburst Based on User Input
-     * @param c
-     * @param i
+     * Find the path between the clicked node and root, keep those at full opacity (or opaqueness, rather), and set
+     *  the rest of the nodes to 40% opacity.
+     * @param {node} clicked - The d3 node object that was clicked
+     * @param {Number} i - The index of the node that was clicked
      */
-    function highlightSelectedSlice(c,i) {
+    function highlightSelectedSlice(clicked, i) {
 
-        clicked = c;
-        var rootPath = clicked.path(root).reverse();
+        var rootPath = clicked.path(root).reverse();  // finds the path from between 2 points and reverses it
         rootPath.shift(); // remove root node from the array
 
-        newSlice.style("opacity", 0.4);
-        newSlice.filter(function(d) {
-            if (d === clicked && d.prevClicked) {
-                d.prevClicked = false;
-                newSlice.style("opacity", 1);
+        newSlice.style("opacity", 0.4);  // sets the entire sunburst to 40% opacity
+        newSlice.filter(function(d) {   // cycle through and test each node (d will be a diff node each iteration)
+            if (d === clicked && d.prevClicked) {  // if d is the clicked node this time, and it was the clicked node...
+                d.prevClicked = false;   // ...last time, then reset sunburst to starting point, and add this node to...
+                newSlice.style("opacity", 1);  // ...the filter
                 return true;
 
-            } else if (d === clicked) {
-                d.prevClicked = true;
+            } else if (d === clicked) {  // if d is the clicked node, but it wasn't previously clicked, then remember...
+                d.prevClicked = true;  // ...it for next time and add it to the filter
                 return true;
             } else {
-                d.prevClicked = false;
-                return (rootPath.indexOf(d) >= 0);
+                d.prevClicked = false;  // this isn't a clicked node, so just check to see if it's part of our...
+                return (rootPath.indexOf(d) >= 0);  // rootPath--if so, then keep it in the filter
             }
         })
-            .style("opacity", 1);
-
-        //d3.select("#sidebar").text("another!");
-
-    };
+            .style("opacity", 1);  // all nodes that made it through the filter have opacity set to full
+    }
 
 
     /**
      * Redraw the Sunburst Based on User Input
-     * @param r
-     * @param i
      */
-    function sliceSizer(r, i) {
+    function sliceSizer() {
 
         // Determine how to size the slices.
         if (this.value === "size") {
@@ -150,7 +145,7 @@ text {
 
         newSlice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath);
         newSlice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);
-    };
+    }
 
 
     /**
