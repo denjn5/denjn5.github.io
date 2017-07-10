@@ -5,6 +5,7 @@ date: 2017-07-08
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
+htmlurl: ../d3/sunburst-1.html
 ---
 
 ![sunburst-1.png](../images/sunburst-1.png){:style="float: left; margin-right: 20px; width: 400px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
@@ -38,10 +39,13 @@ Do good!  _—David Richards_
 
 
 ## Live Example
-Let's first take a look at our goal, our final product. Click [here](https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html) to see the raw code and [here](../d3/sunburst-1.html) to visit this page. And visit bl.ocks.org or View Page Source to see the code all "put together" in a single file.
+First, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code](https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html) behind it. I find it helpful to keep the code and this tutorial open side-by-side, so I can keep our learningin context.
 
-<a href="https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html" target="_blank" title="open code"><img src="../images/code-32.png" alt="open code" /></a>
-<a href="../d3/sunburst-1.html" target="_blank" title="open in seperate tab"><img src="../images/open-32.png" alt="open d3 in seperate tab" /></a>
+<span class="codeopen"><a href="https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html" target="_blank" title="open code">
+    <img src="../images/code-32.png" alt="open code" /></a>
+<a href="../d3/sunburst-1.html" target="_blank" title="open viz">
+    <img src="../images/open-32.png" width="25px" alt="open viz in seperate tab" /></a>
+</span>
 
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="../d3/sunburst-1.html"></iframe>
 
@@ -143,9 +147,10 @@ var g = d3.select('svg')  // <-- 1
 var g = d3.select('svg')  // returns a handle to the <svg> element
     .attr('width', width)  // sets the width of <svg> and then returns the <svg> element again
     .attr('height', height)  // (same as width)
-    .append('g')  // adds a <g> element to the <svg> element. It returns the <g> element
+    .append('g')  // adds a <g> element to the <svg> element, and returns the <g> element
     .attr('transform', 
-        'translate(' + width / 2 + ',' + height / 2 + ')');  // takes the <g> element and moves the [0,0] center over and down
+        'translate(' + width / 2 + ',' + height / 2 + ')');  
+        // takes the <g> element and moves the [0,0] center over and down
 ```
 Method chaining is key to understanding what's going on in most all d3 code. To fully "get" the meaning of a code block, we must understand both what the method does and what it returns. (Want more? See Scott Murray's [Chaining methods](http://alignedleft.com/tutorials/d3/chaining-methods) article.)
 
@@ -155,7 +160,9 @@ var g = d3.select('svg')  // --> <svg></svg>
     .attr('width', width)  // --> <svg width="500"></svg>
     .attr('height', height)  // --> <svg width="500" height="500"></svg>
     .append('g')  // --> <svg width="500" height="500"><g></g></svg>
-    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');  // --> <svg width="500" height="500"><g transform="translate(250,250)"></g></svg>
+    .attr('transform', 
+        'translate(' + width / 2 + ',' + height / 2 + ')');  
+        // --> <svg width="500" height="500"><g transform="translate(250,250)"></g></svg>
 ```
 
 ## Format the Data
