@@ -4,12 +4,10 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Optimist. Learner. Doer. Kayaker. Coder (python, d3, nlp). Skier. Runner. Audiobook listener.
 
-### More Information
+_"Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do."_ -Pele
 
-A place to include any other types of information that you'd like to include about yourself.
+Use the icons below to connect with me on Twitter, LinkedIn, or even Github.
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+_-David_

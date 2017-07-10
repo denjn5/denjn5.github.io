@@ -45,10 +45,11 @@ Do good!  _—David Richards_
 ## Live Example
 To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
-<span id="codeopen"><a href="{{ page.codeurl }}" target="_blank" title="open code">
-    <img src="../images/code-32.png" alt="open code" /></a>
-<a href="{{ page.htmlurl }}" target="_blank" title="open viz">
-    <img src="../images/open-20.png" alt="open viz" /></a>
+<span id="codeopen">
+    <a href="{{ page.codeurl }}" target="_blank" title="open code">
+        <img src="../images/code-32.png" alt="open code" /></a>
+    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
+        <img src="../images/open-20.png" alt="open viz" /></a>
 </span>
 
 <iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="550" height="550" src="{{ page.htmlurl }}"></iframe>
