@@ -1,46 +1,26 @@
 <!DOCTYPE html>
 <head>
     <title>Sunburst Tutorial (d3 v4), Part 4</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://d3js.org/d3.v4.min.js'></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 body {
-    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 text {
-    pointer-events: none;  /* Make text "non selectable" */
+    pointer-events: none;  /* Make text 'non selectable' */
 }
-
-button {
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-#leftButton {
-    border-radius: 10px 3px 3px 10px;
-}
-
-#rightButton {
-    border-radius: 3px 10px 10px 3px;
-}
-
 </style>
 <body>
-
-    <svg></svg><br>
-    Size: <label><input class="sizeSelect" type="radio" name="sizeSelect" value="size" checked> Size</label>
-    <label><input class="sizeSelect"  type="radio" name="sizeSelect" value="count"> Count</label><br>
-    Show: <label><input class="showSelect" type="radio" name="showSelect" value="top3"> Top 3</label>
-    <label><input class="showSelect"  type="radio" name="showSelect" value="top6"> Top 6</label>
-    <label><input class="showSelect" type="radio" name="showSelect" value="all" checked> All</label>
-
+    <svg></svg>
+    <br>
+    Size: <label><input class='sizeSelect' type='radio' name='sizeSelect' value='size' checked /> Size</label>
+    <label><input class='sizeSelect'  type='radio' name='sizeSelect' value='count' /> Count</label><br>
+    Show: <label><input class='showSelect' type='radio' name='showSelect' value='top3'> Top 3</label>
+    <label><input class='showSelect' type='radio' name='showSelect' value='all' checked> All</label>
 </body>
 
 <script>
@@ -50,11 +30,6 @@ button {
     var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
-    var color2 = d3.scaleOrdinal(d3.schemeCategory20b);
-
-    d3.selectAll('button').style("background-color",
-    color2()
-    );
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('svg')
@@ -68,7 +43,7 @@ button {
         .size([2 * Math.PI, radius]);
 
     // Get the data from our JSON file
-    d3.json("simple-data.json", function(error, nodeData) {
+    d3.json('intermediate-data.json', function(error, nodeData) {
         if (error) throw error;
 
         allNodes = nodeData;
@@ -76,6 +51,10 @@ button {
         drawSunburst(allNodes);
     });
 
+    /**
+     * Draw our sunburst
+     * @param data
+     */
     function drawSunburst(data) {
 
         // Find the root node, calculate the node.value, and sort our nodes by node.value
@@ -92,77 +71,70 @@ button {
             .outerRadius(function (d) { return d.y1; });
 
         // Add a <g> element for each node; create the slice variable since we'll refer to this selection many times
-        slice = g.selectAll('g.node').data(root.descendants(), function(d) { return d.data.name; }); // .enter().append('g').attr("class", "node");
-        newSlice = slice.enter().append('g').attr("class", "node").merge(slice);
+        var slice = g.selectAll('g.node').data(root.descendants(), function(d) { return d.data.name; });
+        newSlice = slice.enter().append('g').attr('class', 'node').merge(slice);
         slice.exit().remove();
-
-        // TRY 1: ID selection that's has been drawn previously... (requires us to set "drawn" down below)
-        //newSlice.filter ( function(d) { return !d.drawn; }).append('path')
-        //    .attr("display", function (d) { return d.depth ? null : "none"; }).style('stroke', '#fff');
-
-        // TRY 2: Only create paths on "first run"
-        //if (firstRun) {
-        //    newSlice.append('path').attr("display", function (d) { return d.depth ? null : "none"; }).style('stroke', '#fff');
-        //}
-
-        // TRY 1&2: Set path-d and color always. But this isn't using new arc...?
-        //newSlice.selectAll('path').attr("d", arc).style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
 
         // Append <path> elements and draw lines based on the arc calculations. Last, color the lines and the slices.
         slice.selectAll('path').remove();
-        newSlice.append('path').attr("display", function (d) { return d.depth ? null : "none"; })
-            .attr("d", arc)
+        newSlice.append('path').attr('display', function (d) { return d.depth ? null : 'none'; })
+            .attr('d', arc)
             .style('stroke', '#fff')
-            .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+            .style('fill', function (d) { return color((d.children ? d : d.parent).data.name); });
 
         // Populate the <text> elements with our data-driven titles.
         slice.selectAll('text').remove();
-        newSlice.append("text")
-            .attr("transform", function(d) {
-                return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
-            .attr("dx", "-20")
-            .attr("dy", ".5em")
-            .text(function(d) { return d.parent ? d.data.name : "" });
+        newSlice.append('text')
+            .attr('transform', function(d) {
+                return 'translate(' + arc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
+            .attr('dx', '-20')
+            .attr('dy', '.5em')
+            .text(function(d) { return d.parent ? d.data.name : '' });
 
-        newSlice.on("click", highlightSelectedSlice);
-    };
+        newSlice.on('click', highlightSelectedSlice);
+    }
 
-    d3.selectAll(".showSelect").on("click", showTopTopics);
-    d3.selectAll(".sizeSelect").on("click", sliceSizer);
+    d3.selectAll('.showSelect').on('click', showTopTopics);
+    d3.selectAll('.sizeSelect').on('click', sliceSizer);
 
-    // Redraw the Sunburst Based on User Input
-    function highlightSelectedSlice(c,i) {
 
-        clicked = c;
-        var rootPath = clicked.path(root).reverse();
+    /**
+     * Find the path between the clicked node and root, keep those at full opacity (or opaqueness, rather), and set
+     *  the rest of the nodes to 40% opacity.
+     * @param {node} clicked - The d3 node object that was clicked
+     * @param {Number} i - The index of the node that was clicked
+     */
+    function highlightSelectedSlice(clicked, i) {
+
+        var rootPath = clicked.path(root).reverse();  // finds the path from between 2 points and reverses it
         rootPath.shift(); // remove root node from the array
 
-        newSlice.style("opacity", 0.4);
-        newSlice.filter(function(d) {
-            if (d === clicked && d.prevClicked) {
-                d.prevClicked = false;
-                newSlice.style("opacity", 1);
+        newSlice.style('opacity', 0.4);  // sets the entire sunburst to 40% opacity
+        newSlice.filter(function(d) {   // cycle through and test each node (d will be a diff node each iteration)
+            if (d === clicked && d.prevClicked) {  // if d is the clicked node this time, and it was the clicked node...
+                d.prevClicked = false;   // ...last time, then reset sunburst to starting point, and add this node to...
+                newSlice.style('opacity', 1);  // ...the filter
                 return true;
 
-            } else if (d === clicked) {
-                d.prevClicked = true;
+            } else if (d === clicked) {  // if d is the clicked node, but it wasn't previously clicked, then remember...
+                d.prevClicked = true;  // ...it for next time and add it to the filter
                 return true;
             } else {
-                d.prevClicked = false;
-                return (rootPath.indexOf(d) >= 0);
+                d.prevClicked = false;  // this isn't a clicked node, so just check to see if it's part of our...
+                return (rootPath.indexOf(d) >= 0);  // rootPath--if so, then keep it in the filter
             }
         })
-            .style("opacity", 1);
+            .style('opacity', 1);  // all nodes that made it through the filter have opacity set to full
+    }
 
-        //d3.select("#sidebar").text("another!");
 
-    };
-
-    // Redraw the Sunburst Based on User Input
-    function sliceSizer(r, i) {
+    /**
+     * Redraw the Sunburst Based on User Input
+     */
+    function sliceSizer() {
 
         // Determine how to size the slices.
-        if (this.value === "size") {
+        if (this.value === 'size') {
             root.sum(function (d) { return d.size; });
         } else {
             root.count();
@@ -171,20 +143,23 @@ button {
 
         partition(root);
 
-        newSlice.selectAll("path").transition().duration(750).attrTween("d", arcTweenPath);
-        newSlice.selectAll("text").transition().duration(750).attrTween("transform", arcTweenText);
-    };
+        newSlice.selectAll('path').transition().duration(750).attrTween('d', arcTweenPath);
+        newSlice.selectAll('text').transition().duration(750).attrTween('transform', arcTweenText);
+    }
 
-    // Redraw the Sunburst Based on User Input
+
+    /**
+     * Redraw the Sunburst Based on User Input
+     * @param r
+     * @param i
+     */
     function showTopTopics(r, i) {
         //alert(this.value);
         var showCount;
 
         // Determine how to size the slices.
-        if (this.value === "top3") {
+        if (this.value === 'top3') {
             showCount = 3;
-        } else if (this.value === "top6") {
-            showCount = 6;
         } else {
             showCount = 100;
         }
@@ -193,8 +168,8 @@ button {
         showNodes.children.splice(showCount, (showNodes.children.length - showCount));
 
         drawSunburst(showNodes);
+    }
 
-    };
 
     /**
      * When switching data: interpolate the arcs in data space.
@@ -216,6 +191,7 @@ button {
         return tween;
     }
 
+
     /**
      * When switching data: interpolate the text centroids and rotation.
      * @param {Node} a
@@ -227,10 +203,11 @@ button {
         var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
         function tween(t) {
             var b = oi(t);
-            return "translate(" + arc.centroid(b) + ")rotate(" + computeTextRotation(b) + ")";
+            return 'translate(' + arc.centroid(b) + ')rotate(' + computeTextRotation(b) + ')';
         }
         return tween;
     }
+
 
     /**
      * Calculate the correct distance to rotate each label based on its location in the sunburst.
