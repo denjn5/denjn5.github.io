@@ -1,14 +1,6 @@
----
 layout: page
+title: Draft
 permalink: /draft/
-title: Page Title
-date: 2017-07-08
-categories: d3 sunburst
-tags: d3 tutorial d3v4 javascript sunburst
-published: false
-remark: Sunburst Tutorial (d3 v4), Part 1
-author: David Richards
-excerpt_separator: <!--more-->
 ---
 
 ![image.png](../images/image.png){:style="float: left; margin-right: 20px; width: 400px;"}  Intro paragraph
@@ -52,6 +44,3 @@ _Congratulate_ and encourage.
 <hr>
 
 Possibly include a small diversion...
-
-![diversion.png](../images/diversion.png)
-_(Diversion description)_
