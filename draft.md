@@ -1,3 +1,4 @@
+---
 layout: page
 title: Draft
 permalink: /draft/
