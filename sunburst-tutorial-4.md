@@ -1,5 +1,6 @@
 ---
 layout: page
+permalink: draft1.html
 title: Page Title
 date: 2017-07-08
 categories: d3 sunburst
