@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: Page Title
 date: 2017-07-08
 categories: d3 sunburst
