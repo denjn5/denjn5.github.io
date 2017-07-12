@@ -18,8 +18,9 @@ text {
     <svg></svg>
     <br>
     Size: <label><input class='sizeSelect' type='radio' name='sizeSelect' value='size' checked /> Size</label>
-    <label><input class='sizeSelect'  type='radio' name='sizeSelect' value='count' /> Count</label>
-    <label><input class='sizeSelect' type='radio' name='sizeSelect' value='top3'> Top 3</label>
+    <label><input class='sizeSelect'  type='radio' name='sizeSelect' value='count' /> Count</label><br>
+    Show: <label><input class='showSelect' type='radio' name='showSelect' value='top3'> Top 3</label>
+    <label><input class='showSelect' type='radio' name='showSelect' value='all' checked> All</label>
 </body>
 
 <script>
@@ -29,7 +30,6 @@ text {
     var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
-    var showAll = true;
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('svg')
@@ -94,6 +94,7 @@ text {
         newSlice.on('click', highlightSelectedSlice);
     }
 
+    d3.selectAll('.showSelect').on('click', showTopTopics);
     d3.selectAll('.sizeSelect').on('click', sliceSizer);
 
 
@@ -128,17 +129,13 @@ text {
 
 
     /**
-     * Redraw the sunburst based on user selection of how many topics they want to see. We don't remove slices, we set their
-     * size to 0. And we animate the transition. "Top 10" is the default, so this gets called even at initial build.
+     * Redraw the Sunburst Based on User Input
      */
     function sliceSizer() {
 
         // Determine how to size the slices.
         if (this.value === 'size') {
             root.sum(function (d) { return d.size; });
-        } else if (this.value === 'top3') {
-            // Create "topSize" variable to store the size (0 or actual) based on user selection. Return it to d3.sum.
-            root.sum(function (d) { d.topSize = ((d.rank <= 3) ? d.size : 0); return d.topSize; });
         } else {
             root.count();
         }
@@ -147,8 +144,30 @@ text {
         partition(root);
 
         newSlice.selectAll('path').transition().duration(750).attrTween('d', arcTweenPath);
-        newSlice.selectAll('text').transition().duration(750).attrTween('transform', arcTweenText)
-            .attr("opacity", function (d) { return d.x1 - d.x0 > 0.06 ? 1 : 0; });
+        newSlice.selectAll('text').transition().duration(750).attrTween('transform', arcTweenText);
+    }
+
+
+    /**
+     * Redraw the Sunburst Based on User Input
+     * @param r
+     * @param i
+     */
+    function showTopTopics(r, i) {
+        //alert(this.value);
+        var showCount;
+
+        // Determine how to size the slices.
+        if (this.value === 'top3') {
+            showCount = 3;
+        } else {
+            showCount = 100;
+        }
+
+        var showNodes = JSON.parse(JSON.stringify(allNodes));
+        showNodes.children.splice(showCount, (showNodes.children.length - showCount));
+
+        drawSunburst(showNodes);
     }
 
 
