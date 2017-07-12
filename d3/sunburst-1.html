@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Sunburst Tutorial (d3 v4), Part 1</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://d3js.org/d3.v4.min.js'></script>
 </head>
 <body>
     <svg></svg>
@@ -10,19 +10,19 @@
 <script>
     // JSON data
     var nodeData = {
-        "name": "TOPICS", "children": [{
-            "name": "Topic A",
-            "children": [{"name": "Sub A1", "size": 4},
-                {"name": "Sub A2", "size": 4}]
+        'name': 'TOPICS', 'children': [{
+            'name': 'Topic A',
+            'children': [{'name': 'Sub A1', 'size': 4},
+                {'name': 'Sub A2', 'size': 4}]
         }, {
-            "name": "Topic B",
-            "children": [{"name": "Sub B1", "size": 3},
-                {"name": "Sub B2", "size": 3},
-                {"name": "Sub B3", "size": 3}]
+            'name': 'Topic B',
+            'children': [{'name': 'Sub B1', 'size': 3},
+                {'name': 'Sub B2', 'size': 3},
+                {'name': 'Sub B3', 'size': 3}]
         }, {
-            "name": "Topic C",
-            "children": [{"name": "Sub C1", "size": 4},
-                {"name": "Sub C2", "size": 4}]
+            'name': 'Topic C',
+            'children': [{'name': 'Sub C1', 'size': 4},
+                {'name': 'Sub C2', 'size': 4}]
         }]
     };
 
@@ -64,9 +64,9 @@
     g.selectAll('path')
         .data(root.descendants())
         .enter().append('path')
-        .attr("display", function (d) { return d.depth ? null : "none"; })
-        .attr("d", arc)
+        .attr('display', function (d) { return d.depth ? null : 'none'; })
+        .attr('d', arc)
         .style('stroke', '#fff')
-        .style("fill", function (d) {
+        .style('fill', function (d) {
             return color((d.children ? d : d.parent).data.name); });
 </script>

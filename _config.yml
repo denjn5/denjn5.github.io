@@ -6,7 +6,8 @@
 name: David's Blog
 
 # Short bio or description (displayed in the header)
-description: Sometimes I have something to share...
+# Sometimes I have something to share...
+description: Sunbursts and afternoon naps are underrated.
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: ../images/favicon.png
