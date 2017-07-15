@@ -11,3 +11,20 @@ This is a Jekyll blog, built on github's framework with markdown and html.
 * [Markdown Cheatsheet](http://www.jekyllnow.com/Markdown-Style-Guide/)
 * [Social Share](https://superdevresources.com/share-buttons-jekyll/#comment-636)
 
+
+# Jekyll Build Instructions
+From https://jekyllrb.com/docs/usage/
+
+```commandline
+$ jekyll build --watch --drafts
+# => The current folder will be generated into ./_site,
+#    watched for changes, and regenerated automatically.
+```
+
+```commandline
+$ jekyll serve --drafts
+# => A development server will run at http://localhost:4000/
+# Auto-regeneration: enabled. Use `--no-watch` to disable.
+```
+
+

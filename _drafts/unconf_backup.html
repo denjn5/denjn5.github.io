@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>d3 & Hierarchical Datasets</title>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        .title-slide {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
+        body {
+            font-family: 'Droid Serif';
+        }
+
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+
+        .remark-code, .remark-inline-code {
+            font-family: 'Ubuntu Mono';
+        }
+
+        .context {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .contextLL {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .author {
+            position: absolute;
+            right: 75px;
+            color: gray;
+            font-style: italic;
+        }
+
+        .exercise {
+            color: navy;
+        }
+    </style>
+</head>
+<body>
+<textarea id="source">
+
+class: center, middle, title-slide
+.contextLL[d3-Unconf | 2017 | David Richards]
+
+# Hierarchical Datasets
+### When?&nbsp; What?&nbsp; How?
+
+---
+.context[hierarchical data]
+# Our Goal?
+
+By the end of this session,<br>
+you should have a<br>
+solid understanding,<br>
+and a comfort with,<br>
+hierarchical datasets.
+
+--
+### We will learn:
+
+--
+1. *When* do they matter?
+
+--
+2. *What* are they?
+
+--
+3. *How* do we work with them?<br>
+
+--
+... & some d3 visuals
+<br>&nbsp;<br>
+--
+(Today we focus on the data. We'll apply it to visuals, but that'll be light.)
+
+---
+class: center, middle
+
+## When do they matter?
+<!-- ##  WHEN  ####################################################################################################-->
+
+---
+.context[hierarchical data]
+# When do they matter?
+
+<br>&nbsp;<br>
+Smart data structures and dumb code works a lot better<br>
+than the other way around.<br>
+.author[—Eric S. Raymond (The Cathedral and the Bazaar)]
+<br>&nbsp;<br>
+--
+
+Bad programmers worry about the code.<br>
+Good programmers worry about data structures and their relationships.<br>
+.author[—Linus Torvalds]
+<br>&nbsp;<br>
+
+--
+“Data! Data! Data!" he cried impatiently.<br>
+"I can't make bricks without clay.”<br>
+.author[—Sherlock Holmes]
+<br>&nbsp;<br>
+<br>&nbsp;<br>
+--
+.center[**They matter now....**]
+
+---
+name: natural-hierarchies
+.context[when it matters]
+
+# Natural hierarchies
+
+Some data is naturally hierarchical:
+
+---
+template: natural-hierarchies
+* Country ⇢ State ⇢ City ⇢ Street ⇢ House
+<!--- TODO: Add a visual of the hierarchy before the json.  --->
+
+``` json
+{
+  "continent": "North America",
+  "countries": [
+    { "country": "Canada" },
+    { "country": "Mexico" },
+    { "country": "United States",
+      "states": [
+        { "state": "California" },
+        { "state": "Indiana",
+          "cities": [
+            { "city": "Fishers" },
+            { "city": "Carmel" },
+            { "city": "Indianapolis" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+---
+template: natural-hierarchies
+.context[when it matters]
+
+* Country ⇢ State ⇢ City ⇢ Street ⇢ House
+* CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
+
+--
+* Folder ⇢ Subfolder ⇢ File
+
+--
+* Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
+<br>&nbsp;<br>
+<br>&nbsp;<br>
+.right[<img height="250" src="../images/hierarchyDefinition.jpeg"/>]
+
+---
+.context[when it matters]
+
+# Natural hierarchies
+
+--
+<table height="100%">
+    <tr><td><span class="exercise"><i>Other examples of naturally occurring hierarchies?</i></span></td></tr>
+    <tr><td><span class="exercise">&nbsp;
+        <br>&nbsp;<br>
+</span></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+</table>
+
+---
+.context[when it matters]
+
+# Natural hierarchies
+
+<table height="100%">
+    <tr><td><span class="exercise"><i>Other examples of naturally occurring hierarchies?</i></span></td></tr>
+    <tr><td><span class="exercise"><i>Paper & Pencil exercise:</i> Draw a picture of a dataset that you want to work with that is hierarchical.</span></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+</table>
+
+.right[(taxonomies & hierarchies are a natural fit)]
+---
+.context[when it matters]
+# d3 examples
+
+<!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
+<table>
+    <tr>
+        <td><iframe width="400" height="250" frameborder="0" src="../d3/tree.html"></iframe></td>
+        <td><iframe width="400" height="250" frameborder="0" src="../d3/treemap.html"></iframe></td>
+    </tr>
+    <tr>
+        <td><div style="text-align: center;">
+            <iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/sunburst.html"></iframe></div></td>
+        <td><iframe width="400" height="250" frameborder="0" src="../d3/pack.html"></iframe></td>
+    </tr>
+</table>
+
+<!-- ##  WHAT  ####################################################################################################-->
+
+---
+
+class: center, middle
+
+## What are they?
+
+---
+.context[what are they]
+
+# Model your data with Legos
+
+_How do we make this “real” for participants?  Label blocks? Or use colors for data types?_
+
+---
+.context[what are they]
+
+# Hierarchy vs. Tabular
+
+<table class="display dataTable no-footer">
+  <thead>
+    <tr role="row"><th>Hierarchical</th><th>Tabular</th></tr>
+  </thead>
+<tr role="row" class="odd">
+    <td>Relationships are intrinsic</td><td class=" dt-right">Relationships formed at run-time</td>
+</tr>
+    <tr role="row" class="even"><td>smaller data</td>
+    <td class=" dt-right">larger data</td></tr>
+    </tr>
+        <tr role="row" class="even"><td>a couple of layers of one-to-many relationships</td>
+    <td class=" dt-right">many-to-many relationships</td></tr>
+    <tr role="row" class="even"><td>gateway to sunbursts, trees, treemaps, circle packs, and who knows what else</td>
+    <td class=" dt-right"></td></tr>
+</table>
+
+---
+.context[what are they]
+
+# Hierarchical data = JSON Arrays + JSON Objects
+
+## JSON Array
+`[ "Listen", "Learn", "Grow" ]`
+    1. an ordered list of values, seperated by commas
+    2. it can store strings, numbers, booleans, objects, other arrays, or a combination
+    3. surrounded by [ and ] (square brackets)
+<br>&nbsp;<br>
+
+--
+## JSON Object
+`{ "name": "John", "age": 30, "motto": [ "Listen", "Learn", "Grow" ] }`
+    1. a list of key/value pairs
+        * each pair is seperated a comma
+        * keys and values are separated by a colon
+    2. each key is a string; each value is a strings, numbers, booleans, objects, other arrays
+    3. surrounded by { and } (curly braces)
+
+
+
+---
+.context[what are they]
+
+#
+
+<!-- ##  HOW  ####################################################################################################-->
+
+---
+
+class: center, middle
+
+## How do we work with them?
+
+---
+
+.context[how to work with them]
+
+# Read the docs ([d3-hierarchy](https://github.com/d3/d3-hierarchy "d3 hierarchy api documentation"))
+
+We're moving from concept to code.
+
+`stratify`
+
+<!-- ##  EXAMPLES  ################################################################################################-->
+
+---
+
+class: center, middle
+
+## Some d3 visuals
+
+---
+.context[examples]
+
+# Zip through some examples
+* Simple Treemap
+* Same script, but more data
+* Same script, create original hierarchy from tabular
+* Same script, create more data hierarchy from tabular
+
+<!-- ##  SUMMARY  ################################################################################################-->
+
+---
+.contextLL[slides created with remark.js]
+
+# Thanks!
+
+
+<!-- TODO: Fill in more: LinkedIn (https://www.linkedin.com/in/david-richards-18545310/) and Twitter (https://twitter.com/learn_do_repeat)  -->
+
+
+</textarea>
+<script src="../plugins/remark-latest.min.js">
+</script>
+<script>
+    var slideshow = remark.create({
+        ratio: '4:3',
+
+        // Navigation options
+        navigation: {
+            scroll: true,
+            touch: true,
+            click: false
+        },
+        highlightLines: true,
+        highlightStyle: 'solarized-dark',  // arta, ir-black, solarized-dark, sunburst
+
+        // Enable or disable counting of incremental slides in the slide counting
+        countIncrementalSlides: false
+    });
+</script>
+</body>
+</html>

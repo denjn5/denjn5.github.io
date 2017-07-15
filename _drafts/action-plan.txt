@@ -1,0 +1,35 @@
+
+ACTION PLAN
+What do I want to accomplish? How do I plan to get there?
+
+GOAL: Deepen my visualization and data science skills through practice. Document my journey via my blog.
+
+
+D3-UNCONF
+TODO: {OUTLINE} Refine my outline
+TODO: {NEW HIERARCHIES} Add MECE comments, decision tree
+FEATURE: {COOL VIZ} Add cool hierarchical d3 vizs from around the web?
+FEATURE: {RANDOM} Randomly growing viz?
+FIXME: {RADIAL} Radial tree -- make that work!
+FIXME: {STRATIFY} Address stratify really well.
+FIXME: {COLUMNS} Use .right-column instead of tables
+
+
+BLOG: OVERALL
+CONSIDER: {CADENCE} How often to produce new posts? (weekly, monthly, random)
+FIXME: Make my intro post less flowery
+TODO: {TUT PAGE} Add a tutorial outline to the upper right
+FEATURE: {FUNCTIONS} Make my d3 more function-oriented with markers for those that just want a chunk of code
+FEATURE: {PRESENTATION MODE?} What would it be like to move posts into presentation mode? Or pagify?
+TODO: {ADVERTISE} Send link to LinkedIn, Twitter
+
+
+BLOG: POSTS
+_VIZ: {TUT4} Annotate highlight-and-hide-sunburst-tutoral-4
+_VIZ: {BASIC VIZS} Annotate these 4 to ensure I get them (pack, tree, treemap, radialtree)
+_VIZ: {CORREL} Tuned correlation matrix w/ d3
+_SCI: {DATASWEEP} Think through this process, what are the key skills, components, steps, accuracy checks?
+_SCI: {PACKAGE?} Is this a package idea? Does one already exist? Clean, Viz, Recommend shallow
+_SCI: {SHALLOW ALGOS} Explain them each with example
+_SCI: {KAGGLE} Kaggle.com submission journey
+

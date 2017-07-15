@@ -6,8 +6,8 @@ permalink: /about/
 
 Optimist. Learner. Doer. Kayaker. Coder (python, d3, nlp). Skier. Runner. Audiobook listener.
 
-_"Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do."_ -Pele
+>Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do. _-Pele_
 
-Use the icons below to connect with me on Twitter, LinkedIn, or even Github.
+Connect with me on Twitter, LinkedIn, or even Github at the icons below.
 
 _-David_

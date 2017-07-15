@@ -1,0 +1,51 @@
+
+
+
+
+
+
+IAN'S INPUT
+I generally agree with the format/content youve outlined here. One initial reaction is that there isnt enough time to give people everything here, so I want to think out loud about some possibilities.
+
+The first section "why" my be less important than we think, many people will already be motivated to get better with hierarchical data, and those who are just curious could be motivated by the hands on aspects. perhaps a quick intro with interesting visual examples could do the job?
+I really like the examples you give in this section tho, what if we use those as prompts for people to create their own datasets? most people could think of a set of cities thats relevant to them, or their family tree, or a favorite book. By getting them to create their dataset they will be very familiar with it. we could maybe use postits to let them create the "nodes" and they could draw the links  on the paper they stick it to.
+if they can't think of one we should have a couple simple&universal examples handy to give them.
+this could also be in place of the legos, im having a hard time coming up with a concrete example using them. id still like to if you can!
+
+with the post-its we could have them move between "tabular" and tree representations physically (moving into section 2 now)
+we could also have them transcribe their postits into json. both into a tabular form as well as directly into a hierarchical form depending on how you want to introduce them to stratify/d3.hierarchy in section 3.
+
+once they have their data it should be quick to swap between a few visuals like you suggested. however i still think it will take longer than we think.
+
+***********************
+
+
+DEFINITION
+* Pyramid-like organization or classification of ideas, individuals, items, etc.
+* Every level (except the top and the bottom ones) has _one higher_ and _one or more lower_ neighbors.
+* Higher levels have greater inclusion, influence, or breadth.
+
+***********************
+
+QUOTES
+Smart data structures and dumb code works a lot better<br>
+than the other way around.<br>
+.author[—Eric S. Raymond (The Cathedral and the Bazaar)]
+
+--
+
+Bad programmers worry about the code.<br>
+Good programmers worry about data structures and their relationships.<br>
+.author[—Linus Torvalds]
+
+
+--
+“Data! Data! Data!" he cried impatiently.<br>
+"I can't make bricks without clay.”<br>
+.author[—Sherlock Holmes]
+<br>&nbsp;<br>
+<br>&nbsp;<br>
+--
+
+
+---
