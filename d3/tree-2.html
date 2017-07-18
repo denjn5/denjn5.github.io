@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<head>
+    <title>Tree Tutorial (d3 v4, part 2)</title>
+    <script src='../plugins/d3/d3.v4.js'></script>
+</head>
+
+<!--
+Plan:
+
+1. pull from json
+2. toggle text
+3. toggle stratify
+
+-->
+
+<style>
+    circle {
+        stroke: #05668D;
+        fill: white;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    path {
+        fill: none;
+        stroke: #05668D;
+        opacity: 0.4;
+        stroke-width: 2px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 500;
+    var gutter = 30;
+    var vHeight = 200;
+    var myData;
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g').attr('transform', 'translate(40, 20)');
+
+    var stratify = d3.stratify();
+
+
+    // Get the data from our json file
+//    d3.json('data-car.json', function(error, _data) {
+//        if (error) throw error;
+//
+//        myData = _data;
+//        draw();
+//    });
+
+
+    // Get the data from our csv file
+    d3.csv('data-car.csv', function(error, _data) {
+        if (error) throw error;
+
+        myData = d3.stratify()(_data);
+        draw();
+    });
+    
+    function draw() {
+        // d3 setup
+        var treeLayout = d3.tree().size([vHeight - gutter, vWidth - (gutter * 4)]);
+        var root = d3.hierarchy(myData);
+        var nodes = root.descendants();
+        var links = treeLayout(root).links();
+
+        // path
+        g.selectAll('path').data(links).enter().append('path')
+            .attr('d', d3.linkHorizontal()
+                .x(function (d) { return d.y; })
+                .y(function (d) { return d.x; }));
+
+        // g, circle, then text
+        var node = g.selectAll('g').data(nodes).enter().append('g')
+            .attr('transform', function (d) {
+                return 'translate(' + d.y + ',' + d.x + ')'; });
+        
+        node.append('circle').attr('r', 10);
+
+        // add & position the text
+        node.append('text')
+            .attr('dy', '.25em')
+            .attr('x', function(d) { return d.children ? -13 : 13; })
+            .style('text-anchor', function(d) { return d.children ? 'end' : 'start'; })
+            .text(function(d) {
+                return d.data.id;
+            });
+    }
+
+    function addLabels() {
+
+    }
+
+
+</script>

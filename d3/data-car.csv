@@ -1,0 +1,13 @@
+id,parentId
+cars,
+owned,cars
+pilot,owned
+325ci,owned
+accord,owned
+traded,cars
+chevette,traded
+learned,cars
+odyssey,learned
+maxima,learned
+trailers are heavy,odyssey
+left turns can be dangerous,maxima

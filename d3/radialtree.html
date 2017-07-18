@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<head>
+    <title>Radial Tree</title>
+    <script src='../plugins/d3/d3.v4.min.js'></script>
+</head>
+
+<style>
+    circle {
+        stroke: #05668D;
+        fill: white;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    path {
+        fill: none;
+        stroke: #05668D;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 300;
+    var vHeight = 200;
+    var myData = {
+        'name': 'Rooooot',
+        'children': [{
+            'name': 'Topic X',
+            'children': [{'name': 'Sub X1', 'size': 300}]
+        }, {
+            'name': 'Topic Y',
+            'children': [{'name': 'Sub Y1', 'size': 200}, {'name': 'Sub Y2', 'size': 200}]
+        }, {
+            'name': 'Topic Z',
+            'size': 400
+        }]
+    };
+
+    // physical space setup
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g').attr('transform', 'translate(' + vWidth / 2 + ',' + (vHeight / 2) + ')');
+
+    // d3 setup
+    var clusterLayout = d3.cluster().size([360, vWidth / 4]);
+    var root = d3.hierarchy(myData).sum(function (d) { return d.size; });
+    var nodes = root.descendants();
+    var links = clusterLayout(root).links();
+
+    // d3 draw
+    g.selectAll('path').data(links).enter().append('path')
+        .attr('d', d3.linkRadial()
+            .angle(function (d) { return d.x; })
+            .radius(function (d) { return d.y; }));
+
+    g.selectAll('circle').data(nodes).enter().append('circle')
+        .attr('r', 10)
+        .attr("transform", function (d) { return "translate(" + d3.pointRadial(d.x, d.y) + ")"; });
+
+
+</script>

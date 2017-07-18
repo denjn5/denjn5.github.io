@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Sunburst Tutorial (d3 v4), Part 3</title>
-    <script src='../plugins/d3.v4.min.js'></script>
+    <script src='../plugins/d3/d3.v4.min.js'></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway');
@@ -41,7 +41,7 @@ text {
         .size([2 * Math.PI, radius]);
 
     // Get the data from our JSON file
-    d3.json('simple-data.json', function(error, nodeData) {
+    d3.json('data-simple.json', function(error, nodeData) {
         if (error) throw error;
 
 
@@ -70,7 +70,7 @@ text {
         slice.append('path').attr('display', function (d) { return d.depth ? null : 'none'; })
             .attr('d', arc)
             .style('stroke', '#fff')
-            .style('fill', function (d) { return color((d.children ? d : d.parent).data.name); });
+            .style('fill', function (d) { return color((d.children ? d : d.parent).data.id); });
 
 
         // Populate the <text> elements with our data-driven titles.
@@ -79,11 +79,11 @@ text {
                 return 'translate(' + arc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
             .attr('dx', '-20')
             .attr('dy', '.5em')
-            .text(function(d) { return d.parent ? d.data.name : '' });
+            .text(function(d) { return d.parent ? d.data.id : '' });
 
 
         // Redraw the Sunburst Based on User Input
-        d3.selectAll('.sizeSelect').on('click', function(r,i) {
+        d3.selectAll('.sizeSelect').on('click', function(r) {
 
             // Determine how to size the slices.
             if (this.value === 'size') {
@@ -104,10 +104,9 @@ text {
     /**
      * When switching data: interpolate the arcs in data space.
      * @param {Node} a
-     * @param {Number} i
      * @return {Number}
      */
-    function arcTweenPath(a, i) {
+    function arcTweenPath(a) {
 
         var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
 
@@ -125,10 +124,9 @@ text {
     /**
      * When switching data: interpolate the text centroids and rotation.
      * @param {Node} a
-     * @param {Number} i
      * @return {Number}
      */
-    function arcTweenText(a, i) {
+    function arcTweenText(a) {
 
         var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
         function tween(t) {

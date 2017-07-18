@@ -6,20 +6,21 @@ categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-pngurl: ../images/sunburst-1.png
-htmlurl: ../d3/sunburst-1.html
-codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html
-blocksurl: https://bl.ocks.org/denjn5
+permalink: /sunburst-1/
+png_url: ../images/sunburst-1.png
+html_url: ../d3/sunburst-1.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.html
+blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.pngurl }}){:style="float: left; margin-right: 20px; width: 400px;"}  This tutorial is a detailed walk-through of a simple-ish "no frills" d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
+![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 400px;'}  This tutorial is a detailed walk-through of a simple-ish 'no frills' d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org]({{ page.blocksurl }}):
+Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org]({{ page.blocks_url }}):
 
-1. Sunburst 1: A "No Frills" Sunburst
+1. Sunburst 1: A 'No Frills' Sunburst
 2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
 3. Sunburst 3: Add smooth updates and sorting
 
@@ -35,7 +36,7 @@ Do good!  _—David Richards_
 - [Set up our SVG workspace](#set-up-our-svg-workspace)
 	- [Method Chaining & the HTML](#method-chaining--the-html)
 - [Format the Data](#format-the-data)
-- [Find the Root Node](#findthe-root-node)
+- [Find the Root Node](#find-the-root-node)
 - [Calculate Each Arc](#calculate-each-arc)
 - [Put it All Together](#put-it-all-together)
     - [Draw Our Sunburst](#draw-our-sunburst)
@@ -43,30 +44,30 @@ Do good!  _—David Richards_
 
 
 ## Live Example
-To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
-<span id="codeopen">
-    <a href="{{ page.codeurl }}" target="_blank" title="open code">
-        <i class="fa fa-code" aria-hidden="true"></i></a>
-    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
-        <i class="fa fa-external-link" aria-hidden="true"></i></a>
+<span id='code-open'>
+    <a href='{{ page.code_url }}' target='_blank' title='open code'>
+        <i class='fa fa-code' aria-hidden='true'></i></a>
+    <a href='{{ page.html_url }}' target='_blank' title='open viz'>
+        <i class='fa fa-external-link' aria-hidden='true'></i></a>
 </span>
 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
+<iframe align='center' frameborder='no' marginwidth='0' marginheight='0' width='650' height='550' src='{{ page.html_url }}'></iframe>
 
 ## The Web Page
 Create a bare-bones web page that references the d3 framework and holds our sunburst viz.
  
 ``` html
 <head>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+ <script src='https://d3js.org/d3.v4.min.js'></script>
 </head>
 <body>
-    <svg></svg>
+ <svg></svg>
 
-    <script>
-    <!–– d3 logic goodness here ––> 
-    </script>
+ <script>
+     <!-- d3 logic goodness here --> 
+ </script>
 </body>
 ```
 This very basic web page has includes 2 `<script>` sections
@@ -81,28 +82,28 @@ Create some data to be presented in our sunburst.
 
 ``` javascript
 var nodeData = {
-    "name": "TOPICS", "children": [{
-        "name": "Topic A",
-        "children": [{"name": "Sub A1", "size": 4}, 
-	    {"name": "Sub A2", "size": 4}]
+    'id': 'TOPICS', 'children': [{
+        'id': 'Topic A',
+        'children': [{'id': 'Sub A1', 'size': 4}, 
+	    {'id': 'Sub A2', 'size': 4}]
     }, {
-        "name": "Topic B",
-        "children": [{"name": "Sub B1", "size": 3}, 
-	    {"name": "Sub B2", "size": 3}, 
-	    {"name": "Sub B3", "size": 3}]
+        'id': 'Topic B',
+        'children': [{'id': 'Sub B1', 'size': 3}, 
+	    {'id': 'Sub B2', 'size': 3}, 
+	    {'id': 'Sub B3', 'size': 3}]
     }, {
-        "name": "Topic C",
-        "children": [{"name": "Sub A1", "size": 4}, 
-	    {"name": "Sub A2", "size": 4}]
+        'id': 'Topic C',
+        'children': [{'id': 'Sub A1', 'size': 4}, 
+	    {'id': 'Sub A2', 'size': 4}]
     }]
 };
 ```
 
-JSON for a sunburst is structured as a hierarchy. This JSON contains data about 11 **nodes**. (We'll call these **arcs** when we calculate each node's size in d3 code. And we sometimes call them **slices** when we're looking at our visualization.).  The very first node is called the **root** node (in our code above: `"name": "TOPICS"`). The root node is a sort of anchor for our data and visualization, and we often treat it differently since it's the center of or sunburst. We define each node in the above data in 1 of 2 ways:
+JSON for a sunburst is structured as a hierarchy. This JSON contains data about 11 **nodes**. (We'll call these **arcs** when we calculate each node's size in d3 code. And we sometimes call them **slices** when we're looking at our visualization.).  The very first node is called the **root** node (in our code above: `'id': 'TOPICS'`). The root node is a sort of anchor for our data and visualization, and we often treat it differently since it's the center of or sunburst. We define each node in the above data in 1 of 2 ways:
 
-1. `{ "name": "abc", "children": [] }` describes a node that has children. Size isn't defined for these nodes, because it'll be adopted (calculated by d3) based on children nodes. Children will either be more nodes like this one, with children of their own, or nodes with a "size" when it has no children.
+1. `{ 'id': 'abc', 'children': [] }` describes a node that has children. Size isn't defined for these nodes, because it'll be adopted (calculated by d3) based on children nodes. Children will either be more nodes like this one, with children of their own, or nodes with a 'size' when it has no children.
 
-2. `{ "name": "zyz", "size": 4 }` describes an end node with no children. The hierarchy does not need to be symmetrical in any way if.  Nodes can have differing numbers of children, or have "sibling" nodes that have no children at all).
+2. `{ 'id': 'xyz', 'size': 4 }` describes an end node with no children. The hierarchy does not need to be symmetrical in any way if.  Nodes can have differing numbers of children, or have 'sibling' nodes that have no children at all).
 
   
 ## Initialize Variables
@@ -120,7 +121,7 @@ We'll set 4 variables that we can use throughout our code:
 2. `var radius = Math.min(width, height) / 2` determines which is smaller (the `min`), the width or height. Then it divides that value by 2 (since the radius is 1/2 of the circle's diameter). Then we store that value as our radius. This optimizes the size of our viz within the `<svg>` element (since we don't want to leak past the edges, but we also don't want a bunch of wasted white space). Since width and height are both 500, the radius variable will equal 250.
 
 3. `d3.scaleOrdinal`: d3 scales help us map our data to something in our visual. Outside of d3, *ordinal scales* indicate the direction of the underlying data and provide nominal information (e.g., low, medium, high). In the same way, scaleOrdinal in d3 allows us to relate a part of our data to something that has a series of named values (like an array of colors). 
-    * `schemeCategory20b` is a d3 command that returns an array of colors. d3 has several similar options that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ("color") that will return a rainbow of options for our sunburst.
+    * `schemeCategory20b` is a d3 command that returns an array of colors. d3 has several similar options that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ('color') that will return a rainbow of options for our sunburst.
 
 
 ## Set up our SVG Workspace
@@ -141,7 +142,7 @@ var g = d3.select('svg')  // <-- 1
 
 3. `.append('g')` adds a `<g>` element to our SVG. `<g>` does not do much directly, it's is a special SVG element that acts as a container; it groups other SVG elements. And transformations applied to the `<g>` element are performed on all of its child elements. And its attributes are inherited by its children. That'll be helpful later.
 
-4. `.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's transform attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system (See [Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics). For now, we'll simply say that we'll use this transform attribute to move the "center" [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
+4. `.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's `transform` attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system ([Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics). For now, we'll simply say that we'll use this transform attribute to move the 'center' [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
     * `'translate(' + width / 2 + ',' + height / 2 + ')'` resolves to `translate(250, 250)`. This command moves our coordinate system (for `<g>`) 250 units right (x-axis) and 250 units down (y-axis). 
 
 
@@ -157,17 +158,17 @@ var g = d3.select('svg')  // returns a handle to the <svg> element
         'translate(' + width / 2 + ',' + height / 2 + ')');  
         // takes the <g> element and moves the [0,0] center over and down
 ```
-Method chaining is key to understanding what's going on in most all d3 code. To fully "get" the meaning of a code block, we must understand both what the method does and what it returns. (Want more? See Scott Murray's [Chaining methods](http://alignedleft.com/tutorials/d3/chaining-methods) article.)
+Method chaining is key to understanding what's going on in most all d3 code. To fully 'get' the meaning of a code block, we must understand both what the method does and what it returns. (Want more? See Scott Murray's [Chaining methods](http://alignedleft.com/tutorials/d3/chaining-methods) article.)
 
 Another way to think about the progression of our d3 is to see our html elements grow through each step. Thinking about the same 1-5 steps above, we'd see the following happen:
 ``` javascript
 var g = d3.select('svg')  // --> <svg></svg>
-    .attr('width', width)  // --> <svg width="500"></svg>
-    .attr('height', height)  // --> <svg width="500" height="500"></svg>
-    .append('g')  // --> <svg width="500" height="500"><g></g></svg>
+    .attr('width', width)  // --> <svg width='500'></svg>
+    .attr('height', height)  // --> <svg width='500' height='500'></svg>
+    .append('g')  // --> <svg width='500' height='500'><g></g></svg>
     .attr('transform', 
         'translate(' + width / 2 + ',' + height / 2 + ')');  
-        // --> <svg width="500" height="500"><g transform="translate(250,250)"></g></svg>
+        // --> <svg width='500' height='500'><g transform='translate(250,250)'></g></svg>
 ```
 
 ## Format the Data
@@ -180,10 +181,10 @@ var partition = d3.partition()  // <-- 1
 
 1. The `partition` command is a special tool that will help organize our data into the sunburst pattern, and ensure things are properly sized (e.g., that we use all 360 degrees of the circle, and that each slice is sized relative to the other slices.) So far, this is about structure, since we haven't linked it to our actual data yet.
 
-2. `size` sets this partition's overall size "width" and "height". But we've shifted from an [x,y] coordinate system (where a box could be 25 by 25] to a system where we size each part of our sunburst in radians (how much of the 360 the shape will consume) and depth (distance from center to full radius):
-    1. `2 * Math.PI` tells d3 the number of **radians** our sunburst will consume. Remember from middle-school geometry that a circle has a circumference of 2πr (2 * pi * r). This coordinate tells d3 how big our sunburst is in "radiuses". The answer is that it's 2π radiuses (or *radians*). So it's a full circle. 
+2. `size` sets this partition's overall size 'width' and 'height'. But we've shifted from an [x,y] coordinate system (where a box could be 25 by 25] to a system where we size each part of our sunburst in radians (how much of the 360 the shape will consume) and depth (distance from center to full radius):
+    1. `2 * Math.PI` tells d3 the number of **radians** our sunburst will consume. Remember from middle-school geometry that a circle has a circumference of 2πr (2 * pi * r). This coordinate tells d3 how big our sunburst is in 'radiuses'. The answer is that it's 2π radiuses (or *radians*). So it's a full circle. 
         * Want a sunburst that's a ½ circle? Delete the `2 * `.
-        * Want to better understand radians and how they map to degrees? Try [mathisfun: radians](https://www.mathsisfun.com/geometry/radians.html) or [Intuitive Guide to Angles, Degrees and Radians](https://betterexplained.com/articles/intuitive-guide-to-angles-degrees-and-radians/). 
+        * Want to better understand radians and how they map to degrees? Try [mathsisfun: radians](https://www.mathsisfun.com/geometry/radians.html) or [Intuitive Guide to Angles, Degrees and Radians](https://betterexplained.com/articles/intuitive-guide-to-angles-degrees-and-radians/).
     
     2. `radius` takes our variable, set above, and tells d3 that this is the distance from the center to the outside of the sunburst.
 
@@ -194,16 +195,16 @@ var root = d3.hierarchy(nodeData)  // <-- 1
     .sum(function (d) { return d.size});  // <-- 2
 ```
 
-1. The sunburst layout (or any hierarchical layout in d3) needs a **root** node. Happily, our data is already in a hierarchical pattern and has a root node ("name" : "TOPICS"). So we can pass our data directly to d3.partition with no preliminary reformatting. We use `d3.hierarchy(nodeData)` to tell d3, "Hey d3, our data is stored in the nodeData variable. It's already shaped in a hierarchy."
+1. The sunburst layout (or any hierarchical layout in d3) needs a **root** node. Happily, our data is already in a hierarchical pattern and has a root node ('id' : 'TOPICS'). So we can pass our data directly to d3.partition with no preliminary reformatting. We use `d3.hierarchy(nodeData)` to tell d3, 'Hey d3, our data is stored in the nodeData variable. It's already shaped in a hierarchy.'
 
-2. `sum()` iterates through each node in our data and adds a "value" attribute to each one. The value stored in the "value" attribute is the combined sum of d.size (since that's what we've asked for) for this node and all of its children nodes. It will be used later to determine arc / slice sizes. 
-    * Example: If the current node has no size attribute of its own, but it has 2 children, each size = 4, then .sum() will create a "value = 8" attribute for this node.
+2. `sum()` iterates through each node in our data and adds a 'value' attribute to each one. The value stored in the 'value' attribute is the combined sum of d.size (since that's what we've asked for) for this node and all of its children nodes. It will be used later to determine arc / slice sizes. 
+    * Example: If the current node has no size attribute of its own, but it has 2 children, each size = 4, then .sum() will create a 'value = 8' attribute for this node.
     * See the d3 documentation for [node.sum(value)](https://github.com/d3/d3-hierarchy/blob/master/README.md#node_sum)
 
 d3 has a specific pattern for retrieving your data and applying it to d3 commands, a pattern that you'll see repeatedly:
-`function(d) { return d }`. This functions accepts "d", which represents your data, and returns a value, or an array of values, based on your data. The "return d" part can get intricate. In our code, we're returning the size (d.size) to the sum function. We defined "size" in our JSON, so it's often available for a node.  When size isn't defined, this function returns 0. Two specific examples from our data:
-* "Sub A1" will have a has a size of 4.
-* "Topic A" has a size of 8, the sum of "Sub A1" and "Sub A2".
+`function(d) { return d }`. This functions accepts 'd', which represents your data, and returns a value, or an array of values, based on your data. The 'return d' part can get intricate. In our code, we're returning the size (d.size) to the sum function. We defined 'size' in our JSON, so it's often available for a node.  When size isn't defined, this function returns 0. Two specific examples from our data:
+* 'Sub A1' will have a has a size of 4.
+* 'Topic A' has a size of 8, the sum of 'Sub A1' and 'Sub A2'.
 
 
 ## Calculate Each Arc
@@ -218,9 +219,9 @@ var arc = d3.arc()  // <-- 2
     .outerRadius(function (d) { return d.y1 });
 ```
 
-1. `partition(root)` combines our partition variable (which creates the data structure) with our root node (the actual data). This line sets us up for the arc statement. Advanced Note: Inspecting "d" in our functions (e.g., `function (d) { return d.x0 }`) before and after this partition line yields an interesting finding: 
-    * Before this line, "d" for a particular node returns an object that looks just like our underlying json: `{name: "Sub A1", size: 4}`.
-    * After this partition line, "d" for a particular node returns a d3-shaped object: `{data: Object, height: 0, depth: 2, parent: qo, value: 4…}`. And our json attributes are tucked into the _data_ attribute.
+1. `partition(root)` combines our partition variable (which creates the data structure) with our root node (the actual data). This line sets us up for the arc statement. Advanced Note: Inspecting 'd' in our functions (e.g., `function (d) { return d.x0 }`) before and after this partition line yields an interesting finding: 
+    * Before this line, 'd' for a particular node returns an object that looks just like our underlying json: `{name: 'Sub A1', size: 4}`.
+    * After this partition line, 'd' for a particular node returns a d3-shaped object: `{data: Object, height: 0, depth: 2, parent: qo, value: 4…}`. And our json attributes are tucked into the _data_ attribute.
     
 
 2. `d3.arc()` calculates the size of each arc based on our JSON data. Each of the 4 variables below are staples in d3 sunbursts. They define the 4 outside lines for each arc.
@@ -240,29 +241,29 @@ g.selectAll('path')  // <-- 1
     .data(root.descendants())  // <-- 2
     .enter()  // <-- 3
     .append('path')  // <-- 4
-    .attr("display", function (d) { 
-        return d.depth ? null : "none"; })  // <-- 5
-    .attr("d", arc)  // <-- 6
+    .attr('display', function (d) { 
+        return d.depth ? null : 'none'; })  // <-- 5
+    .attr('d', arc)  // <-- 6
 ```
 
 This final block of code takes everything we've built so far and writes it to our `<svg><g></g></svg>` element, using a series of `<path>` elements.
 
-d3's "update pattern" operates as following:
-1. `g.selectAll('path')` starts with the g variable that we created way above; it references the `<g>` element that we originally appended to our `<svg>` element. `selectAll` gets a reference to all existing `<path>` elements within our `<g>` element. "That's odd," you say, "since we know that there are no `<path>` elements in `<g>`." You are right. They don't yet exist. For now, we'll just say that d3 uses this step to establish where the new `<path>` elements will fit on the page (in the svg object model).
+d3's 'update pattern' operates as following:
+1. `g.selectAll('path')` starts with the g variable that we created way above; it references the `<g>` element that we originally appended to our `<svg>` element. `selectAll` gets a reference to all existing `<path>` elements within our `<g>` element. 'That's odd,' you say, 'since we know that there are no `<path>` elements in `<g>`.' You are right. They don't yet exist. For now, we'll just say that d3 uses this step to establish where the new `<path>` elements will fit on the page (in the svg object model).
 
 2. `.data(root.descendants())` tells d3 what about the `<path>` elements that we want to exist by passing it our data. We're passing in our root variable with its descendants.
 
-3. `.enter()` tells d3 to "connect" the originally selected `<path>` element with our data so that we can...
+3. `.enter()` tells d3 to 'connect' the originally selected `<path>` element with our data so that we can...
 
 4. `.append('path')` actually creates one new, but empty, `<path>` element for each node under our `<g>` element. See Chris Givens' [Update Pattern](https://bl.ocks.org/cmgiven/32d4c53f19aea6e528faf10bfe4f3da9) tutorial for another look at steps 1-4 above.
 
-5. `.attr("display", function (d) { return d.depth ? null : "none"; })` sets the display attribute of the `<path>` element for our *root* node to "none". (`display="none"` tells SVG that this element will not be rendered.)
-    * d.depth will equal 0 for the root node, 1 for its children, 2 for "grandchildren", etc.
+5. `.attr('display', function (d) { return d.depth ? null : 'none'; })` sets the display attribute of the `<path>` element for our *root* node to 'none'. (`display='none'` tells SVG that this element will not be rendered.)
+    * d.depth will equal 0 for the root node, 1 for its children, 2 for 'grandchildren', etc.
     * Want more layers in your sunburst? This visualization will add as many layers as you have in your data. We've limited to just 2 layers for simplicity in our explanation. (Advanced Idea: Imagine you've added many additional layers in the json, and maybe you don't always want to show all of those layers. You could use a d.depth test to limit the number of rings that actually appear on your viz.)
 
-6. `.attr("d", arc)` fills in all the "d" attributes of each `<path>` element with the values from our arc variable. Two important notes here: 
+6. `.attr('d', arc)` fills in all the 'd' attributes of each `<path>` element with the values from our arc variable. Two important notes here: 
     * The d attribute contains the actual directions for each line of this svg `<path>` element, see the example below.
-    * Don't confuse the the `<path d="">` attribute with the d variable that represents the data within or d3 script. 
+    * Don't confuse the the `<path d=''>` attribute with the d variable that represents the data within or d3 script. 
 
 ### Add Color
 If you stopped here, you'd see a sunburst with each slice drawn, but all black with barely visible gray lines separating the slices. We're actually going to finish explaining the block of code we saw above.
@@ -271,28 +272,28 @@ g.selectAll('path')
     .data(root.descendants())
     .enter()
     .append('path')
-    .attr("display", function (d) { return d.depth ? null : "none"; })
-    .attr("d", arc) 
+    .attr('display', function (d) { return d.depth ? null : 'none'; })
+    .attr('d', arc) 
     .style('stroke', '#fff')  // <-- 1
-    .style("fill", function (d) { 
+    .style('fill', function (d) { 
         return color((d.children ? d : d.parent).data.name); });  // <-- 2
 ```
 
 Let's add some color:
 
-1. `.style('stroke', '#fff')` add `style="stroke: rgb(255, 255, 255);"` to our `<path>` element. Now the lines between our slices are white.
+1. `.style('stroke', '#fff')` add `style='stroke: rgb(255, 255, 255);'` to our `<path>` element. Now the lines between our slices are white.
 
-2. `.style("fill", function (d) { return color((d.children ? d : d.parent).data.name); })` combines the `color` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
+2. `.style('fill', function (d) { return color((d.children ? d : d.parent).data.name); })` combines the `color` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
     * `(d.children ? d : d.parent)` is a javascript inline if in the form of (condition ? expr1 : expr2) that says, if the current node has children, return the current node, otherwise, return its parent. 
     * That node's name will be passed to our color variable and then returned to the style attribute within each `<path>` element.
 
 In the end, this section of our HTML will look something like this (ellipsis indicates details that I haven't included):
 ``` html
-<g transform="translate(250,250)">
-    <path display="none" d=". . ." style="stroke: rgb(255, 255, 255); fill: rgb(82, 84, 163);">
-    <path style="stroke: rgb(255, 255, 255); fill: rgb(82, 84, 163);" d="M1.020538999289461e-14,-166.66666666666666A166.66666666666666,166.66666666666666,0,0,1,
+<g transform='translate(250,250)'>
+    <path display='none' d='. . .' style='stroke: rgb(255, 255, 255); fill: rgb(82, 84, 163);'>
+    <path style='stroke: rgb(255, 255, 255); fill: rgb(82, 84, 163);' d='M1.020538999289461e-14,-166.66666666666666A166.66666666666666,166.66666666666666,0,0,1,
     150.80450874433657,70.96321526084546L75.40225437216829,35.48160763042273A83.33333333333333,83.33333333333333,
-    0,0,0,5.102694996447305e-15,-83.33333333333333Z">
+    0,0,0,5.102694996447305e-15,-83.33333333333333Z'>
     </path></path> . . . <path></path>
 </g>
 ```

@@ -1,19 +1,19 @@
 ---
 layout: page
 title: Highlight & Hide (d3 Sunburst Tutorial 4)
-
 date: 2017-07-10
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-pngurl: ../images/sunburst-4.png
-htmlurl: ../d3/sunburst-4.html
-codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
-blocksurl: https://bl.ocks.org/denjn5
+permalink: /sunburst-4/
+png_url: ../images/sunburst-4.png
+html_url: ../d3/sunburst-4.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
+blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.pngurl }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 3 Sunburst and add 2 features: (a) interactive slice highlighting; (b) slice hiding. (_draft test)
+![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with our Tutorial 3 Sunburst and add 2 features: (a) interactive slice highlighting; (b) slice hiding. (_draft test)
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 3 -->
@@ -33,27 +33,18 @@ Do good!  _—David Richards_
 
 ## Tutorial Contents
 - [Live Example](#live-example)
-- [Make Labels "Non-Selectable"](#make-labels-non-selectable)
-- [Format Our Page](#format-our-page)
-- [Sort the Slices](#sort-the-slices)
-- [Store Begin States](#store-begin-states)
-- [Slice Variable](#slice-variable)
-- [Get User Input Recalculate the Sunburst](#get-user-input-recalculate-the-sunburst)
-- [Redraw the Sunburst](#redraw-the-sunburst)
-- [The "Tween" Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
-- [The "Tween" Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
 ## Live Example
-To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
-<span id="codeopen">
-    <a href="{{ page.codeurl }}" target="_blank" title="open code">
+<span id="code-open">
+    <a href="{{ page.code_url }}" target="_blank" title="open code">
         <i class="fa fa-code" aria-hidden="true"></i></a>
-    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
+    <a href="{{ page.html_url }}" target="_blank" title="open viz">
         <i class="fa fa-external-link" aria-hidden="true"></i></a>
 </span>
 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
+<iframe align="center" frameborder="no" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.html_url }}"></iframe>
 
 
 

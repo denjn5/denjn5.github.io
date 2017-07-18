@@ -19,6 +19,7 @@ avatar: ../images/favicon.png
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
+  d3: denjn5
   email:
   facebook:
   flickr:
@@ -26,7 +27,7 @@ footer-links:
   instagram:
   linkedin: david-richards-18545310
   pinterest: 
-  rss: # just type anything here for a working RSS icon
+  rss: rss
   twitter: learn_do_repeat
   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
   youtube: # channel/<your_long_string> or user/<user-name>

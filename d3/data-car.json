@@ -1,0 +1,12 @@
+{
+    "id": "cars", "children": [{
+        "id": "owned",
+        "children": [{"id": "pilot", "size": 40}, {"id": "325ci", "size": 20}, {"id": "accord", "size": 2}]
+    }, {
+        "id": "traded",
+        "children": [{"id": "chevette", "size": 1}]
+    }, {
+        "id": "learned",
+        "children": [{"id": "odyssey", "size": 20}, {"id": "maxima", "size": 5}]
+    }]
+}

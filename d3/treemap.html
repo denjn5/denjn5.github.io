@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Treemap</title>
+    <script src="../plugins/d3/d3.v4.min.js"></script>
+</head>
+
+<style>
+    rect {
+        stroke: white;
+        fill: #05668D;
+        opacity: 0.3;
+        stroke-width: 2px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 300;
+    var vHeight = 200;
+    var myData = {
+        "name": "Rooooot",
+        "children": [{
+            "name": "Topic X",
+            "children": [{"name": "Sub X1", "size": 300}]
+        }, {
+            "name": "Topic Y",
+            "children": [{"name": "Sub Y1", "size": 200}, {"name": "Sub Y2", "size": 200}]
+        }, {
+            "name": "Topic Z",
+            "size": 400
+        }]
+    };
+
+    // physical space setup
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g');
+
+    // d3 setup
+    var treemapLayout = d3.treemap().size([vWidth, vHeight]).paddingOuter(10);
+    var root = d3.hierarchy(myData).sum(function (d) { return d.size; });
+    var nodes = root.descendants();
+    treemapLayout(root);
+
+    // d3 draw
+    g.selectAll('rect').data(nodes).enter().append('rect')
+        .attr('x', function (d) { return d.x0; })
+        .attr('y', function (d) { return d.y0; })
+        .attr('width', function (d) { return d.x1 - d.x0; })
+        .attr('height', function (d) { return d.y1 - d.y0; })
+
+</script>

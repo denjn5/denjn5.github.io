@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Sunburst Tutorial (d3 v4), Part 4</title>
-    <script src='../plugins/d3.v4.min.js'></script>
+    <script src='../plugins/d3/d3.v4.min.js'></script>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Raleway');
@@ -29,7 +29,6 @@ text {
     var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
-    var showAll = true;
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('svg')
@@ -43,12 +42,10 @@ text {
         .size([2 * Math.PI, radius]);
 
     // Get the data from our JSON file
-    d3.json('intermediate-data.json', function(error, nodeData) {
+    d3.json('data-intermediate.json', function(error, nodeData) {
         if (error) throw error;
 
-        allNodes = nodeData;
-        var showNodes = JSON.parse(JSON.stringify(nodeData));
-        drawSunburst(allNodes);
+        drawSunburst(nodeData);
     });
 
     /**
@@ -71,7 +68,7 @@ text {
             .outerRadius(function (d) { return d.y1; });
 
         // Add a <g> element for each node; create the slice variable since we'll refer to this selection many times
-        var slice = g.selectAll('g.node').data(root.descendants(), function(d) { return d.data.name; });
+        var slice = g.selectAll('g.node').data(root.descendants(), function(d) { return d.data.id; });
         newSlice = slice.enter().append('g').attr('class', 'node').merge(slice);
         slice.exit().remove();
 
@@ -80,7 +77,7 @@ text {
         newSlice.append('path').attr('display', function (d) { return d.depth ? null : 'none'; })
             .attr('d', arc)
             .style('stroke', '#fff')
-            .style('fill', function (d) { return color((d.children ? d : d.parent).data.name); });
+            .style('fill', function (d) { return color((d.children ? d : d.parent).data.id); });
 
         // Populate the <text> elements with our data-driven titles.
         slice.selectAll('text').remove();
@@ -89,7 +86,7 @@ text {
                 return 'translate(' + arc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
             .attr('dx', '-20')
             .attr('dy', '.5em')
-            .text(function(d) { return d.parent ? d.data.name : '' });
+            .text(function(d) { return d.parent ? d.data.id : '' });
 
         newSlice.on('click', highlightSelectedSlice);
     }
@@ -101,9 +98,8 @@ text {
      * Find the path between the clicked node and root, keep those at full opacity (or opaqueness, rather), and set
      *  the rest of the nodes to 40% opacity.
      * @param {node} clicked - The d3 node object that was clicked
-     * @param {Number} i - The index of the node that was clicked
      */
-    function highlightSelectedSlice(clicked, i) {
+    function highlightSelectedSlice(clicked) {
 
         var rootPath = clicked.path(root).reverse();  // finds the path from between 2 points and reverses it
         rootPath.shift(); // remove root node from the array
@@ -155,10 +151,9 @@ text {
     /**
      * When switching data: interpolate the arcs in data space.
      * @param {Node} a
-     * @param {Number} i
      * @return {Number}
      */
-    function arcTweenPath(a, i) {
+    function arcTweenPath(a) {
 
         var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
 
@@ -176,10 +171,9 @@ text {
     /**
      * When switching data: interpolate the text centroids and rotation.
      * @param {Node} a
-     * @param {Number} i
      * @return {Number}
      */
-    function arcTweenText(a, i) {
+    function arcTweenText(a) {
 
         var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
         function tween(t) {

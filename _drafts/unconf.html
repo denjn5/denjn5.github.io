@@ -64,10 +64,17 @@
             float: right;
             width: 47%;
         }
+
+        .left-column {
+            float: left;
+            width: 47%;
+        }
     </style>
 </head>
 <body>
+
 <textarea id="source">
+
 
 class: center, middle, title-slide
 .contextLL[d3-Unconf | 2017 | David Richards]
@@ -75,7 +82,9 @@ class: center, middle, title-slide
 # Hierarchical Datasets
 ### When?&nbsp; What?&nbsp; How?
 
+
 ---
+
 .context[hierarchies]
 # Our Goal?
 
@@ -85,55 +94,90 @@ class: center, middle, title-slide
 <iframe width="400" height="500" frameborder="0" src="../d3/tree.html"></iframe>
 ]
 
---
-
-By the end of _this_ session,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you should _have_<br>
-a solid _understanding_,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and a _comfort_ with,<br>
-_hierarchical_ datasets<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and _d3.stratify_.
+By the end of this session,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you should have<br>
+a solid understanding,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and a comfort with,<br>
+hierarchical datasets<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and d3.stratify.
 
 <br>&nbsp;<br>
---
+
 
 * _When_ should I use them?
-
---
 * _What_ does the code look like?
-
---
-* _How_ do we work with them?<br>
-
---
-... & some d3 visuals
+* _How_ do we work with them?
 
 
 ---
+
+name: d3-examples
+.context[hierarchies]
+# Illustrating Hierarchies
+
+<!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
+
+.right-column[
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/sunburst.html"></iframe><br>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/radialtree.html"></iframe>
+]
+
+.left-column[
+<iframe width="400" height="250" frameborder="0" src="../d3/pack.html"></iframe><br>
+<iframe width="400" height="250" frameborder="0" src="../d3/treemap.html"></iframe>
+]
+
+???
+
+Radial tree is a little pathetic...
+
+
+---
+
 .context[hierarchies]
 
-# Hello World
+# Defined
 
->Country ⇢ State ⇢ City ⇢ Street ⇢ House
+[TODO: include top snipped of definition png and make this look like a definition]
+
+A hierarchical dataset is:
+1. Pyramid-like organization of ideas, people, items...
+2. With a _single_, top-level item that we call the "__root__".
+3. Every level has _one higher_ and _zero or more lower_ neighbors.
+4. Higher levels have greater inclusion, influence, or breadth.
+
+[TODO: engineering picture]
+
+???
+
+Briefly explain the hierarchical dataset. Emphasize importance of root.
+
+
+---
+
+.context[hierarchies]
+
+# Hello World Example
+
+>Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
 
 might look like this in json:
 
---
 
 ``` json
 {
-  "continent": "North America",
-  "countries": [
-    { "country": "Canada" },
-    { "country": "Mexico" },
-    { "country": "United States",
-      "states": [
-        { "state": "California" },
-        { "state": "Indiana",
-          "cities": [
-            { "city": "Fishers" },
-            { "city": "Carmel" },
-            { "city": "Indianapolis" }
+  "name": "North America",
+  "children": [
+    { "name": "Canada" },
+    { "name": "Mexico" },
+    { "name": "United States",
+      "children": [
+        { "name": "California" },
+        { "name": "Indiana",
+          "children": [
+            { "name": "Fishers" },
+            { "name": "Carmel" },
+            { "name": "Indianapolis" }
           ]
         }
       ]
@@ -142,186 +186,82 @@ might look like this in json:
 }
 ```
 
+???
 
-<!-- #################################### -->
-<!-- ##  WHEN  ########################## -->
-<!-- #################################### -->
----
-class: center, middle
+* Note our simple example.
+* "You can often go higher, but we'll start with just simply picking a beginning spot."
+* Note simplified "name" and "children" keys.
 
-##  _When_ should I use them?
 
 ---
-name: natural-hierarchies
 
 .context[when]
-
 # Natural hierarchies
 
 Some data is naturally hierarchical:
 
-* Country ⇢ State ⇢ City ⇢ Street ⇢ House
-* CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
-* Folder ⇢ Subfolder ⇢ File
-* Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
+* Location: Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
+* Company: CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
+* Filesystem: Folder ⇢ Subfolder ⇢ File
+* Book: Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
+* Family Tree: Granparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
 
---
 
 Some fields use hiararchies to make decisions
 
 * MECE: mutually exclusive and collectively exhaustive (_consulting_)
 * Decision Tree illustration (_data science_)
-<br>&nbsp;<br>
 
---
 
-<!--- TODO: {DEFENITION} Write my own.  --->
-.right-colum[<img height="250" src="../images/hierarchyDefinition.jpeg"/>]
+[TODO: illustrations of MECE and/or Decision Tree]
+
+???
+
+* Not everything that seems hierarchical is: family tree
+* MECE is actually a good way to divide up complex problems and a litmus test for true hierarchy.
+
+
+<!-- #################################### -->
+<!-- ##  HIERARCHICAL  ################## -->
+<!-- #################################### -->
+---
+
+class: center, middle
+
+## Our Hierarchical Dataset in Action
+
 
 ---
+
 .context[when]
 
-# Natural hierarchies
+# Let's Create an Example Together
 
---
-.exercise[Other examples of naturally occurring hierarchies?
+.exercise[What are examples of naturally occurring hierarchies?]
 
---
-Paper & Pencil exercise: Draw a picture of a dataset that you want to work with that is hierarchical.
-]
+.exercise[PostIt Notes & Pencil: Draw a picture of a dataset that you want to work with that is hierarchical.]
 
-.right[(taxonomies & hierarchies are a natural fit)]
+[TODO: Add a short description of what's expected]
 
+???
 
----
-name: d3-examples
-.context[when]
-# d3 examples
-Sometimes it works the other way around: You want to illustrate your data in a certain way and you back into the data structure:
-
-<!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
-
-.right-column[<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/sunburst.html"></iframe>]
-
-
-
---
-
-<iframe width="400" height="250" frameborder="0" src="../d3/tree.html"></iframe>
-
---
-
-<iframe width="400" height="250" frameborder="0" src="../d3/treemap.html"></iframe>
-
-
-
-
-
-
-
-
-<!-- ##  WHAT  ####################################################################################################-->
+1. Explain the exercise
+2. Give time to complete
+3. Provide Ideas:
+    * Bucket List items, divided by completed/not completed, terrifying/not terrifying
+    * Places you've visited, divided by contintent or companions
+    * Things you want to learn, divided by technology/not
+    * Upcoming projects: work/personal
+    * Cars you've owned, divided by how the relationship ended
+4. Show my example
 
 ---
 
-class: center, middle
-
-## What are they?
-
----
-.context[what are they]
-
-# Model your data with Legos
-
-_How do we make this “real” for participants?  Label blocks? Or use colors for data types?_
-
----
-.context[what are they]
-
-# Hierarchy vs. Tabular
-
-<table class="display dataTable no-footer">
-  <thead>
-    <tr role="row"><th>Hierarchical</th><th>Tabular</th></tr>
-  </thead>
-<tr role="row" class="odd">
-    <td>Relationships are intrinsic</td><td class=" dt-right">Relationships formed at run-time</td>
-</tr>
-    <tr role="row" class="even"><td>smaller data</td>
-    <td class=" dt-right">larger data</td></tr>
-    </tr>
-    <tr role="row" class="even"><td>a couple of layers of one-to-many relationships</td>
-    <td class=" dt-right">many-to-many relationships</td></tr>
-    <tr role="row" class="even"><td>gateway to sunbursts, trees, treemaps, circle packs, and who knows what else</td>
-    <td class=" dt-right"></td></tr>
-</table>
-
----
-.context[what are they]
-
-# Hierarchical data = JSON Arrays + JSON Objects
-
-## JSON Array
-`[ "Listen", "Learn", "Grow" ]`
-    1. an ordered list of values, seperated by commas
-    2. it can store strings, numbers, booleans, objects, other arrays, or a combination
-    3. surrounded by [ and ] (square brackets)
-<br>&nbsp;<br>
-
---
-## JSON Object
-`{ "name": "John", "age": 30, "motto": [ "Listen", "Learn", "Grow" ] }`
-    1. a list of key/value pairs
-        * each pair is seperated a comma
-        * keys and values are separated by a colon
-    2. each key is a string; each value is a strings, numbers, booleans, objects, other arrays
-    3. surrounded by { and } (curly braces)
 
 
 
 ---
-.context[what are they]
 
-#
-
-<!-- ##  HOW  ####################################################################################################-->
-
----
-
-class: center, middle
-
-## How do we work with them?
-
----
-
-.context[how to work with them]
-
-# Read the docs ([d3-hierarchy](https://github.com/d3/d3-hierarchy "d3 hierarchy api documentation"))
-
-We're moving from concept to code.
-
-`stratify`
-
-<!-- ##  EXAMPLES  ################################################################################################-->
-
----
-
-class: center, middle
-
-## Some d3 visuals
-
----
-.context[examples]
-
-# Zip through some examples
-* Simple Treemap
-* Same script, but more data
-* Same script, create original hierarchy from tabular
-* Same script, create more data hierarchy from tabular
-
-<!-- ##  SUMMARY  ################################################################################################-->
-
----
 .contextLL[slides created with remark.js]
 
 # Thanks!

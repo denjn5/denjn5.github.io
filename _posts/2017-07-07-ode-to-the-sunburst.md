@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Ode to the Sunburst
+
+permalink: /sunburst-0/
 ---
 
 I am fond, maybe too fond, of the d3 sunburst. Its clean lines, obvious symmetry, and smooth tweens make me smile.

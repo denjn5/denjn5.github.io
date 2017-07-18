@@ -6,13 +6,15 @@ categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-pngurl: ../images/sunburst-2.png
-htmlurl: ../d3/sunburst-2.html
-codeurl: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-2.html
-blocksurl: https://bl.ocks.org/denjn5
+
+permalink: /sunburst-2/
+png_url: ../images/sunburst-2.png
+html_url: ../d3/sunburst-2.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-2.html
+blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.pngurl }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
@@ -39,20 +41,20 @@ Do good!  _—David Richards_
 
 
 ## Live Example
-To begin, let's take a look at our [reference]({{ page.htmlurl }}) vizualization, and the [code]({{ page.codeurl }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
-<span id="codeopen">
-    <a href="{{ page.codeurl }}" target="_blank" title="open code">
+<span id="code-open">
+    <a href="{{ page.code_url }}" target="_blank" title="open code">
         <i class="fa fa-code" aria-hidden="true"></i></a>
-    <a href="{{ page.htmlurl }}" target="_blank" title="open viz">
+    <a href="{{ page.html_url }}" target="_blank" title="open viz">
         <i class="fa fa-external-link" aria-hidden="true"></i></a>
 </span>
 
-<iframe align="center" frameborder="no" border="0" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.htmlurl }}"></iframe>
+<iframe align="center" frameborder="no" marginwidth="0" marginheight="0" width="650" height="550" src="{{ page.html_url }}"></iframe>
 
 
 ## A New Font
-I'm not a fan of the default font for our sunburst labels. We'll add a style block to our html to clean it up.
+So this next part isn't strictly d3. But you'll see it often, and it's helpful to know how to use the excellent available fonts that are available. Plus, I'm not a fan of the default font for our sunburst labels. Let's add a style block to our html to gussy it up.
 
 ``` html
 <style>
