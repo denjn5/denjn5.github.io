@@ -1,29 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
     <title>{{ page.title | strip_html }}</title>
+    <meta charset="utf-8">
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-      body { font-family: 'Droid Serif'; }
-      h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
-        font-weight: normal;
-      }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+        .title-slide {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
+        body {
+            font-family: 'Droid Serif', Georgia, Serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+
+        .remark-code, .remark-inline-code {
+            font-family: 'Ubuntu Mono';
+        }
+
+        .context {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .contextLL {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .author {
+            position: absolute;
+            right: 75px;
+            color: gray;
+            font-style: italic;
+        }
+
+        .exercise {
+            color: navy;
+        }
+
+        .right-column {
+            float: right;
+            width: 47%;
+        }
+
+        .left-column {
+            float: left;
+            width: 47%;
+        }
     </style>
-  </head>
-  <body>
-    <textarea id="source">
+</head>
+<body>
+
+<textarea id="source">
+
 {{ content }}
-    </textarea>
-    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
-    </script>
-    <script type="text/javascript">
-      var slideshow = remark.create({navigation: {scroll: false,}});
-    </script>
-  </body>
+
+</textarea>
+<script src="../plugins/remark-latest.min.js">
+</script>
+<script>
+    var slideshow = remark.create({
+        ratio: '4:3',
+
+        // Navigation options
+        navigation: {
+            scroll: true,
+            touch: true,
+            click: false
+        },
+        highlightLines: true,
+        highlightStyle: 'solarized-dark',  // arta, ir-black, solarized-dark, sunburst
+
+        // Enable or disable counting of incremental slides in the slide counting
+        countIncrementalSlides: false
+    });
+</script>
+</body>
 </html>
