@@ -24,21 +24,21 @@ text {
 <script>
 
     // Variables
-    var width = 500;
-    var height = 500;
-    var radius = Math.min(width, height) / 2;
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+    var vWidth = 500;
+    var vHeight = 500;
+    var vRadius = Math.min(vWidth, vHeight) / 2;
+    var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
 
     // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
     var g = d3.select('svg')
-        .attr('width', width)
-        .attr('height', height)
+        .attr('width', vWidth)
+        .attr('height', vHeight)
         .append('g')
-        .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+        .attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');
 
     // Create our sunburst data structure and size it.
     var partition = d3.partition()
-        .size([2 * Math.PI, radius]);
+        .size([2 * Math.PI, vRadius]);
 
     // Get the data from our JSON file
     d3.json('data-simple.json', function(error, nodeData) {
@@ -70,7 +70,7 @@ text {
         slice.append('path').attr('display', function (d) { return d.depth ? null : 'none'; })
             .attr('d', arc)
             .style('stroke', '#fff')
-            .style('fill', function (d) { return color((d.children ? d : d.parent).data.id); });
+            .style('fill', function (d) { return vColor((d.children ? d : d.parent).data.id); });
 
 
         // Populate the <text> elements with our data-driven titles.

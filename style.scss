@@ -252,14 +252,14 @@ nav {
 }
 
 .post {
-  blockquote {
-    margin: 1.8em .8em;
-    border-left: 2px solid $gray;
-    padding: 0.1em 1em;
-    color: $gray;
-    font-size: 22px;
-    font-style: italic;
-  }
+  //blockquote {
+  //  margin: 1.8em .8em;
+  //  border-left: 2px solid $gray;
+  //  padding: 0.1em 1em;
+  //  color: $gray;
+  //  font-size: 22px;
+  //  font-style: italic;
+  //}
 
   .comments {
     margin-top: 10px;
@@ -288,9 +288,7 @@ footer {
 /* DAVIDS ADDS */
 /***************/
 
-//
 // social
-//
 
 #h1{
    font-size: x-large;
@@ -308,6 +306,99 @@ footer {
   vertical-align: middle;
 }
 
+// formatting
+
+// quote offset
+
+// columns
+.author {
+    position: absolute;
+    right: 75px;
+    color: gray;
+    font-style: italic;
+}
+
+.right-column {
+    float: right;
+    width: 47%;
+}
+
+.left-column {
+    float: left;
+    width: 47%;
+}
+
+// blockquote
+blockquote {
+  display: block;
+  background: WhiteSmoke;
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 15px 15px;
+  position: relative;
+  width: 70%;
+  float: right;
+
+  /*Font*/
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #666666;
+  text-align: justify;
+
+  /*Borders - (Optional)*/
+  border-left: 15px solid lightgray;
+  border-right: 2px solid lightgray;
+}
+
+blockquote.narrow {
+  width: 55%;
+}
+
+blockquote::before {
+  content: "\201C"; /*Unicode for Left Double Quote*/
+
+  /*Font*/
+  font-size: 60px;
+  font-weight: bold;
+  color: #999999;
+
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top: 4px;
+}
+
+blockquote::after{
+  /*Reset to make sure*/
+  content: "";
+}
+
+blockquote a{
+  text-decoration: none;
+  background: #eee;
+  cursor: pointer;
+  padding: 0 3px;
+  color: #c76c0c;
+}
+
+blockquote a:hover{
+ color: #666666;
+}
+
+blockquote em{
+  font-style: italic;
+}
+
+cite{
+  color: #b2b2b2;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  float: right;
+}
+
+// Davids End
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>d3 & Hierarchical Datasets</title>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        .title-slide {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
+        body {
+            font-family: 'Droid Serif', Georgia, Serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+
+        .remark-code, .remark-inline-code {
+            font-family: 'Ubuntu Mono';
+        }
+
+        .context {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .contextLL {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: 100;
+        }
+
+        .author {
+            position: absolute;
+            right: 75px;
+            color: gray;
+            font-style: italic;
+        }
+
+        .exercise {
+            color: navy;
+        }
+
+        .right-column {
+            float: right;
+            width: 47%;
+        }
+
+        .left-column {
+            float: left;
+            width: 47%;
+        }
+    </style>
+</head>
+<body>
+
+<textarea id="source">
+
+
+class: center, middle, title-slide
+.contextLL[d3-Unconf | 2017 | David Richards]
+
+# Hierarchical Datasets
+### When?&nbsp; What?&nbsp; How?
+
+
+---
+
+.context[hierarchies]
+# Our Goal?
+
+<!--- TODO: {ANIMATE} Start whole page and then shrink.   --->
+.right-column[
+<br>&nbsp;<br>
+<iframe width="400" height="500" frameborder="0" src="../d3/tree.html"></iframe>
+]
+
+By the end of this session,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you should have<br>
+a solid understanding,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and a comfort with,<br>
+hierarchical datasets<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and d3.stratify.
+
+<br>&nbsp;<br>
+
+
+* _When_ should I use them?
+* _What_ does the code look like?
+* _How_ do we work with them?
+
+
+---
+
+name: d3-examples
+.context[hierarchies]
+# Illustrating Hierarchies
+
+<!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
+
+.right-column[
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/sunburst.html"></iframe><br>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/radialtree.html"></iframe>
+]
+
+.left-column[
+<iframe width="400" height="250" frameborder="0" src="../d3/pack.html"></iframe><br>
+<iframe width="400" height="250" frameborder="0" src="../d3/treemap.html"></iframe>
+]
+
+???
+
+Radial tree is a little pathetic...
+
+
+---
+
+.context[hierarchies]
+
+# Defined
+
+[TODO: include top snipped of definition png and make this look like a definition]
+
+A hierarchical dataset is:
+1. Pyramid-like organization of ideas, people, items...
+2. With a _single_, top-level item that we call the "__root__".
+3. Every level has _one higher_ and _zero or more lower_ neighbors.
+4. Higher levels have greater inclusion, influence, or breadth.
+
+[TODO: engineering picture]
+
+???
+
+Briefly explain the hierarchical dataset. Emphasize importance of root.
+
+
+---
+
+.context[hierarchies]
+
+# Hello World Example
+
+>Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
+
+might look like this in json:
+
+
+``` json
+{
+  "name": "North America",
+  "children": [
+    { "name": "Canada" },
+    { "name": "Mexico" },
+    { "name": "United States",
+      "children": [
+        { "name": "California" },
+        { "name": "Indiana",
+          "children": [
+            { "name": "Fishers" },
+            { "name": "Carmel" },
+            { "name": "Indianapolis" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+???
+
+* Note our simple example.
+* "You can often go higher, but we'll start with just simply picking a beginning spot."
+* Note simplified "name" and "children" keys.
+
+
+---
+
+.context[when]
+# Natural hierarchies
+
+Some data is naturally hierarchical:
+
+* Location: Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
+* Company: CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
+* Filesystem: Folder ⇢ Subfolder ⇢ File
+* Book: Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
+* Family Tree: Granparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
+
+
+Some fields use hiararchies to make decisions
+
+* MECE: mutually exclusive and collectively exhaustive (_consulting_)
+* Decision Tree illustration (_data science_)
+
+
+[TODO: illustrations of MECE and/or Decision Tree]
+
+???
+
+* Not everything that seems hierarchical is: family tree
+* MECE is actually a good way to divide up complex problems and a litmus test for true hierarchy.
+
+
+<!-- #################################### -->
+<!-- ##  HIERARCHICAL  ################## -->
+<!-- #################################### -->
+---
+
+class: center, middle
+
+## Our Hierarchical Dataset in Action
+
+
+---
+
+.context[when]
+
+# Let's Create an Example Together
+
+.exercise[What are examples of naturally occurring hierarchies?]
+
+.exercise[PostIt Notes & Pencil: Draw a picture of a dataset that you want to work with that is hierarchical.]
+
+[TODO: Add a short description of what's expected]
+
+???
+
+1. Explain the exercise
+2. Give time to complete
+3. Provide Ideas:
+    * Bucket List items, divided by completed/not completed, terrifying/not terrifying
+    * Places you've visited, divided by contintent or companions
+    * Things you want to learn, divided by technology/not
+    * Upcoming projects: work/personal
+    * Cars you've owned, divided by how the relationship ended
+4. Show my example
+
+---
+
+
+
+
+---
+
+.contextLL[slides created with remark.js]
+
+# Thanks!
+
+
+<!-- TODO: Fill in more: LinkedIn (https://www.linkedin.com/in/david-richards-18545310/) and Twitter (https://twitter.com/learn_do_repeat)  -->
+
+
+</textarea>
+<script src="../plugins/remark-latest.min.js">
+</script>
+<script>
+    var slideshow = remark.create({
+        ratio: '4:3',
+
+        // Navigation options
+        navigation: {
+            scroll: true,
+            touch: true,
+            click: false
+        },
+        highlightLines: true,
+        highlightStyle: 'solarized-dark',  // arta, ir-black, solarized-dark, sunburst
+
+        // Enable or disable counting of incremental slides in the slide counting
+        countIncrementalSlides: false
+    });
+</script>
+</body>
+</html>

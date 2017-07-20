@@ -14,24 +14,20 @@ code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-2.h
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 400px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
+![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 300px;"}  In this tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But we'll limit our detailed walk-through to the 2 new features: (a) properly-rotated labels; (b) data loaded from external json file.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 2 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
 
-1. Sunburst 1: A "No Frills" Sunburst
-2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
-3. Sunburst 3: Add smooth updates and sorting
+Do good!
 
-I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
-
-Do good!  _—David Richards_
+<cite>—David Richards</cite>
 
 
 ## Tutorial Contents
-- [Live Example](#live-example)
+- [Example](#example)
 - [A New Font](#a-new-font)
 - [Get the Data](#get-the-data)
 - [Calculate Each Arc](#calculate-each-arc)
@@ -40,7 +36,7 @@ Do good!  _—David Richards_
 - [computeTextRotation Function](#computeTextRotation-function)
 
 
-## Live Example
+## Example
 To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
 <span id="code-open">
@@ -75,7 +71,7 @@ The `<style>` block creates boasts a surprisingly powerful set of tools for to e
 In the first tutorial we began with the web page and variable definitions. This time, we'll skip all of that and go right for the first new code: getting data from our *.json file.
 
 ``` javascript
-d3.json("simple-data.json", function(error, nodeData) {
+d3.json("data-simple.json", function(error, nodeData) {
         if (error) throw error;
 
     // Put the code that works with our data here.
@@ -84,7 +80,7 @@ d3.json("simple-data.json", function(error, nodeData) {
 
 d3.json is a super-simple d3 function that allows us to pull our data from a json file (d3 has other similar functions for csv, tsv, etc. files). We include the filename 2 arguments:
 
-1. "simple-data.json" (since we don't have any folder references, it assumes that this file is in the same directory as the current file)
+1. "data-simple.json" (since we don't have any folder references, it assumes that this file is in the same directory as the current file)
 2. A special _anonymous_ function that returns either an error or the data as a variable, "nodeData". All of our code that processes and presents the data typically fits within this anonymous function block.
 
 If you inspect the data.json file, you'll note that we've added some attributes (text, sentiment, source). You can ignore those for this tutorial. We'll use them in the future.
@@ -213,5 +209,5 @@ _Nice!_ You've made it through 2 tutorials (or maybe you wandered directly into 
 
 <hr>
 
-![jamestown-ships.png](../images/jamestown-ships.png)
-_(In December 1606, 144 people set sail for a 4-month, cross-Atlantic trip from London to Virginia. One of my boys and I visited the Jamestown settlement and the recreations of the ships that carried the explorers: Susan Constant, Godspeed, & Discovery.)_
+![jamestown-ships.png](../images/jamestown-ships.png)<br>
+_In December 1606, 144 people set sail for a 4-month, cross-Atlantic trip from London to Virginia. One of my boys and I visited the Jamestown settlement and the recreations of the ships that carried the explorers: Susan Constant, Godspeed, & Discovery._

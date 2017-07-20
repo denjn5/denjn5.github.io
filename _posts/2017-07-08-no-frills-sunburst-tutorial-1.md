@@ -13,23 +13,26 @@ code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.h
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 400px;'}  This tutorial is a detailed walk-through of a simple-ish 'no frills' d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating relationships in hierarchical data.
+![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'} This tutorial is a detailed walk-through of a simple-ish 'no frills' d3 Sunburst. It assumes you don't know much about html, css, svg, json, javascript, or d3. Sunbursts are great for illustrating hierarchical relationships.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org]({{ page.blocks_url }}):
+The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
 
-1. Sunburst 1: A 'No Frills' Sunburst
-2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
-3. Sunburst 3: Add smooth updates and sorting
+Do good!
 
-I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
-
-Do good!  _—David Richards_
+<cite>—David Richards</cite>
 
 ## Tutorial Contents
-- [Live Example](#live-example)
+
+<blockquote class="narrow">Don't know much about history<br>
+Don't know much biology<br>
+Don't know much about a science book,<br>
+Don't know much about the french I took...<br>
+<cite>–Sam Cooke, What A Wonderful World</cite></blockquote>
+
+- [Example](#example)
 - [The Web Page](#the-web-page)
 - [The Data](#the-data)
 - [Initialize Variables](#initialize-variables)
@@ -43,7 +46,7 @@ Do good!  _—David Richards_
     - [Add Color](#add-color)
 
 
-## Live Example
+## Example
 To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
 <span id='code-open'>
@@ -56,7 +59,7 @@ To begin, let's take a look at our [reference]({{ page.html_url }}) visualizatio
 <iframe align='center' frameborder='no' marginwidth='0' marginheight='0' width='650' height='550' src='{{ page.html_url }}'></iframe>
 
 ## The Web Page
-Create a bare-bones web page that references the d3 framework and holds our sunburst viz.
+Let's create a bare-bones web page that references the d3 framework and holds our sunburst viz.
  
 ``` html
 <head>
@@ -71,57 +74,60 @@ Create a bare-bones web page that references the d3 framework and holds our sunb
 </body>
 ```
 This very basic web page has includes 2 `<script>` sections
-1. In the `<head>`: points the browser to our d3 library.
-2. In the `<body>`: will hold all of the code shared below.
+1. The `<head>` points the browser to our d3 library (This tutorial references the master version of d3. However, I usually reference a local copy--there's nothing sadder than a broken sunburst due to a d3 update).
+2. The `<body>` will hold all of the code that actually builds our sunburst, code that is shared below.
 
 The `<body>` section also contains a `<svg>` element. This is where our d3 visualization will actually get drawn.
 
 
 ## The Data
-Create some data to be presented in our sunburst.
+We create data to be presented in our sunburst.
 
 ``` javascript
 var nodeData = {
     'id': 'TOPICS', 'children': [{
         'id': 'Topic A',
         'children': [{'id': 'Sub A1', 'size': 4}, 
-	    {'id': 'Sub A2', 'size': 4}]
+	        {'id': 'Sub A2', 'size': 4}]
     }, {
         'id': 'Topic B',
         'children': [{'id': 'Sub B1', 'size': 3}, 
-	    {'id': 'Sub B2', 'size': 3}, 
-	    {'id': 'Sub B3', 'size': 3}]
+	        {'id': 'Sub B2', 'size': 3}, 
+	        {'id': 'Sub B3', 'size': 3}]
     }, {
         'id': 'Topic C',
         'children': [{'id': 'Sub A1', 'size': 4}, 
-	    {'id': 'Sub A2', 'size': 4}]
+	        {'id': 'Sub A2', 'size': 4}]
     }]
 };
 ```
 
-JSON for a sunburst is structured as a hierarchy. This JSON contains data about 11 **nodes**. (We'll call these **arcs** when we calculate each node's size in d3 code. And we sometimes call them **slices** when we're looking at our visualization.).  The very first node is called the **root** node (in our code above: `'id': 'TOPICS'`). The root node is a sort of anchor for our data and visualization, and we often treat it differently since it's the center of or sunburst. We define each node in the above data in 1 of 2 ways:
+JSON for a sunburst is structured as a hierarchy. This JSON contains data for 11 **nodes**. (We'll call them **arcs** when we calculate each node's size in d3 code. And we sometimes call them **slices** when we're looking at our visualization.).  The very first node is called the **root** node (in our code above: `'id': 'TOPICS'`). The root node is critical for hierarchical visualizations, and there can only be one root. It's a sort of anchor for our data and visualization; and we often treat it differently since it's the center of or sunburst. We define each node in the above data in 1 of 2 ways:
 
-1. `{ 'id': 'abc', 'children': [] }` describes a node that has children. Size isn't defined for these nodes, because it'll be adopted (calculated by d3) based on children nodes. Children will either be more nodes like this one, with children of their own, or nodes with a 'size' when it has no children.
+1. `{ 'id': 'abc', 'children': [] }` describes a node that has children. Size isn't defined for these nodes, because that will be adopted (calculated by d3) based on that node's children nodes (e.g., if a node has 2 children of size 3 and size 5, it will have a size of 8). Children nodes can be more nodes like this one, with children of their own, or nodes that have a 'size', but no children.
 
 2. `{ 'id': 'xyz', 'size': 4 }` describes an end node with no children. The hierarchy does not need to be symmetrical in any way if.  Nodes can have differing numbers of children, or have 'sibling' nodes that have no children at all).
 
-  
+(NOTE: We've made some simplifying rules for this tutorial that won't always hold true.)
+
+
 ## Initialize Variables
 We'll set variables for common values here at the top.
 ``` javascript
-var width = 500;  // <-- 1
-var height = 500;
-var radius = Math.min(width, height) / 2;  // < -- 2
-var color = d3.scaleOrdinal(d3.schemeCategory20b);   // <-- 3
+var vWidth = 500;  // <-- 1
+var vHeight = 500;
+var vRadius = Math.min(vWidth, vHeight) / 2;  // < -- 2
+var vColor = d3.scaleOrdinal(d3.schemeCategory20b);   // <-- 3
 ```
 
-We'll set 4 variables that we can use throughout our code:
-1. `var width = 500` creates a variable set to 500; it does not actually set the width of anything, yet. Below we'll apply this variable to the `<svg>` element's width attribute. We could set width directly (`<svg width=500>`). But we'll use this values a few times. If we coded it directly, we'd then need to change each occurrences every time. Mistakes will happen.
+We'll set 4 variables that we can use throughout our code. I begin each variable name with a lower-case _v_ (for "visualization") to clarify the difference between our locally set variables and official language commands or settings (which use these same names).
 
-2. `var radius = Math.min(width, height) / 2` determines which is smaller (the `min`), the width or height. Then it divides that value by 2 (since the radius is 1/2 of the circle's diameter). Then we store that value as our radius. This optimizes the size of our viz within the `<svg>` element (since we don't want to leak past the edges, but we also don't want a bunch of wasted white space). Since width and height are both 500, the radius variable will equal 250.
+1. `var vWidth = 500` creates a variable set to 500; it does not actually set the width of anything, yet. Below we'll apply this variable to the `<svg>` element's width attribute. We could set width directly (`<svg width=500>`). But we'll use this values a few times. If we coded it directly, we'd then need to change each occurrences every time. Mistakes will happen.
+
+2. `var vRadius = Math.min(vWidth, vHeight) / 2` determines which is smaller (the `min`), the width or vHeight. Then it divides that value by 2 (since the radius is 1/2 of the circle's diameter). Then we store that value as our radius. This optimizes the size of our viz within the `<svg>` element (since we don't want to leak past the edges, but we also don't want a bunch of wasted white space). Since width and height are both 500, the vRadius variable will equal 250.
 
 3. `d3.scaleOrdinal`: d3 scales help us map our data to something in our visual. Outside of d3, *ordinal scales* indicate the direction of the underlying data and provide nominal information (e.g., low, medium, high). In the same way, scaleOrdinal in d3 allows us to relate a part of our data to something that has a series of named values (like an array of colors). 
-    * `schemeCategory20b` is a d3 command that returns an array of colors. d3 has several similar options that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ('color') that will return a rainbow of options for our sunburst.
+    * `schemeCategory20b` is a d3 command that returns an array of colors. d3 has several similar options that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ('vColor') that will return a rainbow of options for our sunburst.
 
 
 ## Set up our SVG Workspace
@@ -129,21 +135,21 @@ Begin by getting a handle on our SVG and beginning to get things set up.
 
 ``` javascript
 var g = d3.select('svg')  // <-- 1
-    .attr('width', width)  // <-- 2
-    .attr('height', height)
+    .attr('width', vWidth)  // <-- 2
+    .attr('height', vHeight)
     .append('g')  // <-- 3
     .attr('transform', 
-        'translate(' + width / 2 + ',' + height / 2 + ')');  // <-- 4
+        'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');  // <-- 4
 ```
 
 1. `d3.select('svg')` selects our `<svg></svg>` element so that we can work with it. The `d3.select()` command finds the first element (and only the first, if there are multiple) that matches the specified string. If the select command does not find a match, it returns an empty selection. 
 
-2. `.attr('width', width)` sets the width attribute of our `<svg>` element.
+2. `.attr('width', vWidth)` sets the width attribute of our `<svg>` element.
 
 3. `.append('g')` adds a `<g>` element to our SVG. `<g>` does not do much directly, it's is a special SVG element that acts as a container; it groups other SVG elements. And transformations applied to the `<g>` element are performed on all of its child elements. And its attributes are inherited by its children. That'll be helpful later.
 
-4. `.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's `transform` attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system ([Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics). For now, we'll simply say that we'll use this transform attribute to move the 'center' [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
-    * `'translate(' + width / 2 + ',' + height / 2 + ')'` resolves to `translate(250, 250)`. This command moves our coordinate system (for `<g>`) 250 units right (x-axis) and 250 units down (y-axis). 
+4. `.attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')')` sets the value for the `transform` attribute (as we did with `width` above). SVG's `transform` attribute allows us to scale, translate (move), and rotate our `<g>` element (and it's children). There's a longer conversation to be had about the SVG coordinate system ([Sara Soueidan's article](https://sarasoueidan.com/blog/svg-transformations/) helps clarify the mechanics). For now, we'll simply say that we'll use this transform attribute to move the 'center' [0,0] of our `<g>` element from the upper-left to the actual center of our `<svg>` element:
+    * `'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')'` resolves to `translate(250, 250)`. This command moves our coordinate system (for `<g>`) 250 units right (x-axis) and 250 units down (y-axis).
 
 
 ### Method Chaining & the HTML
@@ -151,11 +157,11 @@ var g = d3.select('svg')  // <-- 1
 
 ``` javascript
 var g = d3.select('svg')  // returns a handle to the <svg> element
-    .attr('width', width)  // sets the width of <svg> and then returns the <svg> element again
-    .attr('height', height)  // (same as width)
+    .attr('width', vWidth)  // sets the width of <svg> and then returns the <svg> element again
+    .attr('height', vHeight)  // (same as width)
     .append('g')  // adds a <g> element to the <svg> element, and returns the <g> element
     .attr('transform', 
-        'translate(' + width / 2 + ',' + height / 2 + ')');  
+        'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');  
         // takes the <g> element and moves the [0,0] center over and down
 ```
 Method chaining is key to understanding what's going on in most all d3 code. To fully 'get' the meaning of a code block, we must understand both what the method does and what it returns. (Want more? See Scott Murray's [Chaining methods](http://alignedleft.com/tutorials/d3/chaining-methods) article.)
@@ -163,11 +169,11 @@ Method chaining is key to understanding what's going on in most all d3 code. To 
 Another way to think about the progression of our d3 is to see our html elements grow through each step. Thinking about the same 1-5 steps above, we'd see the following happen:
 ``` javascript
 var g = d3.select('svg')  // --> <svg></svg>
-    .attr('width', width)  // --> <svg width='500'></svg>
-    .attr('height', height)  // --> <svg width='500' height='500'></svg>
+    .attr('width', vWidth)  // --> <svg width='500'></svg>
+    .attr('height', vHeight)  // --> <svg width='500' height='500'></svg>
     .append('g')  // --> <svg width='500' height='500'><g></g></svg>
     .attr('transform', 
-        'translate(' + width / 2 + ',' + height / 2 + ')');  
+        'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');  
         // --> <svg width='500' height='500'><g transform='translate(250,250)'></g></svg>
 ```
 
@@ -176,7 +182,7 @@ Like we prepped our SVG above, we'll create a space for our data to go that's sp
 
 ``` javascript
 var partition = d3.partition()  // <-- 1
-    .size([2 * Math.PI, radius]);  // <-- 2
+    .size([2 * Math.PI, vRadius]);  // <-- 2
 ```
 
 1. The `partition` command is a special tool that will help organize our data into the sunburst pattern, and ensure things are properly sized (e.g., that we use all 360 degrees of the circle, and that each slice is sized relative to the other slices.) So far, this is about structure, since we haven't linked it to our actual data yet.
@@ -235,7 +241,7 @@ var arc = d3.arc()  // <-- 2
 We've got a palette (the SVG), data, and some calculated arcs. Let's put it all together and create our sunburst. And then give it some color.  This is a long section. But it's all one connected series of steps.
 
 ### Draw Our Sunburst
-Let's talk about the first 6 lines of this code block.
+Let's talk about the first 6 lines of this code block. It's a lot to take in, but these 6 commands act as a unit to get our sunburst on the page. So stick with me and we'll make it through together.
 ``` javascript
 g.selectAll('path')  // <-- 1
     .data(root.descendants())  // <-- 2
@@ -276,16 +282,16 @@ g.selectAll('path')
     .attr('d', arc) 
     .style('stroke', '#fff')  // <-- 1
     .style('fill', function (d) { 
-        return color((d.children ? d : d.parent).data.name); });  // <-- 2
+        return vColor((d.children ? d : d.parent).data.name); });  // <-- 2
 ```
 
 Let's add some color:
 
 1. `.style('stroke', '#fff')` add `style='stroke: rgb(255, 255, 255);'` to our `<path>` element. Now the lines between our slices are white.
 
-2. `.style('fill', function (d) { return color((d.children ? d : d.parent).data.name); })` combines the `color` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
+2. `.style('fill', function (d) { return vColor((d.children ? d : d.parent).data.name); })` combines the `vColor` variable we defined at the beginning (which returns an array of colors that we can step through) with our data.
     * `(d.children ? d : d.parent)` is a javascript inline if in the form of (condition ? expr1 : expr2) that says, if the current node has children, return the current node, otherwise, return its parent. 
-    * That node's name will be passed to our color variable and then returned to the style attribute within each `<path>` element.
+    * That node's name will be passed to our vColor variable and then returned to the style attribute within each `<path>` element.
 
 In the end, this section of our HTML will look something like this (ellipsis indicates details that I haven't included):
 ``` html
@@ -302,5 +308,5 @@ _Voilà!_ Great job on creating your first, well-understood, hierarchical visual
 
 Or maybe we should kayak...
 
-![kayaking.png](../images/kayaking.png)
-_(Independence Day evening with the family kayaking on the water to see fireworks.)_
+![kayaking.png](../images/kayaking.png)<br>
+_Independence Day evening with the family kayaking on the water to see fireworks._

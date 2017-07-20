@@ -27,22 +27,22 @@
     };
 
     // Variables
-    var width = 500;
-    var height = 500;
-    var radius = Math.min(width, height) / 2;
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+    var vWidth = 500;
+    var vHeight = 500;
+    var vRadius = Math.min(vWidth, vHeight) / 2;
+    var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
 
     // Create primary <g> element
     var g = d3.select('svg')
-        .attr('width', width)
-        .attr('height', height)
+        .attr('width', vWidth)
+        .attr('height', vHeight)
         .append('g')
         .attr('transform',
-            'translate(' + width / 2 + ',' + height / 2 + ')');
+            'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');
 
     // Data Structure
     var partition = d3.partition()
-        .size([2 * Math.PI, radius]);
+        .size([2 * Math.PI, vRadius]);
 
     // Find data root
     var root = d3.hierarchy(nodeData)
@@ -68,5 +68,5 @@
         .attr('d', arc)
         .style('stroke', '#fff')
         .style('fill', function (d) {
-            return color((d.children ? d : d.parent).data.id); });
+            return vColor((d.children ? d : d.parent).data.id); });
 </script>

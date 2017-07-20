@@ -9,44 +9,49 @@ FIXME: {COLUMNS} Use .right-column instead of tables
 
 CONSIDER: {RANDOM} Randomly growing viz?
 
+Hey Ian,
+Here's an updated outline. Each bullet is a presentation page (usually).
+* It's shorter. Still too long?  If so, thoughts on what I should cut?
+* PostIts idea is great. Let's use 4 colors: root/red; 2nd-level/blue; 3rd-level/yellow. That'll help solidify the single root and help folks see the transition from hierarchical JSON to tabular and back (I hope).
+* I've started building the presentation:
 
-OUTLINE
-* Introduction [8 minutes]
-    * Goal
-    * Ways to Illustrate Hierarchies [chart examples]
-    * Defined [what makes a hierarchical dataset]
-    * Hello World [show simple dataset]
-* Hierarchical Example [20 minutes]
-    * Develop one together [use postits]
-        * Show them my PostIts [cars|owned:bmw,pilot,honda|traded:chevette|learned:odyssey(trailers are heavy),maxima(look twice before turning left)]
-    * Bring it to life
-        * Chart
-        * JSON
-        * Code:
-            * RTDs (d3.hierarchy)
-            * Get
-            * Root
-            * Parse
-* Tabular Example (stratify) [20 minutes]
-    * Re-arrange example
-    * Show them my PostIts
-        * Data Requirements (hierarchical, unique names)
-    * Show d3.stratify code example
-    * Show how it comes to life
-        * Chart
-        * JSON
-        * Code:
-            * RTDs (d3.stratify)
-            * Get
-            * Root
-            * Parse
-    * Code Diff?
-* Extras [time permitting]
-    * JSON Arrays vs. Objects
-    * Charts extend naturally with new data once the foundation is layed
-    * Easy Move to Links / Force
+
+Outline:
+* Introduction [10 minutes; pic: complex tree]
+    * What's our Goal? [engineering pic]
+    * How do we Illustrating Hierarchies? [several pages: zip through of coffee, tree of life, etc.; end with simple chart examples, no labels]
+    * What is a Hierarchy? [definition: what makes a hierarchical dataset?]
+    * Hello World [show simple dataset in json; call-out (don't explain) javascript arrays and objects]
+    * Natural Hierarchies?
+* Let's make our own viz [20 minutes; pic: PostIt's]
+    * Let's create a PostIt note hierarchy together [my example; use colors]
+    * What's the JSON look like? [show]
+    * And our chart? [tree, sunburst, pack; with labels]
+    * Can you show me the simplest possible code example? [~55-line tree; mention layout, root, nodes/links]
+* But our data doesn't look like that. [20 minutes, pic: row of palm trees]
+    * Let's lay our PostIts out like our data. [rebuild in tabular format; show, short explanation of the 'hidden' hierarchy and importance of unique names]
+    * And our chart? ['same' charts (using new data behind the scenes; tree, sunburst, pack; with labels]
+    * How does this change our code? [d3.stratify; show multi-root error]
+    * Adding data is now super easy. [show new data in csv (my lessons); and our updated chart]
+* Cool extras [5 minutes]
+    * Can we show this as a Force chart? Yes! [.links()]
+    * [time permitting] Which are the key docs? [d3.hierarchy]
+    * [time permitting] Slide on d3.linkHorizontal() [way better than writing manaul path / line]
+
+My example hierarchy:
+* my cars
+    * owned
+        * bmw
+        * pilot
+        * honda
+    * traded
+        * chevette
+    * lessons learned
+        * odyssey
+        * maxima
 
 ***********************
+
 
 
 linkRadial???

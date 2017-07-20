@@ -14,25 +14,20 @@ code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.h
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 400px;'}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
+![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 3 -->
 
-Each tutorial builds on the previous one, adding new features. I strive to explain every line, and each concept within the line. If I don't explain it, or explain it well, it may be covered in a previous tutorial. Titled sections begin with a code block and then the explanation. You can also view this series on [bl.ocks.org](https://bl.ocks.org/denjn5):
+The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
 
+Do good!
 
-1. Sunburst 1: A 'No Frills' Sunburst
-2. Sunburst 2: Add Labels & an external json file to our basic sunburst.
-3. Sunburst 3: Add smooth updates and sorting
-
-I hope that these posts will help you extend your skills, solve a problem in your own code, or build something that you're proud of. I welcome your ideas.
-
-Do good!  _—David Richards_
+<cite>—David Richards</cite>
 
 
 ## Tutorial Contents
-- [Live Example](#live-example)
+- [Example](#example)
 - [Make Labels 'Non-Selectable'](#make-labels-non-selectable)
 - [Format Our Page](#format-our-page)
 - [Sort the Slices](#sort-the-slices)
@@ -43,7 +38,7 @@ Do good!  _—David Richards_
 - [The 'Tween' Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
 - [The 'Tween' Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
-## Live Example
+## Example
 To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
 
 <span id='code-open'>
@@ -119,7 +114,7 @@ arc = d3.arc()
 ```
 
 We've made a couple of small updates to our d3.arc functions below. Down below we'll be 'tweening' (animating a change from one state to the next) our sunburst. At each small step of the animation, we need to know what our startAngle (x0) and endAngle (x1) were originally (so that when we re-calculate arc, we have a starting point. We've added:
-* `d.x0s = d.x0` to our startAngle function. The creates a new attribute in each data node named x0s. The new x0s element contains our startAngle so that we'll have it later.
+* `d.x0s = d.x0` to our startAngle function. This creates a new attribute in each data node named x0s. The new x0s element contains our startAngle so that we'll have it later.
 * `d.x1s = d.x1` to our endAngle function. It'll also help use later when we're tweening.
 
 Also, we dropped the `var` prefix for our arc variable. The scope of a variable declared with var is its current execution context (e.g., enclosing function). Dropping var makes it visible outside of the `d3.json()` call. This allows us to place functions that use arc at the bottom for cleaner code.
