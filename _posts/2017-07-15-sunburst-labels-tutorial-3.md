@@ -33,7 +33,7 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 ## Tutorial Contents
 - [Summary](#summary)
     - [Just the Code](#just-the-code)
-- [Draw a Slice for Each Node](#draw-a-slice-for-each-node)
+- [Use g Instead of path](#use-g-instead-of-path)
 - [Add Labels](#add-labels)
 - [computeTextRotation Function](#computeTextRotation-function)
 
@@ -117,7 +117,7 @@ All of the juicy details about what and why are below.
 
 ---
 
-## Use <g> instead of <path>
+## Use g Instead of path
 Beginning in our _Layout_ code block, we append a "container" `<g>` element for each node in our data (previously we'd appended `<path>` elements).  Then we'll stash our path elements with the g elements.
 
 ``` javascript
