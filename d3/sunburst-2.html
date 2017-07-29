@@ -3,87 +3,54 @@
     <title>Sunburst Tutorial (d3 v4), Part 2</title>
     <script src='../plugins/d3/d3.v4.min.js'></script>
 </head>
-<style>
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-
-body {
-  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-</style>
 <body>
     <svg></svg>
 </body>
 
 <script>
-
-    // Variables
-    var vWidth = 500;
-    var vHeight = 500;
+    var vWidth = 300;
+    var vHeight = 300;
     var vRadius = Math.min(vWidth, vHeight) / 2;
     var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
 
-    // Size our <svg> element, add a <g> element, and move translate 0,0 to the center of the element.
+    // Prepare our physical space
     var g = d3.select('svg')
-        .attr('width', vWidth)
-        .attr('height', vHeight)
+        .attr('width', vWidth).attr('height', vHeight)
         .append('g')
         .attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');
 
-    // Create our sunburst data structure and size it.
-    var partition = d3.partition()
-        .size([2 * Math.PI, vRadius]);
+    // d3 layout
+    var vLayout = d3.partition().size([2 * Math.PI, vRadius]);
+    var vArc = d3.arc()
+        .startAngle(function (d) { return d.x0; })
+        .endAngle(function (d) { return d.x1; })
+        .innerRadius(function (d) { return d.y0; })
+        .outerRadius(function (d) { return d.y1; });
 
     // Get the data from our JSON file
-    d3.json('data-simple.json', function(error, nodeData) {
+    d3.json('data-simple.json', function(error, vData) {
         if (error) throw error;
-
-        // Find the root node of our data, and begin sizing process.
-        var root = d3.hierarchy(nodeData)
-            .sum(function (d) { return d.size});
-
-        // Calculate the sizes of each arc that we'll draw later.
-        partition(root);
-        var arc = d3.arc()
-            .startAngle(function (d) { return d.x0 })
-            .endAngle(function (d) { return d.x1 })
-            .innerRadius(function (d) { return d.y0 })
-            .outerRadius(function (d) { return d.y1 });
-
-
-        // Add a <g> element for each node in thd data, then append <path> elements and draw lines based on the arc
-        // variable calculations. Last, color the lines and the slices.
-        g.selectAll('g')
-            .data(root.descendants())
-            .enter().append('g').attr('class', 'node').append('path')
-            .attr('display', function (d) { return d.depth ? null : 'none'; })
-            .attr('d', arc)
-            .style('stroke', '#fff')
-            .style('fill', function (d) { return vColor((d.children ? d : d.parent).data.id); });
-
-
-        // Populate the <text> elements with our data-driven titles.
-        g.selectAll('.node')
-            .append('text')
-            .attr('transform', function(d) {
-                return 'translate(' + arc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
-            .attr('dx', '-20') // radius margin
-            .attr('dy', '.5em') // rotation align
-            .text(function(d) { return d.parent ? d.data.id : '' });
-
+        drawSunburst(vData);
     });
 
 
     /**
-     * Calculate the correct distance to rotate each label based on its location in the sunburst.
-     * @param {Node} d
-     * @return {Number}
+     * Draw our sunburst
+     * @param {object} data - Hierarchical data
      */
-    function computeTextRotation(d) {
-        var angle = (d.x0 + d.x1) / Math.PI * 90;
+    function drawSunburst(data) {
+        // Layout prep
+        var vRoot = d3.hierarchy(data).sum(function (d) { return d.size});
+        var vNodes = vRoot.descendants();
+        vLayout(vRoot);
+        var vSlices = g.selectAll('path').data(vNodes).enter().append('path');
 
-        // Avoid upside-down labels
-        return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
-        //return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+        // Draw sunburst
+        vSlices
+            .attr('display', function (d) { return d.depth ? null : 'none'; })
+            .attr('d', vArc)
+            .style('stroke', '#fff')
+            .style('fill', function (d) {
+                return vColor((d.children ? d : d.parent).data.id); });
     }
-
 </script>

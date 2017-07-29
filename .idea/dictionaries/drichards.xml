@@ -3,9 +3,11 @@
     <words>
       <w>alignedleft</w>
       <w>betterexplained</w>
+      <w>blockquote</w>
       <w>cmgiven</w>
       <w>datasets</w>
       <w>denjn</w>
+      <w>diffchecker</w>
       <w>frameborder</w>
       <w>googleapis</w>
       <w>iframe</w>
@@ -19,7 +21,11 @@
       <w>raleway</w>
       <w>sarasoueidan</w>
       <w>soueidan</w>
+      <w>stackoverflow</w>
       <w>svg</w>
+      <w>trussel</w>
+      <w>usejsdoc</w>
+      <w>wikipedia</w>
     </words>
   </dictionary>
 </component>

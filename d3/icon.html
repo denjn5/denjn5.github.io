@@ -8,10 +8,12 @@
 </body>
 
 <script>
-    var vWidth = 300;
-    var vHeight = 300;
-    var vRadius = Math.min(vWidth, vHeight) / 2;
+    var vWidth = 60;
+    var vHeight = 60;
+    var vMargin = 2;
+    var vRadius = Math.min(vWidth, vHeight) / 2 - vMargin;
     var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
+    var vColor2 = d3.scaleOrdinal(d3.schemeCategory10);
     var vData = {
         'id': 'TOPICS', 'children': [{
             'id': 'Topic A',
@@ -27,28 +29,42 @@
 
     // Prepare our physical space
     var g = d3.select('svg')
-        .attr('width', vWidth).attr('height', vHeight)
+        .attr('width', vWidth)
+        .attr('height', vHeight)
         .append('g')
         .attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');
 
     // d3 layout
-    var vLayout = d3.partition().size([2 * Math.PI, vRadius]);
-    var vArc = d3.arc()
+    var partitionLayout = d3.partition()
+        .size([2 * Math.PI, vRadius]);
+
+    // Find data root
+    var root = d3.hierarchy(vData)
+        .sum(function (d) { return d.size });
+
+    // Size arcs
+    partitionLayout(root);
+    var arc = d3.arc()
         .startAngle(function (d) { return d.x0; })
         .endAngle(function (d) { return d.x1; })
         .innerRadius(function (d) { return d.y0; })
         .outerRadius(function (d) { return d.y1; });
 
-    // Layout prep
-    var vRoot = d3.hierarchy(vData).sum(function (d) { return d.size });
-    var vNodes = vRoot.descendants();
-    vLayout(vRoot);
-    var vSlices = g.selectAll('path').data(vNodes).enter().append('path');
+    // Put it all together
+    var c = d3.schemeCategory20b[ Math.random() * 20 | 0];
+    g.selectAll('path')
+        .data(root.descendants())
+        .enter().append('path')
+        .attr('display', function (d) { return d.depth ? null : 'none'; })
+        .attr('d', arc)
+        .style('stroke', '#000')
+        .style('fill', '#fff')
+        .each(function(d, i) {
+            id = (d.children ? d : d.parent).data.id;
+            d3.select(this).transition().duration( i * 200)
+            .style('fill', c)
+            .transition().duration( 1000)
+            .style('fill', '#fff')
+        });
 
-    // Draw sunburst
-    vSlices.filter(function(d) { return d.parent; })
-        .attr('d', vArc)
-        .style('stroke', '#fff')
-        .style('fill', function (d) {
-            return vColor((d.children ? d : d.parent).data.id); });
 </script>

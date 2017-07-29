@@ -1,35 +1,40 @@
 ---
 layout: post
-title: Sorting & Updating (d3 Sunburst Tutorial 3)
-date: 2017-07-22
+title: Sunburst Smooth Updates with Labels (Tutorial 5)
+date: 2017-07-24
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
 
-permalink: /sunburst-3/
-png_url: ../images/sunburst-3.png
-html_url: ../d3/sunburst-3.html
-code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.html
+permalink: /sunburst-4/
+png_url: ../images/sunburst-4.png
+html_url: ../d3/sunburst-4.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
+
+old_permalink: /sunburst-3/
+old_html_url: ../d3/sunburst-3.html
+old_code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.html
+
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'}  In this tutorial we'll begin with our Tutorial 2 Sunburst and add just 2 features: (a) sort slices by size; (b) smooth updating based on user input.
+![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'}  In this tutorial we'll begin with our Tutorial 3 Sunburst and make our sunburst updatable.
 
 <!--more-->
-<!--- Sunburst Tutorial (d3 v4), Part 3 -->
 
 The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
 
-Do good!
+I hope this tutorial helps you deepen your d3 visualization skills. If it does that, or if you have an idea about how to improve something below, let me know in the comments section. Do good!
 
 <cite>—David Richards</cite>
 
 
 ## Tutorial Contents
-- [Example](#example)
+- [Summary](#summary)
+    - [Just the Code](#just-the-code)
 - [Make Labels 'Non-Selectable'](#make-labels-non-selectable)
-- [Format Our Page](#format-our-page)
+- [Add Radio Button](#add-radio-button)
 - [Sort the Slices](#sort-the-slices)
 - [Store Begin States](#store-begin-states)
 - [Slice Variable](#slice-variable)
@@ -38,43 +43,47 @@ Do good!
 - [The 'Tween' Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
 - [The 'Tween' Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
 
-## Example
-To begin, let's take a look at our [reference]({{ page.html_url }}) visualization, and the [code]({{ page.code_url }}) behind it. I find it helpful to keep the code and this tutorial open side-by-side.
+## Summary
+In this tutorial, we move from a plain sunburst, to one that has labels. (Tips: Keep the raw code open in a separate tab. Do a code compare between tutorial 1 and 2.)
 
-<span id='code-open'>
-    <a href='{{ page.code_url }}' target='_blank' title='open code'>
-        <i class='fa fa-code' aria-hidden='true'></i></a>
-    <a href='{{ page.html_url }}' target='_blank' title='open viz'>
-        <i class='fa fa-external-link' aria-hidden='true'></i></a>
-</span>
+<table class="center">
+<tr>
+    <td class="center">Old: <b>Now we have labels</b>&nbsp;&nbsp;
+            <a href="{{ page.old_permalink }}" target="_blank" title="open previous tutorial">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
+            <a href="{{ page.old_code_url }}" target="_blank" title="open code">
+                <i class="fa fa-code" aria-hidden="true"></i></a>
+            <a href="{{ page.old_html_url }}" target="_blank" title="open viz">
+                <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+    <td></td>
+    <td class="center">New: <b>Smooth updates</b>&nbsp;&nbsp;
+            <a href="{{ page.code_url }}" target="_blank" title="open code">
+                <i class="fa fa-code" aria-hidden="true"></i></a>
+            <a href="{{ page.html_url }}" target="_blank" title="open viz">
+                <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+</tr>
+<tr>
+    <td class="center"><iframe width="325" height="350" src="{{ page.old_html_url }}"></iframe></td>
+    <td class="center"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></td>
+    <td class="center"><iframe width="325" height="350" src="{{ page.html_url }}"></iframe></td>
+</tr>
+</table>
 
-<iframe align='center' frameborder='no' marginwidth='0' marginheight='0' width='650' height='550' src='{{ page.html_url }}'></iframe>
+### Just the Code
+The tl;dr version of this tutorial:
 
 
-## Make Labels 'Non-Selectable'
-In Tutorial 2, the label text was selectable.  That'll get annoying as we're clicking around on an interactive viz. We've added a line to our CSS to avoid that.
 
-``` html
-<style>
-text { pointer-events: none; }  /* Make text 'non selectable' */
-</style>
-```
+---
 
-The new style directive `text { pointer-events: none; }` tells our page that whatever is in the `<text>` element is not selectable with the mouse-pointer
-
-
-## Format Our Page
+## Add Radio Button
 We'll begin by dividing our page into 2 sections (main on the left, and sidebar on the right) and use the CSS style section to tell the browser how big each section is.
 
 ``` html
 <body>
   <svg></svg>
-  <label>
-    <input class='sizeSelect' type='radio' name='sizeSelect' value='size' checked /> Size
-  </label>
-  <label>
-    <input class='sizeSelect'  type='radio' name='sizeSelect' value='count' /> Count
-  </label>
+  <label><input class='sizeSelect' type='radio' name='sizeSelect' value='size' checked /> Size</label>
+  <label><input class='sizeSelect' type='radio' name='sizeSelect' value='count' /> Count</label>
 </body>
 ```
 
@@ -91,6 +100,7 @@ Enclosing the input element and related label with a label element (`<label><inp
 
 The 2nd line is nearly identical to the first.  It creates the 'Count' radio button.
 
+---
 
 ## Sort the Slices
 We've defined root just like this since Tutorial 1. Now we'll sort each slice by it's calculated value.
@@ -102,6 +112,8 @@ var root = d3.hierarchy(nodeData)
 ```
 
 The new line above, `.sort(function(a, b) { return b.value - a.value; })`, sorts each node in comparison to its siblings using the requested comparison. In our case, we're comparing the 'value' attribute that we just created for each node in .sum() above (See Tutorial 1 for a refresher here). Unlike our normal data-processing function (e.g., the one in the .sum() command), the compare function needs two nodes’ data (a and b). [Node.Sort](https://github.com/d3/d3-hierarchy/blob/master/README.md#node_sort) provides more details about how this function works.
+
+---
 
 ## Store Begin States
 Later in our code we'll animate a transition between our sunburst's current state and a new state. In order to do that, we need to know both the start and finish states. We've made a small adjustment to our arc equation to save the 'start' states for our angles.
@@ -119,6 +131,7 @@ We've made a couple of small updates to our d3.arc functions below. Down below w
 
 Also, we dropped the `var` prefix for our arc variable. The scope of a variable declared with var is its current execution context (e.g., enclosing function). Dropping var makes it visible outside of the `d3.json()` call. This allows us to place functions that use arc at the bottom for cleaner code.
 
+---
 
 ## Slice Variable
 We'd like to create a handle for the g elements that contain each slice in our viz. We'll refer to this group of elements often. So we've taken what was a single block and broken it into two.
@@ -137,6 +150,8 @@ slice.append('path').attr('display', function (d) {
 ```
 
 Above we create a _slice_ variable that references our <g class='node'> elements.  Then we start with that when we add our <path> elements. We'll use _slice_ often.
+
+---
 
 ## Get User Input; Recalculate the Sunburst
 We'd like to update our Sunburst based on user input. By default, our node slices are sized based on the 'size' attribute within each node (well, it's our default because we built the sunburst that way).  Now we'd like an alternate presentation where the slices are sized based only on the count of child nodes. Happily, we can use d3 to handle web page interaction and events (beyond pure visualization work).
@@ -175,6 +190,8 @@ Let's break down each line above and see what it does:
 
 6. `partition(root)` updates the node value calculations for each arc.  Now we're ready to actually update the visible sunburst on the screen, which means we'll need to update both the slice paths <path d=''> and the label location and rotation (as part of the <text> element). There's a lot happening in these lines, so lets break it into parts...
 
+---
+
 ## Redraw the Sunburst
 Here's our function from the last section, but we're only showing the last couple of lines.
 
@@ -205,6 +222,7 @@ Once again, JavaScript chaining means that we've got a lot going on in a little 
     1. `.selectAll('text')` indicates that it's acting on our <text> element.
     2. `.attrTween('transform', arcTweenText)` tells d3 that we're tweening the 'transform' attribute of the text element (e.g., `<text transform='...'>`).  And we'll use arcTweenText to make the calculations -- d3 calls this our tween factory.
 
+---
 
 ## The 'Tween' Factory that Animates the Arc Update
 The arcTweenPath function gets called one time for each node in our sunburst. It's job is to return a new function (tween) that gets run a bunch of times in rapid succession. tween's job is to recalculate the startAngle (x0) and endAngle (x1) incrementally, moving from the 'old' value to the 'new' value.
@@ -239,6 +257,7 @@ function arcTweenPath(a) {
 
 6. return tween sends the newly created tween function back to `attrTween()` so that it can do all of the great work we talked about above.
 
+---
 
 ## The 'Tween' Factory that Animates the Text Location and Rotation
 The arcTweenText function operate nearly identically to arcTweenPath, and shares most of the same lines.  However, instead of recreating the arc path repeatedly this will recreate the text transform attribute repeatedly.
@@ -260,4 +279,3 @@ The only different line in arcTweenText (from arcTweenPath) is `return 'translat
 
 _Excellent!_ You've made it through 3 tutorials (right?). I'm hoping that you now have a much better handle on d3 interpolators and tweening. I certainly do. 
 
-<hr>

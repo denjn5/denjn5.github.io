@@ -22,6 +22,9 @@ path {
 </style>
 <body>
     <svg></svg>
+    <br>
+    Size: <label><input class='sizeSelect' type='radio' name='sizeSelect' value='size' checked /> Size</label>
+    <label><input class='sizeSelect'  type='radio' name='sizeSelect' value='count' /> Count</label><br>
 </body>
 
 <!-- Label / CSS Improvements:
@@ -90,6 +93,23 @@ path {
             .attr('dx', '-20')
             //.attr('dy', '.5em')
             .text(function(d) { return d });
+
+                // Redraw the Sunburst Based on User Input
+        d3.selectAll('.sizeSelect').on('click', function(r) {
+
+            // Determine how to size the slices.
+            if (this.value === 'size') {
+              vRoot.sum(function (d) { return d.size; });
+            } else {
+              vRoot.count();
+            }
+            vRoot.sort(function(a, b) { return b.value - a.value; });
+
+            vLayout(vRoot);
+
+            vSlices.selectAll('path').transition().duration(750).attrTween('d', arcTweenPath);
+            vSlices.selectAll('text').transition().duration(750).attrTween('transform', arcTweenText);
+        });
     }
 
 
@@ -119,5 +139,41 @@ path {
         // Avoid upside-down labels
         return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
         //return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+    }
+
+
+    /**
+     * When switching data: interpolate the arcs in data space.
+     * @param {Node} a
+     * @return {Number}
+     */
+    function arcTweenPath(a) {
+
+        var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
+
+        function tween(t) {
+            var b = oi(t);
+            a.x0s = b.x0;
+            a.x1s = b.x1;
+            return vArc(b);
+        }
+
+        return tween;
+    }
+
+
+    /**
+     * When switching data: interpolate the text centroids and rotation.
+     * @param {Node} a
+     * @return {Number}
+     */
+    function arcTweenText(a) {
+
+        var oi = d3.interpolate({ x0: a.x0s, x1: a.x1s }, a);
+        function tween(t) {
+            var b = oi(t);
+            return 'translate(' + vArc.centroid(b) + ')rotate(' + computeTextRotation(b) + ')';
+        }
+        return tween;
     }
 </script>

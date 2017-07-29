@@ -10,7 +10,8 @@ name: The Astonishing Sunburst
 description: Sunbursts and afternoon naps are underrated.
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: ../images/favicon.png
+avatar: ../d3/icon.html
+favicon: ../images/favicon.png
 
 #
 # Flags below are optional
