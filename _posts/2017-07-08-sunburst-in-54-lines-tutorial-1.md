@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Sunburst in 54 Lines (Tutorial 1)
-social_title: Write a d3 Sunburst in 54 lines
-social_image_url: https://denjn5.github.io/images/sunburst-1.png
 date: 2017-07-08
 categories: d3 sunburst tutorial
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
+
+social_title: Write a d3 Sunburst in 54 lines
+social_image_url: https://denjn5.github.io/images/sunburst-1.png
+social_description: Want a simple, clear way to present hierarchical data? Try a d3 Sunburst.
 
 permalink: /sunburst-1/
 png_url: ../images/sunburst-1.png
@@ -15,12 +17,14 @@ code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-1.h
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'} This tutorial is a detailed walk-through of a simple-ish 'no frills' d3 Sunburst. It assumes you don't know much about svg, json, javascript, or d3. While we miss out on some cool advanced features, we'll build a functional sunburst in only 60 lines. Which will lay the foundation for some neat future additions.
+![viz]({{ page.png_url }}){:style='float: left; margin-right: 20px; width: 300px;'} Want a simple, clear way to present hierarchical data? Try a d3 Sunburst.
+
+This is a detailed walk-through of a simple-ish d3 Sunburst. I explain a lot of the details about svg, javascript, and d3. Skip what you don't need. We'll avoid advanced features today, but end up with a functional sunburst in only 54 lines of code. It lays the groundwork for creating a labeled, interactive, hierarchical visual.
 
 <!--more-->
 <!--- Sunburst Tutorial (d3 v4), Part 1 -->
 
-The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
+Just want the [code]({{ page.code_url }})? Or an overveiw of the [tutorials](/tutorials/)?
 
 I hope this tutorial helps you deepen your d3 visualization skills. If it does that, or if you have an idea about how to improve something below, let me know in the comments section. Do good!
 
@@ -40,11 +44,11 @@ Don't know much about the french I took...<br>
 - [Set up our SVG workspace](#set-up-our-svg-workspace)
 	- [Method Chaining & the HTML](#method-chaining--the-html)
 - [Layout the Data](#layout-the-data)
-- [Connect Data and Layout](#connect-data-and-layout)
 - [Calculate Each Arc](#calculate-each-arc)
-- [Put it All Together](#put-it-all-together)
+- [Connect Layout & Data](#connect-layout--data)
+    - [The d3 function(d) Pattern](#the-d3-functiond-pattern)
+- [Update Pattern](#update-pattern)
     - [Draw Our Sunburst](#draw-our-sunburst)
-    - [Add Color](#add-color)
 
 
 ## Summary
@@ -230,7 +234,7 @@ var vArc = d3.arc()
 
 ---
 
-## Connect Data and Layout
+## Connect Layout & Data
 Now as the artist, prep is done and you're ready to begin combining your canvas and ideas into one beautiful creation.  These lines begin to mix the two.
 
 ``` javascript
@@ -254,7 +258,7 @@ vLayout(vRoot);  // <--4
     * After this partition line, 'd' for a particular node returns a d3-shaped object: `{data: Object, height: 0, depth: 2, parent: qo, value: 4…}`. And our JSON attributes are tucked into the _data_ attribute.
 
 
-### function(d) {}
+### The d3 function(d) Pattern
 d3 has a specific pattern for retrieving your data and applying it to d3 commands, a pattern that you'll see repeatedly:
 `function(d) { return d }`. This functions accepts 'd', which represents your data, and returns a value, or an array of values, based on your data. The 'return d' part can get intricate. In our code, we're returning the size (d.size) to the sum function. We defined 'size' in our JSON, so it's often available for a node.  When size isn't defined, this function returns 0. Two specific examples from our data:
 * 'Sub A1' will have a has a size of 4.

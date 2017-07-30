@@ -1,12 +1,14 @@
 ---
 layout: post
-title: Using Json & Coding Fundamentals (Tutorial 2)
-social_title: d3 Using Json & Coding Fundamentals
+title: Using Json & Functions (Tutorial 2)
 date: 2017-07-12
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
+social_title: Using Json & Functions in d3 JavaScript
+social_image_url: https://denjn5.github.io/images/sunburst-2.png
+social_description: Write better javascript d3 code using json files and functions.
 
 permalink: /sunburst-2/
 png_url: ../images/sunburst-2.png
@@ -21,11 +23,11 @@ compare_url: https://www.diffchecker.com/UycnfVx8
 blocks_url: https://bl.ocks.org/denjn5
 ---
 
-![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 300px;"} In this short tutorial we'll begin with the "no frills" sunburst from Tutorial 1. But now we'll load our data from a separate JSON file _and_ move move our core d3 logic into a function. We're beginning to think _d.r.y._
+![viz]({{ page.png_url }}){:style="float: left; margin-right: 20px; width: 300px;"} It's time to clean up our code! Today we'll start with our Tutorial 1 Sunburst.  Then we'll load data from a separate JSON file _and_ move our d3 logic into a function. We'll also discuss how to make your future self happy.
 
 <!--more-->
 
-The [tutorials page](/tutorials/) includes an overview of all tutorials on this site.
+Just want the [code]({{ page.code_url }})? Or an overveiw of the [tutorials](/tutorials/)?
 
 I hope this tutorial helps you deepen your d3 visualization skills. If it does that, or if you have an idea about how to improve something below, let me know in the comments section. Do good!
 

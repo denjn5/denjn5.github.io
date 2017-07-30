@@ -27,9 +27,9 @@ Do good!
 <iframe width="325" height="325" src="{{ page.html_url }}" class='right-column'></iframe>
 
 # Sunbursts
-1. [Sunburst in 60 Lines](/sunburst-1/)
-2. [Sunburst with Json File](/sunburst-2/)
-3. [Sunburst Labels](/sunburst-3/)
+1. [Sunburst in 54 Lines](/sunburst-1/)
+2. [Using JSON & Coding Fundamentals](/sunburst-2/)
+3. [Add Sunburst Labels](/sunburst-3/)
 <br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>
 
 
