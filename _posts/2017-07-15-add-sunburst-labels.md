@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Sunburst Labels (Tutorial 3)
+title: Add Sunburst Labels
 date: 2017-07-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-social_title: Add properly rotated labels to your d3 Sunburst
+social_title: How to Add Properly Rotated Labels to a d3 Sunburst
 social_image_url: https://denjn5.github.io/images/sunburst-3.png
 social_description: Sunbursts without labels are like....
 

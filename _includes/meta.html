@@ -3,6 +3,9 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
+    <meta name="author" content="{{ site.name }}" />
+
+    <!-- Commented out by DR
     {% if page.excerpt %}
     <meta name="description" content="{{ page.excerpt| strip_html }}" />
     <meta property="og:description" content="{{ page.excerpt| strip_html }}" />
@@ -10,15 +13,20 @@
     <meta name="description" content="{{ site.description }}">
     <meta property="og:description" content="{{ site.description }}" />
     {% endif %}
-    <meta name="author" content="{{ site.name }}" />
 
     {% if page.title %}
     <meta property="og:title" content="{{ page.title }}" />
     {% endif %}
+    -->
 
     <!-- DR Section -->
     <link rel="icon" type="image/png" href="{{ site.favicon }}"> <!-- DR: favicon -->
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css"> <!-- DR: font-awesome -->
+
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    <meta property="og:title" content="{{ page.social_title }}" />
+    <meta property="og:description" content="{{ page.social_description }}" />
+    <meta property="og:image" content="{{ page.social_image_url }}" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@learn_do_repeat">

@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Using Json & Functions (Tutorial 2)
+title: Use Json & Functions
 date: 2017-07-12
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-social_title: Using Json & Functions in d3 JavaScript
+social_title: Use Json Files and Functions in d3 JavaScript
 social_image_url: https://denjn5.github.io/images/sunburst-2.png
 social_description: Write better javascript d3 code using json files and functions.
 
