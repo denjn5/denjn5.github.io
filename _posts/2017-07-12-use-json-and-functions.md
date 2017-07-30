@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Use Json & Functions
+title: Use Json & Functions (Tutorial 2)
 date: 2017-07-12
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst

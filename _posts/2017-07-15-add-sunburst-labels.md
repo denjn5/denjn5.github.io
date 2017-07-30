@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Add Sunburst Labels
+title: Add Sunburst Labels (Tutorial 3)
 date: 2017-07-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
