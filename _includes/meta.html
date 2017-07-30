@@ -3,8 +3,8 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
-    <link rel="icon" type="image/png" href="{{ site.favicon }}"> <!-- favicon -->
-    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="icon" type="image/png" href="{{ site.favicon }}"> <!-- DR: favicon -->
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css"> <!-- DR: font-awesome -->
 
     {% if page.excerpt %}
     <meta name="description" content="{{ page.excerpt| strip_html }}" />
@@ -17,5 +17,11 @@
 
     {% if page.title %}
     <meta property="og:title" content="{{ page.title }}" />
-    <meta property="twitter:title" content="{{ page.title }}" />
     {% endif %}
+
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@learn_do_repeat">
+    <meta name="twitter:title" content="{{ page.social_title }}">
+    <meta name="twitter:description" content="Want a simple, clear way to present hierarchical data? Try a d3 Sunburst.">
+    <meta name="twitter:image" content="{{ page.png_url }}">

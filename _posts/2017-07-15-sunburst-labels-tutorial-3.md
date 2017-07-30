@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Sunburst Labels (Tutorial 3)
+social_title: Add Labels to your d3 Sunburst
 date: 2017-07-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst

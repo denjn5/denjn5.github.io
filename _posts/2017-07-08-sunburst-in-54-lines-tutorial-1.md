@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Sunburst in 60 Lines (Tutorial 1)
+title: Sunburst in 54 Lines (Tutorial 1)
+social_title: Write a d3 Sunburst in 54 lines
 date: 2017-07-08
 categories: d3 sunburst tutorial
 tags: d3 tutorial d3v4 javascript sunburst

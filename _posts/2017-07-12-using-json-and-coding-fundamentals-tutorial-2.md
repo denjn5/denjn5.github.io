@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Sunburst with Json File (Tutorial 2)
+title: Using Json & Coding Fundamentals (Tutorial 2)
+social_title: d3 Using Json & Coding Fundamentals
 date: 2017-07-12
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
@@ -32,6 +33,7 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 
 ## Tutorial Contents
 <blockquote class="narrow">Not all treasure's silver and gold, mate.<br><cite>–Jack Sparrow, Pirates of the Caribbean</cite></blockquote>
+
 - [Summary](#summary)
     - [Just the Code, Please](#just-the-code-please)
 - [Get the Data](#get-the-data)
