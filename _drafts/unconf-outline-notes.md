@@ -16,27 +16,34 @@ Here's an updated outline. Each bullet is a presentation page (usually).
 * I've started building the presentation:
 
 
-Outline:
-* Introduction [10 minutes; pic: complex tree]
-    * What's our Goal? [engineering pic]
-    * How do we Illustrating Hierarchies? [several pages: zip through of coffee, tree of life, etc.; end with simple chart examples, no labels]
-    * What is a Hierarchy? [definition: what makes a hierarchical dataset?]
-    * Hello World [show simple dataset in json; call-out (don't explain) javascript arrays and objects]
-    * Natural Hierarchies?
-* Let's make our own viz [20 minutes; pic: PostIt's]
-    * Let's create a PostIt note hierarchy together [my example; use colors]
-    * What's the JSON look like? [show]
-    * And our chart? [tree, sunburst, pack; with labels]
-    * Can you show me the simplest possible code example? [~55-line tree; mention layout, root, nodes/links]
-* But our data doesn't look like that. [20 minutes, pic: row of palm trees]
-    * Let's lay our PostIts out like our data. [rebuild in tabular format; show, short explanation of the 'hidden' hierarchy and importance of unique names]
-    * And our chart? ['same' charts (using new data behind the scenes; tree, sunburst, pack; with labels]
-    * How does this change our code? [d3.stratify; show multi-root error]
-    * Adding data is now super easy. [show new data in csv (my lessons); and our updated chart]
-* Cool extras [5 minutes]
-    * Can we show this as a Force chart? Yes! [.links()]
-    * [time permitting] Which are the key docs? [d3.hierarchy]
-    * [time permitting] Slide on d3.linkHorizontal() [way better than writing manaul path / line]
+# Outline:
+
+## Introduction [10 minutes; pic: complex tree]
+* _Goal_ [engineering pic]
+* _Hierarchies: Illustrated_ [several pages: zip through of coffee, tree of life, etc.; end with simple chart examples, no labels]
+* _Hierarchies: Defined_ [definition: what makes a hierarchical dataset?]
+* _Hello World_ [show simple dataset in json; call-out (don't explain) javascript arrays and objects]
+* _Hierarchies: In the Wild_ [
+
+
+## Let's make a viz [20 minutes; pic: PostIt's]
+* _Post-it Notes_: Let's create a Post-it note hierarchy together [my example; use colors]
+* _The JSON_ What's the JSON look like? [show]
+* And our chart? [tree, sunburst, pack; with labels]
+* Can you show me the simplest possible code example? [~55-line tree; mention layout, root, nodes/links]
+
+## But our data doesn't look like that. [20 minutes, pic: row of palm trees]
+* Let's lay our PostIts out like our data. [rebuild in tabular format; show, short explanation of the 'hidden' hierarchy and importance of unique names]
+* And our chart? ['same' charts (using new data behind the scenes; tree, sunburst, pack; with labels]
+* How does this change our code? [d3.stratify; show multi-root error]
+* Adding data is now super easy. [show new data in csv (my lessons); and our updated chart]
+
+## Cool extras [5 minutes]
+* Can we show this as a Force chart? Yes! [.links()]
+* [time permitting] Which are the key docs? [d3.hierarchy]
+* [time permitting] Slide on d3.linkHorizontal() [way better than writing manaul path / line]
+
+
 
 My example hierarchy:
 * my cars
@@ -50,7 +57,7 @@ My example hierarchy:
         * odyssey
         * maxima
 
-***********************
+---
 
 
 
@@ -60,7 +67,7 @@ https://gist.github.com/mbostock/4063550
 linkHorizontal
 https://gist.github.com/mbostock/4339184
 
-***********************
+---
 
 
 IAN'S INPUT
@@ -77,7 +84,7 @@ we could also have them transcribe their postits into json. both into a tabular 
 
 once they have their data it should be quick to swap between a few visuals like you suggested. however i still think it will take longer than we think.
 
-***********************
+---
 
 HIERARCHICAL	                        TABULAR
 Relationships are intrinsic	            Relationships formed at run-time
@@ -86,12 +93,12 @@ one-to-many relationships	            many-to-many relationships
 gateway to sunbursts, trees,
     treemaps, circle packs
 
-***********************
+---
 
 
 # Read the docs ([d3-hierarchy](https://github.com/d3/d3-hierarchy "d3 hierarchy api documentation"))
 
-***********************
+---
 
 
 # Hierarchical data = JSON Arrays + JSON Objects
@@ -115,7 +122,7 @@ gateway to sunbursts, trees,
 
 
 
-***********************
+---
 
 QUOTES
 Smart data structures and dumb code works a lot better<br>
