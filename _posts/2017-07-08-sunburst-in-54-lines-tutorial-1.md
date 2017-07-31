@@ -53,11 +53,11 @@ Don't know much about the french I took...<br>
 
 
 ## Summary
-In this tutorial, we'll build a super basic sunburst--*No Frills*, if you will. (Tips: Consider keeping the raw code open--link icon below--in a seperate tab.)
+In this tutorial, we'll build a super basic sunburst--*No Frills*, if you will. (Tips: Consider keeping the raw code open--link icon below--in a separate tab.)
 
 <table class="center">
 <tr>
-    <td class="center">New: <b>Sunburst in 60 Lines</b>&nbsp;&nbsp;
+    <td class="center">New: <b>Sunburst in 54 Lines</b>&nbsp;&nbsp;
             <a href="{{ page.code_url }}" target="_blank" title="open code">
                 <i class="fa fa-code" aria-hidden="true"></i></a>
             <a href="{{ page.html_url }}" target="_blank" title="open viz">
@@ -107,7 +107,8 @@ We'll set 4 variables that we can use throughout our code. I begin each variable
 
 2. `var vRadius = Math.min(vWidth, vHeight) / 2` determines which is smaller (`Math.min`), the width or vHeight. Then it divides that value by 2 (since the radius is 1/2 of the circle's diameter). Then we store that value as our radius. This optimizes the size of our viz within the `<svg>` element (since we don't want to leak past the edges, but we also don't want a bunch of wasted white space). Since width and height are both 300, the vRadius variable will equal 150.
 
-3. `d3.scaleOrdinal`: d3 scales help us map our data to something in our visual. Outside of d3, _ordinal scales_ indicate the direction of the underlying data and provide nominal information (e.g., low, medium, high). In the same way, _scaleOrdinal_ in d3 allows us to relate a part of our data to something that has a series of named values (like an array of colors).
+3. `d3.scaleOrdinal`: d3 scales help us map our data to something in our visual. (Read the [docs](https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal) for more.)
+    * Outside of d3, _ordinal scales_ indicate the direction of the underlying data and provide nominal information (e.g., low, medium, high). In the same way, _scaleOrdinal_ in d3 allows us to relate a part of our data to something that has a series of named values (like an array of colors).
     * `schemeCategory20b` is a d3 name that returns a built in array of colors. d3 has [several similar options](https://github.com/d3/d3-scale/blob/master/README.md#schemeCategory10) that are specifically designed to work with `d3.scaleOrdinal()`.  The result of this line is that we'll have a variable ('vColor') that will return a rainbow of options for our sunburst.
 
 ---

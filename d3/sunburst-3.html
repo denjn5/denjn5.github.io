@@ -12,7 +12,7 @@
     var vWidth = 300;
     var vHeight = 300;
     var vRadius = Math.min(vWidth, vHeight) / 2;
-    var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
+    var vColor = d3.scaleOrdinal(d3.schemeCategory20b.slice(11));
 
     // Prepare our physical space
     var g = d3.select('svg')

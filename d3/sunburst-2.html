@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Sunburst Tutorial (d3 v4), Part 2</title>
-    <script src='../plugins/d3/d3.v4.min.js'></script>
+    <script src='../plugins/d3/d3.v4.js'></script>
     <!-- Want to run locally? Update src: 'https://d3js.org/d3.v4.min.js' -->
 </head>
 <body>
@@ -12,7 +12,7 @@
     var vWidth = 300;
     var vHeight = 300;
     var vRadius = Math.min(vWidth, vHeight) / 2;
-    var vColor = d3.scaleOrdinal(d3.schemeCategory20b);
+    var vColor = d3.scaleOrdinal(d3.schemeCategory20b.slice(11));
 
     // Prepare our physical space
     var g = d3.select('svg')
@@ -52,6 +52,8 @@
             .attr('d', vArc)
             .style('stroke', '#fff')
             .style('fill', function (d) {
-                return vColor((d.children ? d : d.parent).data.id); });
+                return vColor(
+                    (d.children ? d : d.parent).data.id);
+            });
     }
 </script>

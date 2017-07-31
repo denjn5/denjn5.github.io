@@ -4,16 +4,8 @@ What do I want to accomplish? How do I plan to get there?
 
 GOAL: Deepen my visualization and data science skills through practice. Document my journey via my blog.
 
-BEFORE NEXT PUBLISH:
-TODO: 1) REVIEW all posts
-    TODO: 1a) Stub missing content here.
-    FIXME: 1b) Update Blog 3 -- move from class .node reference to var slice reference
-    FIXME: 1c) Check pictures (are they right? should i change color palette for fun?)
-
-TODO: 2) TUT. Update Tutorial Page
+NEXT PUBLISH:
 _CONSIDER: 3) TUT. Make Tutorial page 'home'?
-TODO: Publish
-TODO: Advertise -- 1st post
 
 IDEAS:
 TODO: sunburst-1: put a slice picture with the edges marked

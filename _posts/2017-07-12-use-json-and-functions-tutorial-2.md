@@ -46,11 +46,11 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 
 
 ## Summary
-In this tutorial, we move from _No Frills_ to _Pulling data from a JSON file_. Both files look the same on the outside; but the new version has some neat upgrades on the inside. (Tips: Keep the raw code open in a seperate tab. Do a code compare between tutorial 1 and 2--see icons below.)
+In this tutorial, we move from _No Frills_ to _Pulling data from a JSON file_. Both files look the same on the outside; but the new version has some neat upgrades on the inside. (Tips: Keep the raw code open in a separate tab. Do a code compare between tutorial 1 and 2--see icons below.)
 
 <table class="center">
 <tr>
-    <td class="center">Old: <b>Sunburst in 60 Lines</b>&nbsp;&nbsp;
+    <td class="center">Old: <b>Sunburst in 54 Lines</b>&nbsp;&nbsp;
             <a href="{{ page.old_permalink }}" target="_blank" title="open previous tutorial">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
             <a href="{{ page.old_code_url }}" target="_blank" title="open code">
@@ -94,6 +94,8 @@ function drawSunburst(data) {
 
 See below for a discussion of these changes.
 
+* _COLOR NOTE_: I did make one other little change to this viz. I got a little bored of looking at blue sunbursts. So I added a `slice()` method to our `vColor` definition (which truncates the original array, "start at the 11th position").  Now `var vColor = d3.scaleOrdinal(d3.schemeCategory20b.slice(11));`.  And now our starburst is a nice series of reds.
+
 ---
 
 ## Get the Data
@@ -112,7 +114,7 @@ d3.json('data-simple.json', function(error, vData) {
 1. `data-simple.json` (since we don't have any folder references, it assumes that this file is in the same directory as the current file)
 2. A special _anonymous_ function that returns hopefully returns our data as a variable (vData) or an error. All of our code that processes and presents the data could fit within this anonymous function block. However, we've placed this code in a separate function.
 
-_NOTE_ The `d3.json` above runs _asynchronously_. That means that d3 works on pulling the requested data, but it simultaneously allows the next block of code (whatever is right after the `d3.json` call) to begin executing immediately. So wrapping our data-driven code in a function ensures that it doesn't execute until we have either data or an error. (If I had a nickel for each time I've written a data-get without thinking about asynchronisity, I'd have at least a dollar. And copious amounts of confusion.)
+_NOTE_ The `d3.json` above runs _asynchronously_. That means that d3 works on pulling the requested data, but it simultaneously allows the next block of code (whatever is right after the `d3.json` call) to begin executing immediately. So wrapping our data-driven code in a function ensures that it doesn't execute until we have either data or an error. (If I had a nickel for each time I've written a data-get without thinking about asynchronicity, I'd have at least a dollar. And copious amounts of confusion.)
 
 
 ---

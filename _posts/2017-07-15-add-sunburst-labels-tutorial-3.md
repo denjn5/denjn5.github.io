@@ -203,7 +203,7 @@ This is the end of changes to our `drawSunburst()` function.
 ---
 
 ## computeTextRotation Function
-The computeTextRotation function calculates the correct amount of rotatation for each label based on its location in the sunburst. It also avoids upside down labels. It takes a single argument, "d", which represents a single d3 node (this function is called one time for each `text` element).
+The computeTextRotation function calculates the correct amount of rotation for each label based on its location in the sunburst. It also avoids upside down labels. It takes a single argument, "d", which represents a single d3 node (this function is called one time for each `text` element).
 
 ``` javascript
 function computeTextRotation(d) {
