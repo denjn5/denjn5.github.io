@@ -14,6 +14,24 @@
             color: white;
         }
 
+        .title-hierarchical {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
+        .title-tabular {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
+        .title-extras {
+            background-image: url(../images/twistyTree2.jpg);
+            background-size: cover;
+            color: white;
+        }
+
         body {
             font-family: 'Droid Serif', Georgia, Serif;
         }
@@ -73,8 +91,13 @@
 </head>
 <body>
 
-<textarea id="source">
 
+<!-- #################################### -->
+<!-- ##  INTRODUCTION  ################## -->
+<!-- #################################### -->
+
+
+<textarea id="source">
 
 class: center, middle, title-slide
 .contextLL[d3-Unconf | 2017 | David Richards]
@@ -147,7 +170,6 @@ A hierarchical dataset is:
 3. Every level has _one higher_ and _zero or more lower_ neighbors.
 4. Higher levels have greater inclusion, influence, or breadth.
 
-[TODO: engineering picture]
 
 ???
 
@@ -218,48 +240,166 @@ Some fields use hiararchies to make decisions
 
 ???
 
+* Start thinking of your idea.
 * Not everything that seems hierarchical is: family tree
 * MECE is actually a good way to divide up complex problems and a litmus test for true hierarchy.
 
 
 <!-- #################################### -->
-<!-- ##  HIERARCHICAL  ################## -->
+<!-- ##  POST IT HIERARCHY  ############# -->
 <!-- #################################### -->
 ---
 
-class: center, middle
+class: center, middle, title-hierarchical
 
-## Our Hierarchical Dataset in Action
+## Let's Make a Viz
 
 
 ---
 
-.context[when]
+.context[hierarchical data]
 
-# Let's Create an Example Together
+# Post It Notes Example
 
-.exercise[What are examples of naturally occurring hierarchies?]
+Let's make an example together
 
-.exercise[PostIt Notes & Pencil: Draw a picture of a dataset that you want to work with that is hierarchical.]
+1. Pick a topic you know (cars, coding, ice cream, stores, shoes, vacations, bucket list, things you want to learn, upcoming projects). Don't overthink it.
+2. Divide your topic into 3-ish categories (love, hate, envy; done, probably will do, too chicken to do; I've been, I want to go, I've got a plan).
+3. Grab 3 colors of Post It Notes and write your hierarchy.
+    a. Pink is your root.  That's the name of your hierarchy.
+    b. Blue is your category names.
+    c. Yellow is your item names.
+4. Star the corner of each of these Post Its (for later)
 
-[TODO: Add a short description of what's expected]
+<img width="400" src="../images/engineering.jpg">
+
 
 ???
 
-1. Explain the exercise
-2. Give time to complete
-3. Provide Ideas:
-    * Bucket List items, divided by completed/not completed, terrifying/not terrifying
-    * Places you've visited, divided by contintent or companions
-    * Things you want to learn, divided by technology/not
-    * Upcoming projects: work/personal
-    * Cars you've owned, divided by how the relationship ended
-4. Show my example
+Explain exercise, verbal ideas, show my example
+
+---
+
+.context[hierarchical data]
+
+# The JSON
+
+[show my car json]
+
+---
+
+.context[hierarchical data]
+
+# Our Chart
+
+[show early charts, but with labels]
+
+---
+
+.context[hierarchical data]
+
+# Tree in 55 Lines
+
+
+<!-- #################################### -->
+<!-- ##  POST IT TABULAR  ############### -->
+<!-- #################################### -->
+---
+
+class: center, middle, title-tabular
+
+## Our Data Doesn't Look Like That...
+
+---
+
+.context[tabular data]
+
+Let's layout our postits as tabular data.
+1. You'll need to make some new post-its.
+2. Root (Pink) is first column
+3. Category (Blue) is 2nd column
+4. Item (Yellow) is 3rd column
+5. Fill in missing items with new, labeled Post Its.
+
+???
+
+This is more data, and the physical structure no longer matches the structure of the data.  But the struture is in there if we're willing to see it.  In fact, I'll be many of our datasets at structured as hierarchies (or could be) if we're willing to see it.
 
 ---
 
 
+.context[tabular data]
 
+# The CSV
+
+[show my car csv]
+
+---
+
+.context[tabular data]
+
+# Our Charts
+
+[sames charts!]
+
+---
+
+.context[tabular data]
+
+# Tree in 60 (?) Lines
+
+[just show differences]
+
+---
+
+.context[tabular data]
+
+# Adding data is super easy
+
+[open csv, add some lessons learned and refresh]
+
+
+<!-- #################################### -->
+<!-- ##  COOL EXTRAS  ################### -->
+<!-- #################################### -->
+
+---
+
+class: center, middle, title-extras
+
+## Cool Extras
+
+---
+
+.context[cool extras]
+
+# Force Chart
+
+[.links()]
+
+---
+
+.context[cool extras]
+
+# d3.linkHorizontal()
+
+[way better than writing manaul path / line]
+
+---
+
+.context[cool extras]
+
+# Key Docs
+
+[d3.hierarchy]
+
+---
+
+.context[cool extras]
+
+# Get Comfy With Hierachical JSON
+
+[objects and arrays]
 
 ---
 

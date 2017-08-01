@@ -7,16 +7,11 @@ FIXME: {EXAMPLES} Make them pop on!
 FEATURE: {STRATIFY} Address stratify really well.
 FIXME: {COLUMNS} Use .right-column instead of tables
 
+
 CONSIDER: {RANDOM} Randomly growing viz?
 
-Hey Ian,
-Here's an updated outline. Each bullet is a presentation page (usually).
-* It's shorter. Still too long?  If so, thoughts on what I should cut?
-* PostIts idea is great. Let's use 4 colors: root/red; 2nd-level/blue; 3rd-level/yellow. That'll help solidify the single root and help folks see the transition from hierarchical JSON to tabular and back (I hope).
-* I've started building the presentation:
 
-
-# Outline:
+# OUTLINE:
 
 ## Introduction [10 minutes; pic: complex tree]
 * _Goal_ [engineering pic]
@@ -29,11 +24,11 @@ Here's an updated outline. Each bullet is a presentation page (usually).
 ## Let's make a viz [20 minutes; pic: PostIt's]
 * _Post-it Notes_: Let's create a Post-it note hierarchy together [my example; use colors]
 * _The JSON_ What's the JSON look like? [show]
-* And our chart? [tree, sunburst, pack; with labels]
-* Can you show me the simplest possible code example? [~55-line tree; mention layout, root, nodes/links]
+* _Our chart_ [tree, sunburst, pack; with labels]
+* _Tree in 55 Lines_ [~55-line tree; mention layout, root, nodes/links]
 
 ## But our data doesn't look like that. [20 minutes, pic: row of palm trees]
-* Let's lay our PostIts out like our data. [rebuild in tabular format; show, short explanation of the 'hidden' hierarchy and importance of unique names]
+* _Tabular Layout_ [Let's lay our PostIts out like our data. rebuild in tabular format; show, short explanation of the 'hidden' hierarchy and importance of unique names]
 * And our chart? ['same' charts (using new data behind the scenes; tree, sunburst, pack; with labels]
 * How does this change our code? [d3.stratify; show multi-root error]
 * Adding data is now super easy. [show new data in csv (my lessons); and our updated chart]
