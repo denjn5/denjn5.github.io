@@ -51,7 +51,7 @@ path {
         .outerRadius(function (d) { return d.y1; });
 
     // Get the data from our JSON file
-    d3.json('data-simple.json', function(error, vData) {
+    d3.json('data-intermediate.json', function(error, vData) {
         if (error) throw error;
 
         drawSunburst(vData);
@@ -86,11 +86,13 @@ path {
         // TODO: fix dx & dy for multi-strings
         vSlices.append('text')
             .filter(function(d) { return d.parent; })
-            .attr('transform', function(d) { return 'translate(' + vArc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
+            .attr('text-anchor', 'middle')
+            .attr("dominant-baseline", "central")
+            //.attr('alignment-baseline', 'central')
+            .attr('transform', function(d) { return 'translate(' + vArc.centroid(d) + ') rotate(' + computeTextRotation(d) + ')'; })
             .selectAll("tspan").data(function(d) { return textBreak(d.data.id); }).enter().append("tspan")
-            .attr('dx', '-20')
-            //.attr('dy', '.5em')
-            .text(function(d) { return d });
+            .attr('dy', '0')
+            .text(function(d) { return d; });
     }
 
 
@@ -118,7 +120,7 @@ path {
         var angle = (d.x0 + d.x1) / Math.PI * 90;
 
         // Avoid upside-down labels
-        return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
+        return (angle < 90 || angle > 270) ? angle : angle + 180;  // labels as rims
         //return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
     }
 </script>

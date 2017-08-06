@@ -9,40 +9,40 @@
         @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
         .title-slide {
-            background-image: url(../images/twistyTree2.jpg);
+            background-image: url(images/twisty-tree.jpg);
             background-size: cover;
             color: white;
         }
 
         .title-hierarchical {
-            background-image: url(../images/twistyTree2.jpg);
+            background-image: url(images/sticky-notes.png);
             background-size: cover;
             color: white;
         }
 
         .title-tabular {
-            background-image: url(../images/twistyTree2.jpg);
+            background-image: url(images/non-twisty-trees.jpg);
             background-size: cover;
             color: white;
         }
 
         .title-extras {
-            background-image: url(../images/twistyTree2.jpg);
+            background-image: url(images/twisty-tree.jpg);
             background-size: cover;
             color: white;
         }
 
         body {
-            font-family: 'Droid Serif', Georgia, Serif;
+            font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
         }
 
         h1, h2, h3 {
-            font-family: 'Yanone Kaffeesatz';
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: normal;
         }
 
         .remark-code, .remark-inline-code {
-            font-family: 'Ubuntu Mono';
+            font-family: 'Ubuntu Mono', 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
         }
 
         .context {
@@ -52,7 +52,7 @@
             text-align: right;
             color: lightgray;
             font-size: larger;
-            font-family: 'Yanone Kaffeesatz';
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: 100;
         }
 
@@ -63,7 +63,7 @@
             text-align: right;
             color: lightgray;
             font-size: larger;
-            font-family: 'Yanone Kaffeesatz';
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: 100;
         }
 
@@ -115,7 +115,7 @@ Smart data structures<br>and dumb code works a lot better<br>than the other way 
 <!--- TODO: {ANIMATE} Start whole page and then shrink.   --->
 .right-column[
 <br>&nbsp;<br>
-<iframe width="400" height="500" frameborder="0" src="../d3/tree.html"></iframe>
+<iframe width="400" height="500" frameborder="0" src="viz/tree.html"></iframe>
 ]
 
 By the end of this session,<br>
@@ -142,13 +142,13 @@ name: d3-examples
 <!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
 
 .right-column[
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/sunburst.html"></iframe><br>
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="../d3/radialtree.html"></iframe>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/sunburst.html"></iframe><br>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/radialtree.html"></iframe>
 ]
 
 .left-column[
-<iframe width="400" height="250" frameborder="0" src="../d3/pack.html"></iframe><br>
-<iframe width="400" height="250" frameborder="0" src="../d3/treemap.html"></iframe>
+<iframe width="400" height="250" frameborder="0" src="viz/pack.html"></iframe><br>
+<iframe width="400" height="250" frameborder="0" src="viz/treemap.html"></iframe>
 ]
 
 ???
@@ -259,32 +259,47 @@ class: center, middle, title-hierarchical
 
 .context[hierarchical data]
 
-# Post It Notes Example
+# A Dataset on Sticky Notes
 
-Let's make an example together
+_Goal_: When we're done, you'll have ~6 items divided into ~3 categories all written on sticky notes.
+.right-column[<img width="400" src="images/engineering.jpg">]
 
-1. Pick a topic you know (cars, coding, ice cream, stores, shoes, vacations, bucket list, things you want to learn, upcoming projects). Don't overthink it.
-2. Divide your topic into 3-ish categories (love, hate, envy; done, probably will do, too chicken to do; I've been, I want to go, I've got a plan).
-3. Grab 3 colors of Post It Notes and write your hierarchy.
-    a. Pink is your root.  That's the name of your hierarchy.
-    b. Blue is your category names.
-    c. Yellow is your item names.
-4. Star the corner of each of these Post Its (for later)
-
-<img width="400" src="../images/engineering.jpg">
-
-
-???
-
-Explain exercise, verbal ideas, show my example
+1. __Pick a topic__ of interest (cars, coding, ice cream, stores, shoes, vacations, bucket list, things you want to learn, upcoming projects). Don't overthink it.
+2. __Divide your topic__ into 3-ish categories (love, hate, envy; done, probably will do, too chicken; I came, I saw, I conquered; past, present future).
+3. __Write your topic word, the categories, and items on sticky notes__:
+    a. Pink = root (the topic of your hierarchy). [n=1]
+    b. Blue = categories (how you divided things up). [n=~3]
+    c. Yellow = items (the details). [n=~6]
+4. __Star the corner__ of each of sticky note (for later)
 
 ---
 
 .context[hierarchical data]
 
-# The JSON
+# My JSON
 
-[show my car json]
+
+``` json
+{
+    "id": "cars",
+    "children": [{
+        "id": "owned",
+        "children": [
+            {"id": "pilot", "size": 40},
+            {"id": "325ci", "size": 20},
+            {"id": "accord", "size": 2}]
+    }, {
+        "id": "traded",
+        "children": [
+            {"id": "chevette", "size": 1}]
+    }, {
+        "id": "learned",
+        "children": [
+            {"id": "odyssey", "size": 20},
+            {"id": "maxima", "size": 5}]
+    }]
+}
+```
 
 ---
 

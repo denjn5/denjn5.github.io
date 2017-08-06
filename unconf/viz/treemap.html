@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <head>
     <title>Treemap</title>
-    <script src="../plugins/d3/d3.v4.min.js"></script>
+    <script src="../../plugins/d3/d3.v4.min.js"></script>
 </head>
 
 <style>
@@ -21,7 +21,7 @@
 <script>
     var vWidth = 300;
     var vHeight = 200;
-    var myData = {
+    var vData = {
         "name": "Rooooot",
         "children": [{
             "name": "Topic X",
@@ -35,19 +35,21 @@
         }]
     };
 
-    // physical space setup
+    // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
         .select('g');
 
-    // d3 setup
-    var treemapLayout = d3.treemap().size([vWidth, vHeight]).paddingOuter(10);
-    var root = d3.hierarchy(myData).sum(function (d) { return d.size; });
-    var nodes = root.descendants();
-    treemapLayout(root);
+    // Declare d3 layout
+    var vLayout = d3.treemap().size([vWidth, vHeight]).paddingOuter(10);
 
-    // d3 draw
-    g.selectAll('rect').data(nodes).enter().append('rect')
-        .attr('x', function (d) { return d.x0; })
+    // Layout + Data
+    var vRoot = d3.hierarchy(vData).sum(function (d) { return d.size; });
+    var vNodes = vRoot.descendants();
+    vLayout(vRoot);
+    var vSlices = g.selectAll('rect').data(vNodes).enter().append('rect');
+
+    // Draw on screen
+    vSlices.attr('x', function (d) { return d.x0; })
         .attr('y', function (d) { return d.y0; })
         .attr('width', function (d) { return d.x1 - d.x0; })
         .attr('height', function (d) { return d.y1 - d.y0; })

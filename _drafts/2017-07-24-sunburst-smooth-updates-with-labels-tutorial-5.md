@@ -31,17 +31,17 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 
 
 ## Tutorial Contents
-- [Summary](#summary)
-    - [Just the Code](#just-the-code)
-- [Make Labels 'Non-Selectable'](#make-labels-non-selectable)
-- [Add Radio Button](#add-radio-button)
-- [Sort the Slices](#sort-the-slices)
-- [Store Begin States](#store-begin-states)
-- [Slice Variable](#slice-variable)
-- [Get User Input Recalculate the Sunburst](#get-user-input-recalculate-the-sunburst)
-- [Redraw the Sunburst](#redraw-the-sunburst)
-- [The 'Tween' Factory that Animates the Arc Update](#the-tween-factory-that-animates-the-arc-update)
-- [The 'Tween' Factory that Animates the Text Location and Rotation](#the-tween-factory-that-animates-the-text-location-and-rotation)
+- [Summary](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#summary)
+    - [Just the Code](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#just-the-code)
+- [Make Labels 'Non-Selectable'](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#make-labels-non-selectable)
+- [Add Radio Button](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#add-radio-button)
+- [Sort the Slices](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#sort-the-slices)
+- [Store Begin States](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#store-begin-states)
+- [Slice Variable](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#slice-variable)
+- [Get User Input Recalculate the Sunburst](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#get-user-input-recalculate-the-sunburst)
+- [Redraw the Sunburst](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#redraw-the-sunburst)
+- [The 'Tween' Factory that Animates the Arc Update](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#the-tween-factory-that-animates-the-arc-update)
+- [The 'Tween' Factory that Animates the Text Location and Rotation](../drafts/2017-07-24-sunburst-smooth-updates-with-labels-tutorial-5.md#the-tween-factory-that-animates-the-text-location-and-rotation)
 
 ## Summary
 In this tutorial, we move from a plain sunburst, to one that has labels. (Tips: Keep the raw code open in a separate tab. Do a code compare between tutorial 1 and 2.)

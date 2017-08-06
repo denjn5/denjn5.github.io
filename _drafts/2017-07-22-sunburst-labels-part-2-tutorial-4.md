@@ -31,11 +31,11 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 
 
 ## Tutorial Contents
-- [Summary](#summary)
-    - [Just the Code](#just-the-code)
-- [A New Font](#a-new-font)
-- [Make Labels 'Non-Selectable'](#make-labels-non-selectable)
-- [Format the Path](#format-the-path)
+- [Summary](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#summary)
+    - [Just the Code](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#just-the-code)
+- [A New Font](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#a-new-font)
+- [Make Labels 'Non-Selectable'](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#make-labels-non-selectable)
+- [Format the Path](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#format-the-path)
 
 
 ## Summary

@@ -20,7 +20,7 @@
         .append('g')
         .attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')');
 
-    // d3 layout
+    // Declare d3 layout
     var vLayout = d3.partition().size([2 * Math.PI, vRadius]);
     var vArc = d3.arc()
         .startAngle(function (d) { return d.x0; })
@@ -40,13 +40,13 @@
      * @param {object} data - Hierarchical data
      */
     function drawSunburst(data) {
-        // Layout prep
+        // Layout + Data
         var vRoot = d3.hierarchy(data).sum(function (d) { return d.size});
         var vNodes = vRoot.descendants();
         vLayout(vRoot);
         var vSlices = g.selectAll('g').data(vNodes).enter().append('g');
 
-        // Draw sunburst
+        // Draw on screen
         vSlices.append('path')
             .attr('display', function (d) { return d.depth ? null : 'none'; })
             .attr('d', vArc)
@@ -57,7 +57,7 @@
         vSlices.append('text')
             .filter(function(d) { return d.parent; })
             .attr('transform', function(d) {
-                return 'translate(' + vArc.centroid(d) + ')rotate(' + computeTextRotation(d) + ')'; })
+                return 'translate(' + vArc.centroid(d) + ') rotate(' + computeTextRotation(d) + ')'; })
             .attr('dx', '-20')
             .attr('dy', '.5em')
             .text(function(d) { return d.data.id });

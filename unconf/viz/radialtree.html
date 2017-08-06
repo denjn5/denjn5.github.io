@@ -2,7 +2,7 @@
 <meta charset='utf-8'>
 <head>
     <title>Radial Tree</title>
-    <script src='../plugins/d3/d3.v4.min.js'></script>
+    <script src='../../plugins/d3/d3.v4.min.js'></script>
 </head>
 
 <style>
@@ -28,7 +28,7 @@
 <script>
     var vWidth = 300;
     var vHeight = 200;
-    var myData = {
+    var vData = {
         'name': 'Rooooot',
         'children': [{
             'name': 'Topic X',
@@ -42,25 +42,25 @@
         }]
     };
 
-    // physical space setup
+    // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
         .select('g').attr('transform', 'translate(' + vWidth / 2 + ',' + (vHeight / 2) + ')');
 
-    // d3 setup
-    var clusterLayout = d3.cluster().size([360, vWidth / 4]);
-    var root = d3.hierarchy(myData).sum(function (d) { return d.size; });
-    var nodes = root.descendants();
-    var links = clusterLayout(root).links();
+    // Declare d3 layout
+    var vLayout = d3.cluster().size([360, vWidth / 4]);
 
-    // d3 draw
-    g.selectAll('path').data(links).enter().append('path')
+    // Layout + Data
+    var vRoot = d3.hierarchy(vData).sum(function (d) { return d.size; });
+    var vNodes = vRoot.descendants();
+    var vLinks = vLayout(vRoot).links();
+
+    // Draw on screen
+    g.selectAll('path').data(vLinks).enter().append('path')
         .attr('d', d3.linkRadial()
             .angle(function (d) { return d.x; })
             .radius(function (d) { return d.y; }));
 
-    g.selectAll('circle').data(nodes).enter().append('circle')
+    g.selectAll('circle').data(vNodes).enter().append('circle')
         .attr('r', 10)
         .attr("transform", function (d) { return "translate(" + d3.pointRadial(d.x, d.y) + ")"; });
-
-
 </script>

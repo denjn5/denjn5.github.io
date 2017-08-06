@@ -40,13 +40,13 @@
      * @param {object} data - Hierarchical data
      */
     function drawSunburst(data) {
-        // Layout prep
+        // Layout + Data
         var vRoot = d3.hierarchy(data).sum(function (d) { return d.size});
         var vNodes = vRoot.descendants();
         vLayout(vRoot);
         var vSlices = g.selectAll('path').data(vNodes).enter().append('path');
 
-        // Draw sunburst
+        // Draw on screen
         vSlices
             .attr('display', function (d) { return d.depth ? null : 'none'; })
             .attr('d', vArc)

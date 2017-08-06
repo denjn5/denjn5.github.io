@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<head>
+    <title>Tree</title>
+    <script src='../../plugins/d3/d3.v4.js'></script>
+</head>
+
+<style>
+    circle {
+        stroke: #05668D;
+        fill: white;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    path {
+        fill: none;
+        stroke: #05668D;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    text {
+        font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+        font-size: 10px;
+        fill: black;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 330;
+    var vHeight = 200;
+
+    // Prepare our physical space
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g').attr('transform', 'translate(20,20)');
+
+    // Declare d3 layout
+    var vLayout = d3.tree().size([vHeight * 0.9, vWidth * 0.7]);
+
+    // Get the data from our JSON file
+    d3.json('data-car.json', function(error, vData) {
+        if (error) throw error;
+        drawTree(vData);
+    });
+
+    /**
+     * Draw our sunburst
+     * @param {object} data - Hierarchical data
+     */
+    function drawTree(data) {
+        // Layout + Data
+        var vRoot = d3.hierarchy(data);
+        var vNodes = vRoot.descendants();
+        var vLinks = vLayout(vRoot).links();
+
+        // Draw on screen
+        g.selectAll('path').data(vLinks).enter().append('path')
+            .attr('d', d3.linkHorizontal()
+            .x(function(d) { return d.y; })
+            .y(function(d) { return d.x; }));
+
+        g.selectAll('circle').data(vNodes).enter().append('circle')
+            .attr('r', 10)
+            .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
+
+        g.selectAll('text').data(vNodes).enter().append('text')
+            .attr('transform', function (d) { return 'translate(' + (d.y + 15) + ',' + (d.x - 5) + ')'; })
+            .text(function(d) { return d.data.id }).style('opacity', 0)
+            .transition().duration(1000).style('opacity', 1);
+    }
+</script>

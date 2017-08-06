@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<head>
+    <title>Force</title>
+    <script src='../../plugins/d3/d3.v4.min.js'></script>
+</head>
+
+<style>
+    circle {
+        fill: #05668D;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    line {
+        stroke: #05668D;
+        stroke-opacity: 0.3;
+        stroke-width: 2px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 300;
+    var vHeight = 200;
+    var vData = {
+        'id': 'Rooooot',
+        'children': [{
+            'id': 'Topic X',
+            'children': [{'id': 'Sub X1', 'size': 300}]
+        }, {
+            'id': 'Topic Y',
+            'children': [{'id': 'Sub Y1', 'size': 200},
+                {'id': 'Sub Y2', 'size': 200}]
+        }, {
+            'id': 'Topic Z',
+            'size': 400
+        }]
+    };
+
+    // Prepare our physical space
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight).select('g');
+
+    // Declare d3 layout
+    var vLayout = d3.forceSimulation()
+        .force('link', d3.forceLink().id(function (d) { return d.id; }))
+        .force('charge', d3.forceManyBody())
+        .force('center', d3.forceCenter(vWidth / 2, vHeight / 2));
+
+        // Get the data from our JSON file
+    d3.json('data-car.json', function(error, vData) {
+        if (error) throw error;
+        drawForce(vData);
+    });
+
+    /**
+     * Draw our force diagram
+     * @param {object} data - Hierarchical data
+     */
+    function drawForce(data) {
+        // Layout + Data
+        var vRoot = d3.hierarchy(vData);
+        var vNodes = vRoot.descendants();
+        var vLinks = vRoot.links();
+
+        vLines = g.selectAll('line').data(vLinks).enter().append('line');
+        vCircles = g.selectAll('circle').data(vNodes).enter().append('circle')
+            .attr('r', 7);
+
+        // Draw on screen
+        vLayout.nodes(vNodes).on('tick', ticked);
+        vLayout.force('link').links(vLinks);
+    }
+
+
+    /**
+     * Animates the force drawing on entry.
+     */
+    function ticked() {
+        vLines.attr('x1', function (d) { return d.source.x; })
+            .attr('y1', function (d) { return d.source.y; })
+            .attr('x2', function (d) { return d.target.x; })
+            .attr('y2', function (d) { return d.target.y; });
+
+        vCircles.attr('cx', function (d) { return d.x; })
+            .attr('cy', function (d) { return d.y; });
+    }
+</script>

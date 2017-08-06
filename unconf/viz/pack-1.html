@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Circle Pack</title>
+    <script src="../../plugins/d3/d3.v4.min.js"></script>
+</head>
+
+<style>
+    circle {
+        stroke: white;
+        fill: #05668D;
+        opacity: 0.3;
+        stroke-width: 2px;
+    }
+
+    text {
+        font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+        font-size: 10px;
+        fill: black;
+    }
+</style>
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 300;
+    var vHeight = 300;
+
+    // Prepare our physical space
+    var g = d3.select('svg').attr('width', vWidth + 100).attr('height', vHeight + 100).select('g')
+        .attr('transform', 'rotate(45 150 150)');
+
+    // Declare d3 layout
+    var vLayout = d3.pack().size([vWidth, vHeight]);
+
+    // Get the data from our JSON file
+    d3.json('data-car.json', function(error, vData) {
+        if (error) throw error;
+        drawPack(vData);
+    });
+
+    /**
+     * Draw our sunburst
+     * @param {object} data - Hierarchical data
+     */
+    function drawPack(data) {
+        // Layout + Data
+        var vRoot = d3.hierarchy(data).sum(function (d) { return d.size; });
+        var vNodes = vRoot.descendants();
+        vLayout(vRoot);
+        var vSlices = g.selectAll('g').data(vNodes).enter().append('g')
+            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+        // Draw on screen
+        vSlices.append('circle').attr('r', function (d) { return d.r; });
+
+        // Add text
+        vSlices.append('text')
+            .filter(function(d) { return !d.children; })
+            .attr('text-anchor', 'middle')
+            .attr("dominant-baseline", "central")
+            .attr('transform', 'rotate(-45)')
+            .text(function(d) { return d.data.id });
+    }
+
+</script>
