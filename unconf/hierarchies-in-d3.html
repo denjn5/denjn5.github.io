@@ -47,24 +47,26 @@
 
         .context {
             position: absolute;
-            top: 40px;
-            right: 40px;
+            top: 12px;
+            right: 20px;
             text-align: right;
             color: lightgray;
             font-size: larger;
             font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: 100;
+            opacity: 0.8;
         }
 
-        .contextLL {
+        .context-footer {  /* lower left */
             position: absolute;
-            bottom: 40px;
-            left: 40px;
+            bottom: 12px;
+            left: 20px;
             text-align: right;
             color: lightgray;
             font-size: larger;
             font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: 100;
+            opacity: 0.8;
         }
 
         .author {
@@ -72,10 +74,6 @@
             right: 75px;
             color: gray;
             font-style: italic;
-        }
-
-        .exercise {
-            color: navy;
         }
 
         .right-column {
@@ -86,6 +84,16 @@
         .left-column {
             float: left;
             width: 47%;
+        }
+
+        .right-column-narrow {
+            float: right;
+            width: 30%;
+        }
+
+        .left-column-wide {
+            float: left;
+            width: 54%;
         }
     </style>
 </head>
@@ -100,16 +108,17 @@
 <textarea id="source">
 
 class: center, middle, title-slide
-.contextLL[d3-Unconf | 2017 | David Richards]
+.context-footer[d3-Unconf | 2017 | David Richards]
 
 # Hierarchical Datasets
-Smart data structures<br>and dumb code works a lot better<br>than the other way around.<br>
+Smart data structures\s\s
+and dumb code works a lot better<br>than the other way around.<br>
 .author[—Eric S. Raymond]
 
 
 ---
 
-.context[hierarchies]
+.context[introduction]
 # Our Goal
 
 <!--- TODO: {ANIMATE} Start whole page and then shrink.   --->
@@ -136,7 +145,8 @@ hierarchical datasets<br>
 ---
 
 name: d3-examples
-.context[hierarchies]
+.context[introduction]
+.context-footer[Thanks to Peter Cook's d3indepth.com for jumpstarting these visuals.]
 # Hierarchies: Illustrated
 
 <!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
@@ -158,10 +168,11 @@ Radial tree is a little pathetic...
 
 ---
 
-.context[hierarchies]
+.context[introduction]
 
 # Hierarchies: Defined
 
+<img src="images/hierarchy-def-header.png">
 [TODO: include top snipped of definition png and make this look like a definition]
 
 A hierarchical dataset is:
@@ -178,7 +189,7 @@ Briefly explain the hierarchical dataset. Emphasize importance of root.
 
 ---
 
-.context[hierarchies]
+.context[introduction]
 
 # Hello World
 
@@ -218,7 +229,7 @@ might look like this in json:
 
 ---
 
-.context[when]
+.context[introduction]
 # Hierarchies: In the Wild
 
 Some data is naturally hierarchical:
@@ -227,10 +238,10 @@ Some data is naturally hierarchical:
 * Company: CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
 * Filesystem: Folder ⇢ Subfolder ⇢ File
 * Book: Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
-* Family Tree: Granparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
+* Family Tree: Grandparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
 
 
-Some fields use hiararchies to make decisions
+Some fields use hierarchies to make decisions
 
 * MECE: mutually exclusive and collectively exhaustive (_consulting_)
 * Decision Tree illustration (_data science_)
@@ -257,28 +268,35 @@ class: center, middle, title-hierarchical
 
 ---
 
-.context[hierarchical data]
+.context[hierarchical]
 
-# A Dataset on Sticky Notes
+# Our Dataset on Sticky Notes
 
 _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all written on sticky notes.
 .right-column[<img width="400" src="images/engineering.jpg">]
 
-1. __Pick a topic__ of interest (cars, coding, ice cream, stores, shoes, vacations, bucket list, things you want to learn, upcoming projects). Don't overthink it.
-2. __Divide your topic__ into 3-ish categories (love, hate, envy; done, probably will do, too chicken; I came, I saw, I conquered; past, present future).
-3. __Write your topic word, the categories, and items on sticky notes__:
-    a. Pink = root (the topic of your hierarchy). [n=1]
-    b. Blue = categories (how you divided things up). [n=~3]
-    c. Yellow = items (the details). [n=~6]
+1. __Pick a *topic*__ (cars, coding, ice cream, stores, shoes, vacations, bucket list, learning agenda, your projects). Don't overthink it.
+2. __Divide your topic__ into 3-ish *categories* (love, hate, envy; done, probably will do, too chicken; I came, I saw, I conquered; past, present future).
+3. __Add *items* to each category__
+4. __Record on sticky notes__:  a. *Pink = Topic* (the _Root_ of your hierarchy). [n=1] b. *Blue = Categories* (how you divided things up). [n=~3] c. *Yellow = Items( (the details). [n=~6]
 4. __Star the corner__ of each of sticky note (for later)
 
 ---
 
-.context[hierarchical data]
+.context[hierarchical]
 
-# My JSON
+# My Sticky Notes
+
+[TODO: Add a picture]
+
+---
+
+.context[hierarchical]
+
+# My JSON & Chart
 
 
+.left-column[
 ``` json
 {
     "id": "cars",
@@ -300,18 +318,24 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
     }]
 }
 ```
+]
+
+.right-column[
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/tree-1-prod.html"></iframe>
+]
 
 ---
 
-.context[hierarchical data]
+.context[hierarchical]
 
 # Our Chart
 
-[show early charts, but with labels]
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/tree-1-prod.html"></iframe>
+
 
 ---
 
-.context[hierarchical data]
+.context[hierarchical]
 
 # Tree in 55 Lines
 
@@ -327,9 +351,9 @@ class: center, middle, title-tabular
 
 ---
 
-.context[tabular data]
+.context[tabular]
 
-Let's layout our postits as tabular data.
+# Our Dataset on Sticky Notes (Tabular!)
 1. You'll need to make some new post-its.
 2. Root (Pink) is first column
 3. Category (Blue) is 2nd column
@@ -338,20 +362,44 @@ Let's layout our postits as tabular data.
 
 ???
 
-This is more data, and the physical structure no longer matches the structure of the data.  But the struture is in there if we're willing to see it.  In fact, I'll be many of our datasets at structured as hierarchies (or could be) if we're willing to see it.
+This is more data, and the physical structure no longer matches the structure of the data.  But the structure is in there if we're willing to see it.  In fact, I'll be many of our datasets at structured as hierarchies (or could be) if we're willing to see it.
 
 ---
 
 
-.context[tabular data]
+
+
+.context[tabular]
 
 # The CSV
 
-[show my car csv]
+.left-column[
+``` text
+id,parentId
+cars,
+owned,cars
+pilot,owned
+325ci,owned
+accord,owned
+traded,cars
+chevette,traded
+learned,cars
+odyssey,learned
+maxima,learned
+```]
+
+.right-colum[
+## Keep in mind
+* 1st row has column headers
+* 2nd row has [Root],[null]
+* After that, anytime we refer to 'cars', we're referring to our root
+* We can have only 1 Root
+* Different nodes must be uniquely named
+]
 
 ---
 
-.context[tabular data]
+.context[tabular]
 
 # Our Charts
 
@@ -359,7 +407,7 @@ This is more data, and the physical structure no longer matches the structure of
 
 ---
 
-.context[tabular data]
+.context[tabular]
 
 # Tree in 60 (?) Lines
 
@@ -367,7 +415,7 @@ This is more data, and the physical structure no longer matches the structure of
 
 ---
 
-.context[tabular data]
+.context[tabular]
 
 # Adding data is super easy
 
@@ -386,7 +434,7 @@ class: center, middle, title-extras
 
 ---
 
-.context[cool extras]
+.context[extras]
 
 # Force Chart
 
@@ -394,15 +442,15 @@ class: center, middle, title-extras
 
 ---
 
-.context[cool extras]
+.context[extras]
 
 # d3.linkHorizontal()
 
-[way better than writing manaul path / line]
+[way better than writing manual path / line]
 
 ---
 
-.context[cool extras]
+.context[extras]
 
 # Key Docs
 
@@ -410,15 +458,15 @@ class: center, middle, title-extras
 
 ---
 
-.context[cool extras]
+.context[extras]
 
-# Get Comfy With Hierachical JSON
+# Get Comfy With Hierarchical JSON
 
 [objects and arrays]
 
 ---
 
-.contextLL[slides created with remark.js]
+.context-footer[slides created with remark.js]
 
 # Thanks!
 
