@@ -6,7 +6,7 @@
 </head>
 
 <style>
-    circle {
+    rect {
         stroke: #05668D;
         fill: white;
         opacity: 0.6;
@@ -22,7 +22,7 @@
 
     text {
         font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-        font-size: 10px;
+        font-size: 11px;
         fill: black;
     }
 </style>
@@ -32,12 +32,13 @@
 </svg>
 
 <script>
-    var vWidth = 330;
-    var vHeight = 200;
+    var vWidth = 430;
+    var vHeight = 600;
+    var vRad = 25;
 
     // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
-        .select('g').attr('transform', 'translate(20,20)');
+        .select('g').attr('transform', 'translate(40, 20)');
 
     // Declare d3 layout
     var vLayout = d3.tree().size([vHeight * 0.9, vWidth * 0.7]);
@@ -62,15 +63,27 @@
         g.selectAll('path').data(vLinks).enter().append('path')
             .attr('d', d3.linkHorizontal()
             .x(function(d) { return d.y; })
-            .y(function(d) { return d.x; }));
+            .y(function(d) { return d.x; })).transition().duration(1500).style('opacity', 0);
 
-        g.selectAll('circle').data(vNodes).enter().append('circle')
-            .attr('r', 10)
-            .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
+        var vRects = g.selectAll('rect').data(vNodes).enter().append('rect');
+
+        vRects.attr('width', vRad * 2).attr('height', vRad * 2).attr('rx', vRad)
+            .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; });
+
+        vRects.filter(function(d) { return !d.parent; }).transition().duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'pink').style('stroke', 'pink').style('opacity', 1);
+        vRects.filter(function(d) { return !d.children; }).transition().duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'yellow').style('stroke', 'yellow').style('opacity', 1);
+        vRects.filter(function(d) { return d.parent && d.children; }).transition().duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'green').style('stroke', 'green').style('opacity', 1);
+
 
         g.selectAll('text').data(vNodes).enter().append('text')
-            .attr('transform', function (d) { return 'translate(' + (d.y + 13) + ',' + (d.x + (d.children ? -5 : 3)) + ')'; })
+            .attr('text-anchor', 'middle')
+            .attr("dominant-baseline", "central")
+            //.attr('transform', function (d) { return 'translate(' + (d.y + 13) + ',' + (d.x + (d.children ? -5 : 3)) + ')'; })
+            .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; })
             .text(function(d) { return d.data.id }).style('opacity', 0)
-            .transition().duration(1000).style('opacity', 1);
+            .transition().delay(750).duration(750).style('opacity', 1);
     }
 </script>
