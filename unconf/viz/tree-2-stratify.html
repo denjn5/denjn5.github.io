@@ -29,34 +29,24 @@
     var vWidth = 500;
     var gutter = 30;
     var vHeight = 200;
-    var myData;
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
         .select('g').attr('transform', 'translate(40, 20)');
 
     var stratify = d3.stratify();
 
 
-    // Get the data from our json file
-//    d3.json('data-car.json', function(error, _data) {
-//        if (error) throw error;
-//
-//        myData = _data;
-//        draw();
-//    });
-
-
     // Get the data from our csv file
-    d3.csv('data-car.csv', function(error, _data) {
+    d3.csv('data-car.csv', function(error, vCsvData) {
         if (error) throw error;
 
-        myData = d3.stratify()(_data);
-        draw();
+        vData = d3.stratify()(vCsvData);
+        draw(vData);
     });
     
-    function draw() {
+    function draw(data) {
         // d3 setup
         var treeLayout = d3.tree().size([vHeight - gutter, vWidth - (gutter * 4)]);
-        var root = d3.hierarchy(myData);
+        var root = d3.hierarchy(data);
         var nodes = root.descendants();
         var links = treeLayout(root).links();
 

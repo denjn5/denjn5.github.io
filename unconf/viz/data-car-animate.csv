@@ -1,0 +1,13 @@
+id,parentId,round
+cars,,1
+owned,cars,1
+pilot,owned,1
+325ci,owned,1
+accord,owned,1
+traded,cars,1
+chevette,traded,1
+learned,cars,1
+odyssey,learned,1
+maxima,learned,1
+trailers are heavy,odyssey,3
+left turns can be dangerous,maxima,3

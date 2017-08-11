@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<head>
+    <title>Animate: Tree to Sticky Notes</title>
+    <script src='../../plugins/d3/d3.v4.js'></script>
+</head>
+
+<style>
+    rect {
+        stroke: #05668D;
+        fill: white;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    path {
+        fill: none;
+        stroke: #05668D;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+
+    text {
+        font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+        font-size: 11px;
+        fill: black;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+<!--
+1) Draw tree (using only round 1 data)
+-->
+
+<script>
+    var vWidth = 430;
+    var vHeight = 600;
+    var vRad = 25;
+    var stratify = d3.stratify();
+
+    // Prepare our physical space
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g').attr('transform', 'translate(40, 20)');
+
+    // Declare d3 layout
+    var vLayout = d3.tree().size([vHeight * 0.9, vWidth * 0.7]);
+
+    // Get the data from our JSON file
+    d3.csv('data-car-animate.csv', function(error, vCsvData) {
+        if (error) throw error;
+
+        vCsvData = vCsvData.filter( function(node) { return node.round === "1"; });
+
+        vData = d3.stratify()(vCsvData);
+        drawTree(vData);
+    });
+
+    /**
+     * Draw our sunburst
+     * @param {object} data - Hierarchical data
+     */
+    function drawTree(data) {
+        // Layout + Data
+        var vRoot = d3.hierarchy(data);
+        var vNodes = vRoot.descendants();
+        var vLinks = vLayout(vRoot).links();
+
+        // Draw on screen
+        g.selectAll('path').data(vLinks).enter().append('path')
+            .attr('d', d3.linkHorizontal()
+            .x(function(d) { return d.y; })
+            .y(function(d) { return d.x; })).transition().duration(1500).style('opacity', 0);
+
+        var vRects = g.selectAll('rect').data(vNodes).enter().append('rect');
+
+        vRects.attr('width', vRad * 2).attr('height', vRad * 2).attr('rx', vRad)
+            .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; });
+
+        vRects.filter(function(d) { return !d.parent; }).attr('class',"pink").transition().duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'pink').style('stroke', 'pink').style('opacity', 1);
+        vRects.filter(function(d) { return d.parent && d.children; }).transition().delay(500).duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'green').style('stroke', 'green').style('opacity', 1);
+        vRects.filter(function(d) { return !d.children; }).transition().delay(1000).duration(750)
+            .attr('rx', 0).transition().duration(750).style('fill', 'yellow').style('stroke', 'yellow').style('opacity', 1);
+
+
+        g.selectAll('text').data(vNodes).enter().append('text')
+            .attr('text-anchor', 'middle')
+            .attr("dominant-baseline", "central")
+            //.attr('transform', function (d) { return 'translate(' + (d.y + 13) + ',' + (d.x + (d.children ? -5 : 3)) + ')'; })
+            .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; })
+            .text(function(d) { return d.data.id }).style('opacity', 0)
+            .transition().delay(750).duration(750).style('opacity', 1);
+
+        d3.select(".pink").transition().delay(2000).duration(750).attr('transform', 'translate(50, 50)');
+    }
+</script>
