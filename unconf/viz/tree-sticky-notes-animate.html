@@ -9,26 +9,25 @@
     rect {
         stroke: #05668D;
         fill: white;
-        opacity: 0.6;
         stroke-width: 2px;
     }
 
-    rect.clear {
+    rect.second {
         opacity: 0;
     }
 
     path {
         fill: none;
         stroke: #05668D;
-        opacity: 0.6;
         stroke-width: 2px;
     }
 
     text {
-        font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+        font-family: "Comic Sans MS", Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
         font-size: 11px;
         fill: black;
     }
+
 </style>
 
 <svg>
@@ -42,8 +41,9 @@
     var vWidth = 430;
     var vHeight = 700;
     var vRad = 25;
-    var stratify = d3.stratify();
-    var vColor = ['yellow', 'green', 'pink'];
+    var vColor = ['#feff9c', '#7afcff', '#ff7eb9'];  // http://www.color-hex.com/color-palette/29241
+    var vRects;
+    var vLines;
 
     // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
@@ -60,10 +60,14 @@
 
         vData = d3.stratify()(vCsvData);
         drawTree(vData);
+        animateTree1();
+        animateTree2();
+        resetTree();
     });
 
     /**
      * Draw our sunburst
+     * Time: 0
      * @param {object} data - Hierarchical data
      */
     function drawTree(data) {
@@ -73,63 +77,103 @@
         var vLinks = vLayout(vRoot).links();
 
         // Draw on screen
-        var vLines = g.selectAll('path').data(vLinks).enter().append('path')
+        vLines = g.selectAll('path').data(vLinks).enter().append('path')
             .attr('d', d3.linkHorizontal()
                 .x(function(d) { return d.y; })
-                .y(function(d) { return d.x; }))
-            .transition().duration(1500).style('opacity', 0);
+                .y(function(d) { return d.x; }));
 
         // Add <g>s
-        var vRects = g.selectAll('g').data(vNodes).enter().append('g')
+        vRects = g.selectAll('g').data(vNodes).enter().append('g')
             .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; });
 
         // Draw <rect>s
-        vRects.append('rect').attr('width', vRad * 2).attr('height', vRad * 2).attr('rx', vRad)
+        vRects.append('rect').attr('width', vRad * 2).attr('height', vRad * 2)
+            .attr('rx', vRad)
+            .attr('transform', 'rotate(5)')
             .each( function(d) { d.data.color = vColor[d.depth]});
+    }
 
-        // Animate 1: To sticky notes
+    /**
+     * Animation 1: Move from tree diagram to sticky notes in tree shape
+     * End: 2500 (vDelay + (2 * vDuration))
+     */
+    function animateTree1() {
+        var vDelay = 500;
+        var vDuration = 1000;
+
+        // Clear lines
+        vLines.transition().delay(vDelay).duration(vDuration * 2).ease(d3.easeLinear).style('opacity', 0);
+
+        // Circles to sticky notes
         vRects.selectAll('rect')
-            .transition().delay( function(d) { return d.depth * 500; }).duration(750)
-            .attr('rx', 0).transition().duration(750)
+            .transition().delay( function(d) { return (d.depth + 1) * vDelay; }).duration(vDuration)
+            .ease(d3.easeLinear).attr('rx', 0)
             .style('fill', function(d) { return d.data.color; })
             .style('stroke', function(d) { return d.data.color; }).style('opacity', 1);
 
-        // Draw <text>s
+        // Add <text>s and labels
         vRects.append('text')
             .attr('text-anchor', 'middle')
             .attr("dominant-baseline", "central")
             .attr('transform', function (d) { return 'translate(' + vRad + ',' + vRad + ')'; })
             .text(function(d) { return d.data.id }).style('opacity', 0)
-            .transition().delay(750).duration(750).style('opacity', 1);
+            .transition().delay( function(d) { return (d.depth + 1) * vDelay; }).duration(vDuration)
+            .ease(d3.easeLinear).style('opacity', 1);
+    }
 
-        // Animate 2: <g>s To Tabular
-        vRects.transition().delay(2000).duration(1000)
+    /**
+     * Animation 2: Move from sticky notes in tree shape to sticky notes in tabular shape
+     * End:
+     */
+    function animateTree2() {
+        var vDelay = 3000;
+        var vDuration = 1500;
+
+        // Move <g>s to Tabular Location
+        vRects.transition().delay(vDelay).duration(vDuration)
             .attr('transform', function(d, i) { return 'translate(40, ' + (i * 60 + 20) + ')'; } );
 
-        // Animate 3: Add 2nd column <rect>s
-        vRects.append('rect').attr('class','clear')
-            .attr('transform', function (d) { return 'translate(60, 0)'; })
+        // Add 2nd column of <rect>s
+        vRects.append('rect').attr('class', 'second')
+            .attr('transform', function (d) { return 'translate(60, 0) rotate(5)'; })
             .attr('width', vRad * 2).attr('height', vRad * 2).attr('rx', vRad).attr('rx', 0)
-            .transition().delay(3000).duration(750)
+            .transition().delay(vDelay).duration(vDuration)
             .style('fill', function(d) { return d.parent ? d.parent.data.color : 'white'; })
             .style('stroke', function(d) { return d.parent ? d.parent.data.color : 'white'; })
             .style('opacity', 1);
 
-        // Animate 3: Add2nd column <text>s
-        vRects.append('text')
+        // Add 2nd column <text>s
+        vRects.append('text').attr('class', 'second')
             .attr('text-anchor', 'middle')
             .attr("dominant-baseline", "central")
             .attr('transform', function (d) { return 'translate(' + (60 + vRad) + ', ' + vRad + ')'; })
             .text(function(d) { return d.parent ? d.parent.data.id : ''; }).style('opacity', 0)
-            .transition().delay(3000).duration(750).style('opacity', 1);
+            .transition().delay(vDelay).duration(vDuration).style('opacity', 1);
 
-        g.append('text').attr('text-anchor', 'middle')
-            //.attr("dominant-baseline", "central")
+        // Add labels at top
+        g.append('text').attr('text-anchor', 'middle').attr('class', 'second')
             .attr('transform', function (d) { return 'translate(65, 0)'; })
-            .transition().delay(3000).text('id');
-        g.append('text').attr('text-anchor', 'middle')
-            //.attr("dominant-baseline", "central")
+            .transition().delay(vDelay).text('id');
+        g.append('text').attr('text-anchor', 'middle').attr('class','second')
             .attr('transform', function (d) { return 'translate(130, 0)'; })
-            .transition().delay(3000).text('parentId');
+            .transition().delay(vDelay).text('parentId');
+
+    }
+
+    /**
+     * Animation 3: Get back to our original tree diagram
+     */
+    function resetTree() {
+        var vDelay = 6000;
+        var vDuration = 750;
+
+        vLines.transition().delay(vDelay).duration(vDuration).style('opacity', 1);
+        vRects.transition().delay(vDelay).duration(vDuration)
+            .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; })
+            .selectAll('rect').attr('rx', vRad)
+            .style('fill', 'white')
+            .style('stroke', '#05668D').style('opacity', 1);
+        d3.selectAll('.second').style('opacity', 0);
+
     }
 </script>
