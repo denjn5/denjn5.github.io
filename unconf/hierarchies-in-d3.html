@@ -8,30 +8,6 @@
         @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
         @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-        .title-slide {
-            background-image: url(images/twisty-tree.jpg);
-            background-size: cover;
-            color: white;
-        }
-
-        .title-hierarchical {
-            background-image: url(images/sticky-notes.png);
-            background-size: cover;
-            color: white;
-        }
-
-        .title-tabular {
-            background-image: url(images/non-twisty-trees.jpg);
-            background-size: cover;
-            color: white;
-        }
-
-        .title-extras {
-            background-image: url(images/twisty-tree.jpg);
-            background-size: cover;
-            color: white;
-        }
-
         body {
             font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
         }
@@ -43,6 +19,22 @@
 
         .remark-code, .remark-inline-code {
             font-family: 'Ubuntu Mono', 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+        }
+
+        .small {
+            font-size: smaller;
+        }
+
+        .white {
+            color: white;
+        }
+
+        .gray {
+            color: gray;
+        }
+
+        .pink {
+            color: pink;
         }
 
         .context {
@@ -63,7 +55,6 @@
             left: 20px;
             text-align: right;
             color: lightgray;
-            font-size: larger;
             font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
             font-weight: 100;
             opacity: 0.8;
@@ -78,27 +69,38 @@
 
         .right-column {
             float: right;
-            width: 47%;
+            width: 48%;
         }
 
         .left-column {
             float: left;
-            width: 47%;
+            width: 48%;
         }
 
         .right-column-narrow {
             float: right;
-            width: 30%;
+            width: 41%;
         }
 
         .left-column-wide {
             float: left;
-            width: 54%;
+            width: 55%;
         }
 
         mark {
             background: lightgray;
-            color: black;
+        }
+
+        .mark-pink {
+            background: pink;
+        }
+
+        .mark-blue {
+            background: lightblue;
+        }
+
+        .mark-yellow {
+            background: yellow;
         }
     </style>
 </head>
@@ -112,12 +114,15 @@
 
 <textarea id="source">
 
-class: center, middle, title-slide
+class: center, middle, white
+background-image: url(images/twisty-tree.jpg)
+
 .context-footer[d3-Unconf | 2017 | David Richards]
 
 # Hierarchical Datasets
-Smart data structures\s\s
-and dumb code works a lot better<br>than the other way around.<br>
+Smart data structures<br>
+and dumb code works a lot better<br>
+than the other way around.<br>
 .author[—Eric S. Raymond]
 
 
@@ -136,22 +141,15 @@ By the end of this session,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you should have<br>
 a solid understanding,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and a comfort with,<br>
-hierarchical datasets<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and d3.stratify.
-
-<br>&nbsp;<br>
-
-
-* _When_ should I use them?
-* _What_ does the code look like?
-* _How_ do we work with them?
-
+_hierarchical datasets_<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and _d3.stratify_<br>
+and your visualization options.
 
 ---
 
 name: d3-examples
 .context[introduction]
-.context-footer[Thanks to Peter Cook's d3indepth.com for jumpstarting these visuals.]
+.context-footer[Visuals jumpstarted by Peter Cook's d3indepth.com.]
 # Hierarchies: Illustrated
 
 <!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
@@ -175,7 +173,7 @@ Radial tree is a little pathetic...
 
 .context[introduction]
 
-<img src="images/hierarchy-def-header.png">
+<img width="300" src="images/hierarchy-def-header.png">
 
 _plural_ __hierarchies__
 
@@ -190,12 +188,10 @@ a pyramid-like organization of ideas, people, items...
 
 .context[introduction]
 
-# Hello World
+# D3-Friendly JSON Hierarchy
 
->Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
-
-might look like this in json:
-
+.left-column[
+_Continent ⇢ Country ⇢ State ⇢ City_
 
 ``` json
 {
@@ -219,36 +215,54 @@ might look like this in json:
 }
 ```
 
-???
+]
 
-* Note our simple example.
-* "You can often go higher, but we'll start with just simply picking a beginning spot."
-* Note simplified "name" and "children" keys.
+.right-column.small.gray[
+<p>&nbsp;</p>
+__JSON Objects__<br>
+`{ "name":"John", "age":30, "car":null }`
+* surrounded by curly braces {}
+* written in key/value pairs
+* keys must be strings; valid value types<sup>1</sup>
+* keys and values are separated by a colon
+* each key/value pair is separated by a comma
 
+__JSON Arrays__<br>
+`[ "Ford", "BMW", "Fiat" ]`
+* almost the same as arrays in JavaScript
+* valid value types<sup>1</sup>
+
+]
+
+.context-footer[<sup>1</sup> _Valid types: string, number, object, array, boolean or null._]
 
 ---
 
 .context[introduction]
-# Hierarchies: In the Wild
+# Hierarchy Examples
 
-Some data is naturally hierarchical:
-
-* Location: Continent ⇢ Country ⇢ State ⇢ City ⇢ Street ⇢ House
-* Company: CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
-* Filesystem: Folder ⇢ Subfolder ⇢ File
-* Book: Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
-* Family Tree: Grandparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
+_Goal_: Begin thinking of your own dataset.
 
 
-Some fields use hierarchies to make decisions
+.right-column[<img width="400" src="images/decision-tree-r2d3-2.png">]
 
-* MECE: mutually exclusive and collectively exhaustive (_consulting_)
-* Decision Tree illustration (_data science_)
+__Data Examples__
+* _Company_: CEO ⇢ EVP ⇢ SVP ⇢ VP ⇢ DIR ⇢ MGR
+* _Filesystem_: Folder ⇢ Subfolder ⇢ File
+* _Book_: Dictionary ⇢ Letter ⇢ Word ⇢ Part-of-speech ⇢ Definitions ⇢ Examples
+* _Family Tree_: Grandparents ⇢ Parents ⇢ Kids (this one kinda' falls apart...)
 
 
-[TODO: illustrations of MECE and/or Decision Tree]
+__Decision Making__
+* _MECE_: "mutually exclusive, collectively exhaustive" in consulting
+* _Decision Tree_: machine learning technique in data science
+
+.context-footer[Decision Tree from the excellent www.r2d3.us.]
+
 
 ???
+http://www.r2d3.us/visual-intro-to-machine-learning-part-1/
+ MECE sets consider every element exactly once; there are no overlaps (ME) and no gaps (CE) http://powerful-problem-solving.com/be-mece/
 
 * Start thinking of your idea.
 * Not everything that seems hierarchical is: family tree
@@ -260,7 +274,8 @@ Some fields use hierarchies to make decisions
 <!-- #################################### -->
 ---
 
-class: center, middle, title-hierarchical
+class: center, middle, white
+background-image: url(images/sticky-notes.png)
 
 ## Let's Make a Viz
 
@@ -274,11 +289,14 @@ class: center, middle, title-hierarchical
 _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all written on sticky notes.
 .right-column[<img width="400" src="images/engineering.jpg">]
 
-1. __Pick a *topic*__ (cars, coding, ice cream, stores, shoes, vacations, bucket list, learning agenda, your projects). Don't overthink it.
-2. __Divide your topic__ into 3-ish *categories* (love, hate, envy; done, probably will do, too chicken; I came, I saw, I conquered; past, present future).
-3. __Add *items* to each category__
-4. __Record on sticky notes__:  a. *Pink = Topic* (the _Root_ of your hierarchy). [n=1] b. *Blue = Categories* (how you divided things up). [n=~3] c. *Yellow = Items( (the details). [n=~6]
-4. __Star the corner__ of each of sticky note (for later)
+1. __Pick a <mark>topic</mark>__ (cars, coding, ice cream, stores, shoes, vacations, bucket list, learning agenda, your projects). Don't overthink it.
+2. __Divide your topic__ into 3-ish <mark>categories</mark> (love, hate, envy; done, probably will do, too chicken; I came, I saw, I conquered; past, present future).
+3. __Add <mark>items</mark> to each category__
+4. __Record on sticky notes__:
+
+    * <mark class='mark-pink'>Pink</mark> = _Topic_ (the _Root_ of your hierarchy). [n=1]
+    * <mark class='mark-blue'>Blue</mark> = *Categories* (how you divided things up). [n=~3]
+    * <mark class='mark-yellow'>Yellow</mark> = Items(the details). [n=~6]
 
 ---
 
@@ -344,7 +362,8 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 <!-- #################################### -->
 ---
 
-class: center, middle, title-tabular
+class: center, middle, white
+background-image: url(images/non-twisty-trees.jpg)
 
 ## Our Data Doesn't Look Like That...
 
@@ -427,7 +446,8 @@ maxima,learned
 
 ---
 
-class: center, middle, title-extras
+class: center, middle, white
+background-image: url(images/twisty-tree.jpg)
 
 ## Cool Extras
 
@@ -455,13 +475,6 @@ class: center, middle, title-extras
 
 [d3.hierarchy]
 
----
-
-.context[extras]
-
-# Get Comfy With Hierarchical JSON
-
-[objects and arrays]
 
 ---
 

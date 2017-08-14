@@ -6,13 +6,14 @@
 </head>
 
 <style>
-    rect {
+    rect.main {
         stroke: #05668D;
         fill: white;
         stroke-width: 2px;
     }
 
     rect.second {
+        fill: white;
         opacity: 0;
     }
 
@@ -29,13 +30,10 @@
     }
 
 </style>
-
+<button id="phase">Next</button>
 <svg>
     <g></g>
 </svg>
-<!--
-1) Draw tree (using only round 1 data)
--->
 
 <script>
     var vWidth = 430;
@@ -44,6 +42,7 @@
     var vColor = ['#feff9c', '#7afcff', '#ff7eb9'];  // http://www.color-hex.com/color-palette/29241
     var vRects;
     var vLines;
+    var vPhase = 1;
 
     // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
@@ -60,9 +59,9 @@
 
         vData = d3.stratify()(vCsvData);
         drawTree(vData);
-        animateTree1();
-        animateTree2();
-        resetTree();
+//        animateTree1();
+//        animateTree2();
+//        resetTree();
     });
 
     /**
@@ -87,7 +86,7 @@
             .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; });
 
         // Draw <rect>s
-        vRects.append('rect').attr('width', vRad * 2).attr('height', vRad * 2)
+        vRects.append('rect').attr('class','main').attr('width', vRad * 2).attr('height', vRad * 2)
             .attr('rx', vRad)
             .attr('transform', 'rotate(5)')
             .each( function(d) { d.data.color = vColor[d.depth]});
@@ -98,17 +97,16 @@
      * End: 2500 (vDelay + (2 * vDuration))
      */
     function animateTree1() {
-        var vDelay = 500;
+        var vDelay = 250;
         var vDuration = 1000;
 
         // Clear lines
         vLines.transition().delay(vDelay).duration(vDuration * 2).ease(d3.easeLinear).style('opacity', 0);
 
         // Circles to sticky notes
-        vRects.selectAll('rect')
-            .transition().delay( function(d) { return (d.depth + 1) * vDelay; }).duration(vDuration)
-            .ease(d3.easeLinear).attr('rx', 0)
-            .style('fill', function(d) { return d.data.color; })
+        vRects.selectAll('rect.main')
+            .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
+            .attr('rx', 0).style('fill', function(d) { return d.data.color; })
             .style('stroke', function(d) { return d.data.color; }).style('opacity', 1);
 
         // Add <text>s and labels
@@ -117,8 +115,8 @@
             .attr("dominant-baseline", "central")
             .attr('transform', function (d) { return 'translate(' + vRad + ',' + vRad + ')'; })
             .text(function(d) { return d.data.id }).style('opacity', 0)
-            .transition().delay( function(d) { return (d.depth + 1) * vDelay; }).duration(vDuration)
-            .ease(d3.easeLinear).style('opacity', 1);
+            .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
+            .style('opacity', 1);
     }
 
     /**
@@ -126,7 +124,7 @@
      * End:
      */
     function animateTree2() {
-        var vDelay = 3000;
+        var vDelay = 250; // 3000;
         var vDuration = 1500;
 
         // Move <g>s to Tabular Location
@@ -137,7 +135,7 @@
         vRects.append('rect').attr('class', 'second')
             .attr('transform', function (d) { return 'translate(60, 0) rotate(5)'; })
             .attr('width', vRad * 2).attr('height', vRad * 2).attr('rx', vRad).attr('rx', 0)
-            .transition().delay(vDelay).duration(vDuration)
+            .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
             .style('fill', function(d) { return d.parent ? d.parent.data.color : 'white'; })
             .style('stroke', function(d) { return d.parent ? d.parent.data.color : 'white'; })
             .style('opacity', 1);
@@ -148,7 +146,8 @@
             .attr("dominant-baseline", "central")
             .attr('transform', function (d) { return 'translate(' + (60 + vRad) + ', ' + vRad + ')'; })
             .text(function(d) { return d.parent ? d.parent.data.id : ''; }).style('opacity', 0)
-            .transition().delay(vDelay).duration(vDuration).style('opacity', 1);
+            .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
+            .style('opacity', 1);
 
         // Add labels at top
         g.append('text').attr('text-anchor', 'middle').attr('class', 'second')
@@ -164,16 +163,39 @@
      * Animation 3: Get back to our original tree diagram
      */
     function resetTree() {
-        var vDelay = 6000;
-        var vDuration = 750;
+        var vDelay = 250;  // 6000;
+        var vDuration = 1500;
 
-        vLines.transition().delay(vDelay).duration(vDuration).style('opacity', 1);
-        vRects.transition().delay(vDelay).duration(vDuration)
+        vLines.transition().delay(vDelay * 3).duration(vDuration).style('opacity', 1);
+        vRects.transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
             .attr('transform', function (d) { return 'translate(' + (d.y - vRad) + ',' + (d.x - vRad) + ')'; })
             .selectAll('rect').attr('rx', vRad)
             .style('fill', 'white')
             .style('stroke', '#05668D').style('opacity', 1);
-        d3.selectAll('.second').style('opacity', 0);
+        vRects.selectAll('.second').transition().delay(vDelay).duration(vDuration).style('opacity', 0);
+        d3.selectAll('text').transition().delay(vDelay).duration(vDuration).style('opacity', 0);
 
     }
+
+    function ripple(baseDelay, groupNumber) {
+        return ((groupNumber + 1) * 250) + baseDelay;
+
+    }
+
+    d3.select('button#phase').on('click', function() {
+
+        switch (vPhase) {
+            case 1:
+                animateTree1();
+                vPhase = 2;
+                break;
+            case 2:
+                animateTree2();
+                vPhase = 3;
+                break;
+            case 3:
+                resetTree();
+                vPhase = 1;
+                break;
+        }});
 </script>
