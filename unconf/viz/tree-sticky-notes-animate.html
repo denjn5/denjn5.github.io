@@ -25,7 +25,7 @@
 
     text {
         font-family: "Comic Sans MS", Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-        font-size: 11px;
+        font-size: 12px;
         fill: black;
     }
 
@@ -38,8 +38,8 @@
 <script>
     var vWidth = 430;
     var vHeight = 700;
-    var vRad = 25;
-    var vColor = ['#feff9c', '#7afcff', '#ff7eb9'];  // http://www.color-hex.com/color-palette/29241
+    var vRad = 30;
+    var vColor = ['#feff9c', '#7afcff', '#ff7eb9'];
     var vRects;
     var vLines;
     var vPhase = 1;
@@ -59,9 +59,6 @@
 
         vData = d3.stratify()(vCsvData);
         drawTree(vData);
-//        animateTree1();
-//        animateTree2();
-//        resetTree();
     });
 
     /**
@@ -101,19 +98,19 @@
         var vDuration = 1000;
 
         // Clear lines
-        vLines.transition().delay(vDelay).duration(vDuration * 2).ease(d3.easeLinear).style('opacity', 0);
+        vLines.transition().delay(vDelay).duration(vDuration * 2).style('opacity', 0);
 
         // Circles to sticky notes
         vRects.selectAll('rect.main')
             .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
-            .attr('rx', 0).style('fill', function(d) { return d.data.color; })
+            .attr('rx', 0).attr('width', vRad * 2).attr('height', vRad * 2).style('fill', function(d) { return d.data.color; })
             .style('stroke', function(d) { return d.data.color; }).style('opacity', 1);
 
         // Add <text>s and labels
         vRects.append('text')
             .attr('text-anchor', 'middle')
             .attr("dominant-baseline", "central")
-            .attr('transform', function (d) { return 'translate(' + vRad + ',' + vRad + ')'; })
+            .attr('transform', function (d) { return 'translate(' + (vRad - 3) + ',' + vRad + ')'; })
             .text(function(d) { return d.data.id }).style('opacity', 0)
             .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
             .style('opacity', 1);
@@ -125,11 +122,15 @@
      */
     function animateTree2() {
         var vDelay = 250; // 3000;
-        var vDuration = 1500;
+        var vDuration = 1000;
+        vRad = 25;
 
         // Move <g>s to Tabular Location
         vRects.transition().delay(vDelay).duration(vDuration)
             .attr('transform', function(d, i) { return 'translate(40, ' + (i * 60 + 20) + ')'; } );
+
+        vRects.selectAll('.main').transition().delay(vDelay).duration(vDuration)
+            .attr('width', vRad * 2).attr('height', vRad * 2);
 
         // Add 2nd column of <rect>s
         vRects.append('rect').attr('class', 'second')
@@ -144,7 +145,7 @@
         vRects.append('text').attr('class', 'second')
             .attr('text-anchor', 'middle')
             .attr("dominant-baseline", "central")
-            .attr('transform', function (d) { return 'translate(' + (60 + vRad) + ', ' + vRad + ')'; })
+            .attr('transform', function (d) { return 'translate(' + (57 + vRad) + ', ' + vRad + ')'; })
             .text(function(d) { return d.parent ? d.parent.data.id : ''; }).style('opacity', 0)
             .transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
             .style('opacity', 1);
@@ -156,7 +157,6 @@
         g.append('text').attr('text-anchor', 'middle').attr('class','second')
             .attr('transform', function (d) { return 'translate(130, 0)'; })
             .transition().delay(vDelay).text('parentId');
-
     }
 
     /**
@@ -164,7 +164,8 @@
      */
     function resetTree() {
         var vDelay = 250;  // 6000;
-        var vDuration = 1500;
+        var vDuration = 1000;
+        vRad = 30;
 
         vLines.transition().delay(vDelay * 3).duration(vDuration).style('opacity', 1);
         vRects.transition().delay( function(d) { return ripple(vDelay, d.depth); }).duration(vDuration)
@@ -179,11 +180,9 @@
 
     function ripple(baseDelay, groupNumber) {
         return ((groupNumber + 1) * 250) + baseDelay;
-
     }
 
     d3.select('button#phase').on('click', function() {
-
         switch (vPhase) {
             case 1:
                 animateTree1();
