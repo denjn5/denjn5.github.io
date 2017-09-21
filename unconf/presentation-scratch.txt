@@ -1,11 +1,15 @@
 
 
+TODO: Add slide about how to have other data travel with your target / link data.
+
+
+
+
+
 DAVID'S SCRATCH
-TODO: {NEW HIERARCHIES} Add MECE comments, decision tree
 FEATURE: {COOL VIZ} Add cool hierarchical d3 vizs from around the web?
 FIXME: {EXAMPLES} Make them pop on!
 FEATURE: {STRATIFY} Address stratify really well.
-FIXME: {COLUMNS} Use .right-column instead of tables
 
 
 CONSIDER: {RANDOM} Randomly growing viz?

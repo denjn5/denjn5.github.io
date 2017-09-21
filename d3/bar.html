@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<style>
+
+    text {
+        font-family: "Helvetica Neue", arial, sans-serif;
+        font-size: 11px;
+        font-weight: 200;
+        alignment-baseline: middle;
+    }
+
+    .son {
+        fill: #63bbe6;
+    }
+
+    .daughter {
+        fill: #e175b3;
+    }
+
+    .mother {
+        fill: #c73b7c;
+        stroke: black;
+        stroke-width: 1px;
+    }
+
+    .father {
+        fill: #3685b9;
+        stroke: black;
+        stroke-width: 1px;
+    }
+
+    .grandmother {
+        fill: #e79ebf;
+    }
+
+    .grandfather {
+        fill: #84d3fb;
+    }
+
+
+</style>
+<body>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+// set the dimensions and margins of the graph
+var margin = {top: 2, right: 2, bottom: 20, left: 10};
+var width = 700 - margin.left - margin.right;
+var height = 350 - margin.top - margin.bottom;
+
+// set the ranges
+var y = d3.scaleBand().range([0, height]).padding(0.1);
+var x = d3.scaleLinear().range([0, width]);
+
+//load data
+d3.csv("data-bar.csv",
+    function(d) { return d; },
+    function (error, data) {
+
+    if(error) throw error;
+
+    var g = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Scale the range of the data in the domains
+    var xMin = d3.min(data.filter( function(d) { return d.type === 'father'; }), function(d){ return d.birth; });
+    var xMax = d3.max(data, function(d){ return d.death; });
+    x.domain([xMin, xMax]);
+    //x.domain([0, d3.max(data, function(d){ return d.death; })]);
+    y.domain(data.map(function(d) { return d.person; }));
+
+    // append the rectangles for the bar chart
+    var bars = g.selectAll("g").data(data).enter().append("g");
+
+    bars.append("rect")
+        .attr("class", function(d) {return d.type; })
+        .attr("x", function(d) { return x(d.birth); })
+        .attr("width", function(d) { return x(d.death) - x(d.birth); } )
+        .attr("y", function(d) { return y(d.person); })
+        .attr("height", y.bandwidth());
+
+    bars.append("text").text(function(d) { return d.person; } )
+        .attr("y", function(d) { return y(d.person) + 10; })
+        .attr("x", function(d) { return Math.max(0,x(d.birth) + 5); });
+        //.attr('text-anchor', 'middle');
+
+    // add the x Axis
+    g.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+    // add the y Axis
+    //g.append("g").call(d3.axisLeft(y));
+  });
+
+</script>

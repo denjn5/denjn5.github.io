@@ -3,16 +3,24 @@
     <title>d3 Unconf 2017!</title>
     <script src='../../plugins/d3/d3.v4.min.js'></script>
 </head>
+<style>
+    path {
+        stroke: #05668D;
+        fill: #fff;
+        opacity: 0.3;
+        stroke-width: 1px;
+    }
+</style>
 <body>
     <svg></svg>
 </body>
 
 <script>
-    var vWidth = 1000;
-    var vHeight = 1000;
+    var vWidth = 100;
+    var vHeight = 100;
     var vMargin = 2;
     var vRadius = Math.min(vWidth, vHeight) / 2 - vMargin;
-    var vColor = d3.schemeCategory20b[13];
+    var vColor = '#05668D'; //d3.schemeCategory20b[13];
 
     var vData = {
         'id': 'TOPICS', 'children': [{
@@ -56,8 +64,6 @@
         .enter().append('path')
         .attr('display', function (d) { return d.depth ? null : 'none'; })
         .attr('d', arc)
-        .style('stroke', '#000')
-        .style('fill', '#fff')
         .each(function(d, i) {
             id = (d.children ? d : d.parent).data.id;
             d3.select(this).transition().duration( i * 400)

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sunburst Labels, Part 2 (Tutorial 4)
-date: 2017-07-22
+date: 2017-08-15
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
@@ -31,11 +31,11 @@ I hope this tutorial helps you deepen your d3 visualization skills. If it does t
 
 
 ## Tutorial Contents
-- [Summary](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#summary)
-    - [Just the Code](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#just-the-code)
-- [A New Font](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#a-new-font)
-- [Make Labels 'Non-Selectable'](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#make-labels-non-selectable)
-- [Format the Path](../drafts/2017-07-22-sunburst-labels-part-2-tutorial-4.md#format-the-path)
+- [Summary](#summary)
+    - [Just the Code](#just-the-code)
+- [Google Font](#google-font)
+- [Make Labels 'Non-Selectable'](#make-labels-non-selectable)
+- [Format the Path](#format-the-path)
 
 
 ## Summary
@@ -71,9 +71,15 @@ The tl;dr version of this tutorial:
 
 
 ---
-## Format with a CSS <style> block
+## Format with CSS
+CSS (Cascading Style Style) is a powerful set of formatting and animation features. Most web pages have a `<style>` section towards the top used to set formatting. We've actually already been using CSS, maybe without realizing it: anytime we call the `.style()` method in d3, it's CSS.
 
-### A New Font
+Imagine we have an svg circle that we'd like to size and color: `<circle class='circles' id='myCircle'></circle>`.  We'd typically link a block of CSS key:value pairs to our page in 1 of 3 ways, easier shown than described:
+1. 
+
+When to  we use a `<style>` block
+
+### Google Font
 This section is optional; it updates the font for our sunburst.
 
 ``` css

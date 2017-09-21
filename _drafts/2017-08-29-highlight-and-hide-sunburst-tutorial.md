@@ -1,15 +1,15 @@
 ---
 layout: page
-title: Highlight & Hide (d3 Sunburst Tutorial 4)
-date: 2017-07-10
+title: Highlight & Hide (d3 Sunburst Tutorial 6)
+date: 2017-08-29
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
-permalink: /sunburst-4/
-png_url: ../images/sunburst-4.png
-html_url: ../d3/sunburst-4.html
-code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
+permalink: /sunburst-6/
+png_url: ../images/sunburst-6.png
+html_url: ../d3/sunburst-6.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-6.html
 blocks_url: https://bl.ocks.org/denjn5
 ---
 

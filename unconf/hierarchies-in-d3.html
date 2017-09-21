@@ -87,6 +87,16 @@
             width: 55%;
         }
 
+        .right-column-wide {
+            float: right;
+            width: 55%;
+        }
+
+        .left-column-narrow {
+            float: left;
+            width: 41%;
+        }
+
         mark {
             background: lightgray;
         }
@@ -119,59 +129,127 @@ background-image: url(images/twisty-tree.jpg)
 
 .context-footer[d3-Unconf | 2017 | David Richards]
 
-# Hierarchical Datasets
-Smart data structures<br>
-and dumb code works a lot better<br>
-than the other way around.<br>
-.author[—Eric S. Raymond]
+# Simpler<br>Hierarchy<br>Visualizations<br>in D3<br>
+data is central<br>
+comprehend its structure first<br>
+the viz comes second
 
+???
+
+Who am I?
+Why this topic? (Text Analytics)
+When you understand your data, magic happens.
 
 ---
 
-.context[introduction]
+.context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
+
 # Our Goal
 
-<!--- TODO: {ANIMATE} Start whole page and then shrink.   --->
-.right-column[
-<br>&nbsp;<br>
-<iframe width="400" height="500" frameborder="0" src="viz/tree.html"></iframe>
+<!-- TODO: {2: ANIMATE} tree.html: (a) Grow from initial node. (b) Is this the full viz with my data? -->
+.right-column-wide[
+<iframe width="400" height="500" frameborder="0" src="viz/tree-example.html"></iframe>
 ]
 
-By the end of this session,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you should have<br>
-a solid understanding,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and a comfort with,<br>
-_hierarchical datasets_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and _d3.stratify_<br>
-and your visualization options.
+Simplify hierarchical data<br>
+visualizations<br>
+by understanding
+
+* the data
+* your options
+* _d3.stratify_
+
+???
+
+Building this presentation, I had an epiphany.
+To this date, I've built with carefully crafted json structured data.
+Now I build with tabular data and d3.stratify.
+But I had to really understand the "catches" before it became easy.
+
+Today, we'll talk about what I learned and what you need to build great viz's with hierarchical data without spending all of your time structuring your data.
+
 
 ---
 
 name: d3-examples
-.context[introduction]
-.context-footer[Visuals jump-started by Peter Cook's d3indepth.com.]
+
+<iframe style="display: block;" width="750" height="600" frameborder="0" src="viz/cluster-json-example.html"></iframe>
+
+.context-footer[Curran Kelleher @ bl.ocks.org/curran]
+
+???
+
+https://bl.ocks.org/curran/1dd7ab046a4ed32380b21e81a38447aa
+
+---
+
+name: d3-examples
+
+<iframe style="display: block;" width="750" height="500" frameborder="0" src="viz/sunburt-csv-sequences-example.html"></iframe>
+
+
+
+.context-footer[Kerry Rodden @ bl.ocks.org/kerryrodden]
+
+???
+
+https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8
+
+---
+name: d3-examples
+
+<iframe style="display: block;" width="750" height="600" frameborder="0" src="viz/treemap-json-example.html"></iframe>
+
+
+.context-footer[Mike Bostock @ bl.ocks.org/mbostock]
+
+
+???
+
+https://bl.ocks.org/mbostock/raw/4063582/
+
+---
+
+
+name: d3-examples
+
+<iframe style="display: block;" width="750" height="600" frameborder="0" src="viz/circlepack-example.html"></iframe>
+
+
+.context-footer[Ariel Aizemberg @ bl.ocks.org/aaizemberg]
+
+???
+
+http://bl.ocks.org/aaizemberg/9e7c7c7762a58c1cd107af5f9235825b
+
+---
+
+
+name: d3-examples
+.context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
+.context-footer[inspired by Peter Cook @ d3indepth.com]
 # Hierarchies: Illustrated
 
-<!-- TODO: Better attribute http://d3indepth.com/layouts/ and -->
-
 .right-column[
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/sunburst.html"></iframe><br>
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/radialtree.html"></iframe>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/sunburst-json-basic.html"></iframe><br>
+<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/radialtree-json-basic.html"></iframe>
 ]
 
 .left-column[
-<iframe width="400" height="250" frameborder="0" src="viz/pack.html"></iframe><br>
-<iframe width="400" height="250" frameborder="0" src="viz/treemap.html"></iframe>
+<iframe width="400" height="250" frameborder="0" src="viz/pack-json-basic.html"></iframe><br>
+<iframe width="400" height="250" frameborder="0" src="viz/treemap-json-basic.html"></iframe>
 ]
 
 ???
+
+Circle pack. Sunburst. Treemap. Radial tree.
 
 Radial tree is a little pathetic...
 
 
 ---
 
-.context[introduction]
+.context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
 
 <img width="300" src="images/hierarchy-def-header.png">
 
@@ -186,7 +264,7 @@ a pyramid-like organization of ideas, people, items...
 
 ---
 
-.context[introduction]
+.context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
 
 # D3-Friendly JSON Hierarchy
 
@@ -238,7 +316,8 @@ __JSON Arrays__<br>
 
 ---
 
-.context[introduction]
+.context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
+
 # Hierarchy Examples
 
 _Goal_: Begin thinking of your own dataset.
@@ -255,9 +334,10 @@ __Data Examples__
 
 __Decision Making__
 * _MECE_: "mutually exclusive, collectively exhaustive" in consulting
+* _Taxonomy_: from science to risk management, we like orderly structures
 * _Decision Tree_: machine learning technique in data science
 
-.context-footer[Decision Tree from the excellent www.r2d3.us.]
+.context-footer[decision tree from www.r2d3.us]
 
 ???
 
@@ -279,9 +359,9 @@ background-image: url(images/sticky-notes.png)
 
 ---
 
-.context[hierarchical]
+.context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
 
-# Our Dataset on Sticky Notes
+# Sticky Note Dataset (Hierarchical)
 
 _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all written on sticky notes.
 .right-column[<img width="400" src="images/engineering.jpg">]
@@ -297,61 +377,111 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 
 ---
 
-.context[hierarchical]
+<!-- TODO: {9:ANIMATE} Improve this animation to make the point. -->
 
-# My Sticky Notes
+.context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
 
-<img width="300" src="images/cars-sticky-notes.png" />
-
----
-
-.context[hierarchical]
-
-# My JSON & Chart
-
+# My Sticky Notes & JSON
 
 .left-column[
-``` json
-{
-    "id": "cars",
-    "children": [{
-        "id": "owned",
-        "children": [
-            {"id": "pilot", "size": 40},
-            {"id": "325ci", "size": 20},
-            {"id": "accord", "size": 2}]
-    }, {
-        "id": "traded",
-        "children": [
-            {"id": "chevette", "size": 1}]
-    }, {
-        "id": "learned",
-        "children": [
-            {"id": "odyssey", "size": 20},
-            {"id": "maxima", "size": 5}]
-    }]
-}
-```
+<img width="300" src="images/cars-sticky-notes.png" />
 ]
 
 .right-column[
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/tree-1-prod.html"></iframe>
+``` json
+{
+  "id": "cars",
+  "children": [{
+    "id": "owned",
+    "children": [
+      {"id": "pilot", "size": 40},
+      {"id": "325ci", "size": 20},
+      {"id": "accord", "size": 2}]
+  }, {
+    "id": "traded",
+    "children": [
+      {"id": "chevette", "size": 1}]
+  }, {
+    "id": "learned",
+    "children": [
+      {"id": "odyssey", "size": 20},
+      {"id": "maxima", "size": 5}]
+  }]
+}
+```
+
 ]
 
 ---
 
-.context[hierarchical]
+.context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
 
-# Our Chart
+# Tree in 75 Lines (Part 1)
 
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/tree-1-prod.html"></iframe>
 
+``` html
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 175;
+    var vHeight = 125;
+
+    // Prepare our physical space
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g').attr('transform', 'translate(7,0)');
+
+    // Declare d3 layout
+    var vLayout = d3.tree().size([vHeight, vWidth * 0.6]);
+
+    // Get the data from our JSON file
+    d3.json('data-car.json', function(error, vData) {
+        if (error) throw error;
+        drawTree(vData);
+    });
+</script>
+```
+
+.right-column-narrow[
+]
 
 ---
 
-.context[hierarchical]
+.context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
 
-# Tree in 55 Lines
+# Tree in 75 Lines (Part 2)
+
+
+``` html
+<script>
+    // Draw our sunburst
+    function drawTree(data) {
+        // Layout + Data
+        var vRoot = d3.hierarchy(data);
+        var vNodes = vRoot.descendants();
+        var vLinks = vLayout(vRoot).links();
+
+        // Draw on screen
+        g.selectAll('path').data(vLinks).enter().append('path')
+            .attr('d', d3.linkHorizontal()
+            .x(function(d) { return d.y; })
+            .y(function(d) { return d.x; }));
+
+        g.selectAll('circle').data(vNodes).enter().append('circle')
+            .attr('transform', function (d) {
+                return 'translate(' + d.y + ',' + d.x + ')'; });
+
+        g.selectAll('text').data(vNodes).enter().append('text')
+            .attr('transform', function (d) {
+                return 'translate(' + (d.y + 7) + ','
+                    + (d.x + (d.children ? -5 : 3)) + ')'; })
+            .text(function(d) { return d.data.id }).style('opacity', 0)
+            .transition().duration(1000).style('opacity', 1);
+    }
+</script>
+```
+
 
 
 <!-- #################################### -->
@@ -365,19 +495,51 @@ background-image: url(images/non-twisty-trees.jpg)
 ## Our Data Doesn't Look Like That...
 
 ---
+.context[tabular]
+
+# There's an easier way...
+
+We'll re-do our sticky note exercise to show how the previous json-hierarchy model compare to the csv-link model.
+
+_Why?_
+* This style is more likely to match our source data. (Imagine an employee table that is natuarally recursive.)
+* Very easy to add new records.
+* Fewer opportunities for JSON typos.
+
+_Goal_
+When we're done, you'll still have ~6 items divided into ~3 categories all written on sticky notes. However, we'll lay them out as source-target pairs (so we'll have 9 lines of data).
+
+_Duplicate Stickies & Column Names_
+1. You'll duplicate 1 <mark class='mark-pink'>topic</mark> note for each _category_ + 1.
+2. You'll duplicate 1 <mark class='mark-blue'>categories</mark> note for each of it's child _items_ + 1..
+3. Create 2 stickies that we'll use as column headers: "ID", "ParentID".
+
+(No need to create any copies of your <mark class='mark-yellow'>items</mark>).
+
+---
 
 .context[tabular]
 
-# Our Dataset on Sticky Notes (Tabular!)
-1. You'll need to make some new post-its.
-2. Root (Pink) is first column
-3. Category (Blue) is 2nd column
-4. Item (Yellow) is 3rd column
-5. Fill in missing items with new, labeled Post Its.
 
-???
+# Sticky Note Dataset (Tabular / Links)
 
-This is more data, and the physical structure no longer matches the structure of the data.  But the structure is in there if we're willing to see it.  In fact, I'll be many of our datasets at structured as hierarchies (or could be) if we're willing to see it.
+
+_Lay Them Out_
+
+Think about our tree visual. Starting with the root / topic node, and branching out to categories, and finally to items. Each stage of our tree is simply a series of nodes and links.  In this exercise, we'll lay out each of the nodes and links in a tabular form.
+* 1st row: topic on left, a category on the right
+* 2nd row: topic on left, another category on the right
+* 3rd row: ditto
+* 4th row: a category on the left, and a related item on the right.
+* 5th row: same category on the left (assuming it had more than one item), and the next item on the right.
+* 6th row+: continue until you've created 1 line for each category-item relationship.
+
+
+
+We've now broken down our hierarchy into it's component links. And, as long as we haven't violated any rules (multiple topics / roots), we'll have a very simple structure that d3.stratify will reconstitute into our more compex hierachy.
+
+
+
 
 ---
 
@@ -389,7 +551,8 @@ This is more data, and the physical structure no longer matches the structure of
 # The CSV
 
 .left-column[
-``` text
+### Example
+```
 id,parentId
 cars,
 owned,cars
@@ -404,7 +567,8 @@ maxima,learned
 ```]
 
 .right-column[
-## Keep in mind
+
+## d3.stratify().links() Rules
 * 1st row has column headers
 * 2nd row has [Root],[null]
 * After that, anytime we refer to 'cars', we're referring to our root
@@ -452,25 +616,68 @@ background-image: url(images/twisty-tree.jpg)
 
 .context[extras]
 
-# Force Chart
+# Hierarchical Data -> Force Diagram
+Want to create a force diagram, but your data is set up hierarchically?
 
-[.links()]
+
+`node.links()` returns an array of links for from your hierarchical dataset, where each link is an object that defines source and target properties. The source of each link is the parent node, and the target is a child node.<br>([github.com/d3/d3-hierarchy#node_links](https://github.com/d3/d3-hierarchy#node_links))
+
+``` javascript
+var vRoot = d3.hierarchy(vData);
+var vNodes = vRoot.descendants();
+var vLinks = vRoot.links();
+```
+---
+
+.context[extras]
+
+# d3.linkHorizontal() - Draw Links Simply
+
+_Manually Drawing the Link as an SVG Path_<br>
+...requires setting your `<path>` 'd' attribute to a complex concatenation of source, target, and curves:
+``` javascript
+g.selectAll('path').data(vLinks).enter().append('path')
+    .attr('d', function(d) {
+        return 'M' + d.y + ',' + d.x
+            + 'C' + (d.parent.y + 100) + ',' + d.x
+            + ' ' + (d.parent.y + 100) + ',' + d.parent.x
+            + ' ' + d.parent.y + ',' + d.parent.x;
+    });
+
+```
+
+_Use D3's Shape Helper Function_<br>
+`.linkHorizontal()` returns a link generator. To visualize links in a horizontal tree diagram rooted on the left edge of the display:
+``` javascript
+g.selectAll('path').data(vLinks).enter().append('path')
+    .attr('d', d3.linkHorizontal()
+    .x(function(d) { return d.y; })
+    .y(function(d) { return d.x; }));
+```
+
+See the API description at [github.com/d3/d3-shape/#linkHorizontal](https://github.com/d3/d3-shape/#linkHorizontal), along with usage notes on `.linkVertical()` and `.linkRadial()`.
+
 
 ---
 
 .context[extras]
 
-# d3.linkHorizontal()
+# Helpful Documents
 
-[way better than writing manual path / line]
+_API Documents & Blocks_
+* [github.com/d3/d3-hierarchy](https://github.com/d3/d3-hierarchy) — D3 API (including .stratify)
+* [blockbuilder.org/search](http://blockbuilder.org/search) — Search the Blocks
 
----
+_Hierarchical Tutorials_
+* [d3indepth.com/layouts/](http://d3indepth.com/layouts/) — Peter Cook's D3 in Depth Layouts
+* [denjn5.github.io/unconf/hierarchies-in-d3.html] - This presentation
 
-.context[extras]
-
-# Key Docs
-
-[d3.hierarchy]
+_David Richards_
+* [denjn5.github.io/](https://denjn5.github.io/) — Sunbursts, Line-by-line
+* [bl.ocks.org/denjn5](https://bl.ocks.org/denjn5) — My Blocks, more sunbursts...
+* [github.com/denjn5](https://github.com/denjn5) - GitHub
+* [linkedin.com/in/david-richards-do-good/](https://www.linkedin.com/in/david-richards-do-good/) - LinkedInd
+* [twitter.com/learn_do_repeat](https://twitter.com/learn_do_repeat) - Twitter
 
 
 ---

@@ -4,8 +4,11 @@ What do I want to accomplish? How do I plan to get there?
 
 GOAL: Deepen my visualization and data science skills through practice. Document my journey via my blog.
 
-NEXT PUBLISH:
-_CONSIDER: 3) TUT. Make Tutorial page 'home'?
+8-15:
+TODO: Do I have the right iframes?
+TODO: How do I handle bl.ocks?
+TODO: How close am I to a finished post?
+TODO: Figure out text wrapping
 
 IDEAS:
 TODO: sunburst-1: put a slice picture with the edges marked

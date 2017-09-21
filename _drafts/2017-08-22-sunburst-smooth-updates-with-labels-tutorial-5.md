@@ -1,20 +1,20 @@
 ---
 layout: post
 title: Sunburst Smooth Updates with Labels (Tutorial 5)
-date: 2017-07-24
+date: 2017-08-22
 categories: d3 sunburst
 tags: d3 tutorial d3v4 javascript sunburst
 excerpt_separator: <!--more-->
 
 
-permalink: /sunburst-4/
-png_url: ../images/sunburst-4.png
-html_url: ../d3/sunburst-4.html
-code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
+permalink: /sunburst-5/
+png_url: ../images/sunburst-5.png
+html_url: ../d3/sunburst-5.html
+code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-5.html
 
-old_permalink: /sunburst-3/
-old_html_url: ../d3/sunburst-3.html
-old_code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-3.html
+old_permalink: /sunburst-4/
+old_html_url: ../d3/sunburst-4.html
+old_code_url: https://github.com/denjn5/denjn5.github.io/blob/master/d3/sunburst-4.html
 
 blocks_url: https://bl.ocks.org/denjn5
 ---

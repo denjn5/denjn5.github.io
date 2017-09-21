@@ -40,7 +40,7 @@
         .select('g');
 
     // Declare d3 layout
-    var vLayout = d3.treemap().size([vWidth, vHeight]).paddingOuter(10);
+    var vLayout = d3.treemap().size([vWidth, vHeight]).paddingOuter(5);
 
     // Layout + Data
     var vRoot = d3.hierarchy(vData).sum(function (d) { return d.size; });
