@@ -25,6 +25,15 @@
             font-size: smaller;
         }
 
+        .rotate {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            transform-origin: left top 0;
+        }
+
         .white {
             color: white;
         }
@@ -129,7 +138,7 @@ background-image: url(images/twisty-tree.jpg)
 
 .context-footer[d3-Unconf | 2017 | David Richards]
 
-# Simpler<br>Hierarchy<br>Visualizations<br>in D3<br>
+# Visualizing<br>Hierarchical<br>Data in D3
 data is central<br>
 comprehend its structure first<br>
 the viz comes second
@@ -148,7 +157,7 @@ When you understand your data, magic happens.
 
 <!-- TODO: {2: ANIMATE} tree.html: (a) Grow from initial node. (b) Is this the full viz with my data? -->
 .right-column-wide[
-<iframe width="400" height="500" frameborder="0" src="viz/tree-example.html"></iframe>
+<iframe width="400" height="500" frameborder="0" src="viz/tree-json-example.html"></iframe>
 ]
 
 Simplify hierarchical data<br>
@@ -188,7 +197,6 @@ name: d3-examples
 <iframe style="display: block;" width="750" height="500" frameborder="0" src="viz/sunburt-csv-sequences-example.html"></iframe>
 
 
-
 .context-footer[Kerry Rodden @ bl.ocks.org/kerryrodden]
 
 ???
@@ -224,20 +232,23 @@ http://bl.ocks.org/aaizemberg/9e7c7c7762a58c1cd107af5f9235825b
 
 ---
 
-
 name: d3-examples
 .context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
 .context-footer[inspired by Peter Cook @ d3indepth.com]
 # Hierarchies: Illustrated
 
 .right-column[
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/sunburst-json-basic.html"></iframe><br>
-<iframe style="display: block;" width="400" height="250" frameborder="0" src="viz/radialtree-json-basic.html"></iframe>
+<div class="rotate">Sunburst</div>
+<iframe style="display: block;" width="400" height="225" frameborder="0" src="viz/sunburst-json-basic.html"></iframe><br>
+<div class="rotate">RadialTree</div>
+<iframe style="display: block;" width="400" height="225" frameborder="0" src="viz/radialtree-json-basic.html"></iframe>
 ]
 
 .left-column[
-<iframe width="400" height="250" frameborder="0" src="viz/pack-json-basic.html"></iframe><br>
-<iframe width="400" height="250" frameborder="0" src="viz/treemap-json-basic.html"></iframe>
+<div class="rotate">Pack</div>
+<iframe width="400" height="225" frameborder="0" src="viz/pack-json-basic.html"></iframe><br>
+<div class="rotate">Treemap</div>
+<iframe width="400" height="225" frameborder="0" src="viz/treemap-json-basic.html"></iframe>
 ]
 
 ???
@@ -320,7 +331,7 @@ __JSON Arrays__<br>
 
 # Hierarchy Examples
 
-_Goal_: Begin thinking of your own dataset.
+_Goal_: Think of your own dataset.
 
 
 .right-column[<img width="400" src="images/decision-tree-r2d3.png">]
@@ -371,9 +382,9 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 3. __Add <mark>items</mark> to each category__
 4. __Record on sticky notes__:
 
-    * <mark class='mark-pink'>Pink</mark> = _Topic_ (the _Root_ of your hierarchy). [n=1]
-    * <mark class='mark-blue'>Blue</mark> = *Categories* (how you divided things up). [n=~3]
-    * <mark class='mark-yellow'>Yellow</mark> = Items(the details). [n=~6]
+    * <mark class='mark-pink'>Pink</mark> = _Topic_ (the _Root_ of your hierarchy) [n=1]
+    * <mark class='mark-blue'>Blue</mark> = _Categories_ (how you divided things up) [n=~3]
+    * <mark class='mark-yellow'>Yellow</mark> = _Items_ (the details) [n=~6]
 
 ---
 
@@ -495,64 +506,60 @@ background-image: url(images/non-twisty-trees.jpg)
 ## Our Data Doesn't Look Like That...
 
 ---
-.context[tabular]
+.context[`d3.stratify()(myData);`]
 
-# There's an easier way...
+# An Easier Way!?
 
-We'll re-do our sticky note exercise to show how the previous json-hierarchy model compare to the csv-link model.
+_Let's re-think our sticky note exercise._ This time we'll think of our dat as a set of links in tabular form (e.g., .csv) with very light syntax requirements (vs. our verbose json-hierarchy model).
 
-_Why?_
-* This style is more likely to match our source data. (Imagine an employee table that is natuarally recursive.)
-* Very easy to add new records.
-* Fewer opportunities for JSON typos.
+__Why?__
+* a tabular style often matches our source data. (e.g., employee table's are often recursive)
+* new records? easy
+* no JSON-syntax typos
 
-_Goal_
-When we're done, you'll still have ~6 items divided into ~3 categories all written on sticky notes. However, we'll lay them out as source-target pairs (so we'll have 9 lines of data).
+__Why Not?__
+* large datasets are still complex
+* errors can be difficult to hunt down
+* the "imaginary" link from null to root
 
-_Duplicate Stickies & Column Names_
-1. You'll duplicate 1 <mark class='mark-pink'>topic</mark> note for each _category_ + 1.
-2. You'll duplicate 1 <mark class='mark-blue'>categories</mark> note for each of it's child _items_ + 1..
-3. Create 2 stickies that we'll use as column headers: "ID", "ParentID".
-
-(No need to create any copies of your <mark class='mark-yellow'>items</mark>).
 
 ---
 
-.context[tabular]
+.context[`d3.stratify()(myData);`]
 
 
 # Sticky Note Dataset (Tabular / Links)
 
+__Goal__: Our original dataset (~6 items divided into ~3 categories all written on sticky notes), but laid out as source-target pairs (~10 lines of data).
 
-_Lay Them Out_
+__Create new sticky notes...__
+* 1 __topic__ note for each _category_ + 1 (e.g., 4 sticky's that say "cars").
+* 1 __category__ note for each of its child _items_ + 1.
+* Column Header stickies: "ID", "ParentID".
 
-Think about our tree visual. Starting with the root / topic node, and branching out to categories, and finally to items. Each stage of our tree is simply a series of nodes and links.  In this exercise, we'll lay out each of the nodes and links in a tabular form.
-* 1st row: topic on left, a category on the right
-* 2nd row: topic on left, another category on the right
-* 3rd row: ditto
-* 4th row: a category on the left, and a related item on the right.
-* 5th row: same category on the left (assuming it had more than one item), and the next item on the right.
-* 6th row+: continue until you've created 1 line for each category-item relationship.
-
-
-
-We've now broken down our hierarchy into it's component links. And, as long as we haven't violated any rules (multiple topics / roots), we'll have a very simple structure that d3.stratify will reconstitute into our more compex hierachy.
-
-
+__Think links!__ Start with the _root_ / _topic_ node. Then branch out to _categories_. Finally do _items_. Each stage of our tree is a simple pair of nodes. Lay out...
+1. Column Headers (Put ID first to ensure that we only create 1 row per ID--since each ID must be unique.)
+2. <mark class='mark-pink'>Topic</mark> row: 1 row for the _topic_ (it's the ID; the parentID is _blank_). This marks the root.
+3. <mark class='mark-blue'>Category</mark> rows: 1 row per _category_ (it's the ID; the parentID is the _topic_).
+4. <mark class='mark-yellow'>Item</mark> rows: 1 row per _item_ (it's the ID; the parentID is the _category_).
 
 
 ---
 
-
-
-
-.context[tabular]
-
-# The CSV
+.context[`d3.stratify()(myData);`]
 
 .left-column[
-### Example
-```
+
+# d3.stratify() Hints
+* 1st row -> column headers (keep column headers & data in the same order)
+* 2nd row -> [Root],[null] (Our root; don't forget the comma)
+* Each ID must be _unique_
+* We can have only 1 Root
+* No blank lines
+* No spaces after commas
+
+
+``` txt
 id,parentId
 cars,
 owned,cars
@@ -564,41 +571,117 @@ chevette,traded
 learned,cars
 odyssey,learned
 maxima,learned
-```]
+```
+]
 
-.right-column[
-
-## d3.stratify().links() Rules
-* 1st row has column headers
-* 2nd row has [Root],[null]
-* After that, anytime we refer to 'cars', we're referring to our root
-* We can have only 1 Root
-* Different nodes must be uniquely named
+.right-column[<iframe width="350" height="600" frameborder="0" src="viz/tree-sticky-notes-animate.html"></iframe>
 ]
 
 ---
 
-.context[tabular]
+.context[`d3.stratify()(myData);`]
 
-# Our Charts
+# Updated Tree
 
-[sames charts!]
+.left-column-wide[
+__OLD: From JSON__
+``` javascript
+d3.json('data-car.json',
+        function(error, vData) {
+    if (error) throw error;
+
+    drawTree(vData);
+});
+```
+
+__NEW: From CSV; then stratify__
+``` javascript
+d3.csv('data-car.csv',
+        function(error, vCsvData) {
+    if (error) throw error;
+
+    vData = d3.stratify()(vCsvData);
+    drawTree(vData);
+});
+```
+]
+
+
+.right-column-narrow[
+
+<iframe width="400" height="300" frameborder="0" src="viz/tree-csv-example.html"></iframe><br>
+]
+
+???
+
+Changes:
+1. `d3.json('data-car.json',` becomes `d3.csv('data-car.csv',`
+2. We changed the initial data variable name to `vCsvData`
+3. Add this line: `vData = d3.stratify()(vCsvData);`
 
 ---
 
-.context[tabular]
+.context[`d3.stratify()(myData);`]
 
-# Tree in 60 (?) Lines
+# Want to Add Nodes?
 
-[just show differences]
+_Open up your CSV and create new links._
+* Each row -> unique `ID`
+* `parentID` -> an existing `ID` from another row
+
+<iframe width="600" height="300" frameborder="0" src="viz/tree-csv-example.html"></iframe>
+
+
+???
+
+Options
+* Update data-car.csv (trailers are heavy; left turns are dangerous)
+* Repoint tree-csv-example.html to data-car-plus.csv
+[break it; then fix it]
+
 
 ---
 
-.context[tabular]
+.context[`d3.stratify()(myData);`]
 
-# Adding data is super easy
+# Want to Add Metadata?
 
-[open csv, add some lessons learned and refresh]
+.right-column-wide[
+<iframe width="600" height="300" frameborder="0" src="viz/tree-csv-example-color.html"></iframe><br>
+
+]
+
+
+Add a new column header, and the appropriate data for each row.
+
+
+``` txt
+id,parentId,idColor
+cars,,pink
+owned,cars,lightblue
+traded,cars,lightblue
+learned,cars,lightblue
+pilot,owned,yellow
+325ci,owned,yellow
+accord,owned,yellow
+chevette,traded,yellow
+odyssey,learned,yellow
+maxima,learned,yellow
+trailers are heavy,odyssey
+left turns can be dangerous,maxima
+```
+<br>
+
+``` javascript
+g.selectAll('circle').data(vNodes).enter().append('circle')
+    .style('fill', function(d) { return d.data.data.idColor; })
+    .attr('transform', function (d) {
+        return 'translate(' + d.y + ',' + d.x + ')'; });
+```
+
+
+???
+
 
 
 <!-- #################################### -->
@@ -617,16 +700,33 @@ background-image: url(images/twisty-tree.jpg)
 .context[extras]
 
 # Hierarchical Data -> Force Diagram
-Want to create a force diagram, but your data is set up hierarchically?
+.left-column[_Want to create a force diagram, but your data is set up hierarchically?_
 
 
-`node.links()` returns an array of links for from your hierarchical dataset, where each link is an object that defines source and target properties. The source of each link is the parent node, and the target is a child node.<br>([github.com/d3/d3-hierarchy#node_links](https://github.com/d3/d3-hierarchy#node_links))
+`node.links()` returns an array of links for from your hierarchical dataset, where each link is an object that defines source and target properties. The source of each link is the parent node, and the target is a child node.
 
+<iframe width="300" height="200" frameborder="0" src="viz/force.html"></iframe>
+
+]
+
+.right-column[
+__Hierarchical Data & Layout__
+``` javascript
+var vRoot = d3.hierarchy(vData);
+var vNodes = vRoot.descendants();
+var vLinks = vLayout(vRoot).links();
+```
+
+<br>
+__Hierarchical Data; Force Layout__
 ``` javascript
 var vRoot = d3.hierarchy(vData);
 var vNodes = vRoot.descendants();
 var vLinks = vRoot.links();
 ```
+
+.context-footer[Docs: [github.com/d3/d3-hierarchy#node_links](https://github.com/d3/d3-hierarchy#node_links)]
+
 ---
 
 .context[extras]
@@ -655,7 +755,7 @@ g.selectAll('path').data(vLinks).enter().append('path')
     .y(function(d) { return d.x; }));
 ```
 
-See the API description at [github.com/d3/d3-shape/#linkHorizontal](https://github.com/d3/d3-shape/#linkHorizontal), along with usage notes on `.linkVertical()` and `.linkRadial()`.
+.context-footer[Docs: [github.com/d3/d3-shape/#links](https://github.com/d3/d3-shape/#links) (linkHorizontal, linkVertical, linkRadial)]
 
 
 ---
@@ -665,18 +765,19 @@ See the API description at [github.com/d3/d3-shape/#linkHorizontal](https://gith
 # Helpful Documents
 
 _API Documents & Blocks_
-* [github.com/d3/d3-hierarchy](https://github.com/d3/d3-hierarchy) — D3 API (including .stratify)
-* [blockbuilder.org/search](http://blockbuilder.org/search) — Search the Blocks
+* [github.com/d3/d3-hierarchy](https://github.com/d3/d3-hierarchy) - D3 API, including d3.stratify()
+* [github.com/d3/d3-shape](https://github.com/d3/d3-shape#links) - D3 API, especially link generators
+* [blockbuilder.org/search](http://blockbuilder.org/search) - Search the Blocks
 
 _Hierarchical Tutorials_
-* [d3indepth.com/layouts/](http://d3indepth.com/layouts/) — Peter Cook's D3 in Depth Layouts
-* [denjn5.github.io/unconf/hierarchies-in-d3.html] - This presentation
+* [d3indepth.com/layouts/](http://d3indepth.com/layouts/) - Peter Cook's D3 in Depth Layouts
+* [denjn5.github.io/unconf/hierarchies-in-d3.html](https://denjn5.github.io/unconf/hierarchies-in-d3.html) - This presentation
 
-_David Richards_
-* [denjn5.github.io/](https://denjn5.github.io/) — Sunbursts, Line-by-line
-* [bl.ocks.org/denjn5](https://bl.ocks.org/denjn5) — My Blocks, more sunbursts...
+_David Richards (me)_
+* [denjn5.github.io/](https://denjn5.github.io/) - Sunbursts, Line-by-line
+* [bl.ocks.org/denjn5](https://bl.ocks.org/denjn5) - My Blocks, more sunbursts...
 * [github.com/denjn5](https://github.com/denjn5) - GitHub
-* [linkedin.com/in/david-richards-do-good/](https://www.linkedin.com/in/david-richards-do-good/) - LinkedInd
+* [linkedin.com/in/david-richards-do-good/](https://www.linkedin.com/in/david-richards-do-good/) - LinkedIn
 * [twitter.com/learn_do_repeat](https://twitter.com/learn_do_repeat) - Twitter
 
 
@@ -686,8 +787,6 @@ _David Richards_
 
 # Thanks!
 
-
-<!-- TODO: Fill in more: LinkedIn (https://www.linkedin.com/in/david-richards-18545310/) and Twitter (https://twitter.com/learn_do_repeat)  -->
 
 
 </textarea>

@@ -3,7 +3,38 @@
 TODO: Add slide about how to have other data travel with your target / link data.
 
 
+---
 
+.context[tabular]
+
+# The CSV
+
+.left-column[
+## Example
+```
+id,parentId
+cars,
+owned,cars
+pilot,owned
+325ci,owned
+accord,owned
+traded,cars
+chevette,traded
+learned,cars
+odyssey,learned
+maxima,learned
+```]
+
+.right-column[
+
+## d3.stratify().links() Rules
+1. 1st row has column headers. (Keep column headers and data in the same order.)
+2. 2nd row has [Root],[null]. (This marks our root. Don't forget the comma.)
+3. Each ID must be _unique_ (the first column in our structure).
+4. We can have only 1 Root.
+]
+
+---
 
 
 DAVID'S SCRATCH

@@ -31,8 +31,8 @@
 </svg>
 
 <script>
-    var vWidth = 500;
-    var vHeight = 400;
+    var vWidth = 400;
+    var vHeight = 300;
 
     // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
@@ -41,9 +41,11 @@
     // Declare d3 layout
     var vLayout = d3.tree().size([vHeight, vWidth * 0.6]);
 
-    // Get the data from our JSON file
-    d3.json('data-car.json', function(error, vData) {
+    // Get the data from our CSV file
+    d3.csv('data-car.csv', function(error, vCsvData) {
         if (error) throw error;
+
+        vData = d3.stratify()(vCsvData);
         drawTree(vData);
     });
 

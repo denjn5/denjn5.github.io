@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Sunburst</title>
+    <script src="../../plugins/d3/d3.v4.min.js"></script>
+</head>
+
+<style>
+    path {
+        stroke: white;
+        fill: #05668D;
+        opacity: 0.6;
+        stroke-width: 2px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<script>
+    var vWidth = 300;
+    var vHeight = 200;
+    var myData = {
+        "name": "Rooooot",
+        "children": [{
+            "name": "Topic X",
+            "children": [{"name": "Sub X1", "size": 300}]
+        }, {
+            "name": "Topic Y",
+            "children": [{"name": "Sub Y1", "size": 200}, {"name": "Sub Y2", "size": 200}]
+        }, {
+            "name": "Topic Z",
+            "size": 400
+        }]
+    };
+
+    // physical space setup
+    var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
+        .select('g');
+
+    // d3 setup
+    var partitionLayout = d3.partition().size([2 * Math.PI, Math.min(vWidth, vHeight) / 2]);
+    var root = d3.hierarchy(myData).sum(function (d) { return d.size; });
+    var nodes = root.descendants();
+    partitionLayout(root);
+
+    // d3 draw
+    var arc = d3.arc()
+        .startAngle(function (d) { return d.x0; })
+        .endAngle(function (d) { return d.x1; })
+        .innerRadius(function (d) { return d.y0; })
+        .outerRadius(function (d) { return d.y1; });
+
+    g.attr('transform', 'translate(' + vWidth / 2 + ',' + vHeight / 2 + ')')
+        .selectAll('path').data(nodes).enter().append('path')
+        .attr("d", arc);
+</script>

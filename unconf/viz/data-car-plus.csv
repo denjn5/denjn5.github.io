@@ -1,0 +1,13 @@
+id,parentId,idColor
+cars,,pink
+owned,cars,lightblue
+traded,cars,lightblue
+learned,cars,lightblue
+pilot,owned,yellow
+325ci,owned,yellow
+accord,owned,yellow
+chevette,traded,yellow
+odyssey,learned,yellow
+maxima,learned,yellow
+trailers are heavy,odyssey
+left turns can be dangerous,maxima

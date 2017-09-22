@@ -1,0 +1,13 @@
+
+GOAL: 5 minutes (a couple of slides)
+
+What is it?
+How do you achieve it?
+What are your goals?
+
+More flexibility, a bit more complexity
+* data only
+* data & colors
+* data & colors & viz size
+* html only (page structure, style, javascript
+

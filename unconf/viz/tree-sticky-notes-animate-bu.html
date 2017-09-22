@@ -37,8 +37,8 @@
 
 <script>
     var vWidth = 350;
-    var vHeight = 600;
-    var vRad = 25;
+    var vHeight = 500;
+    var vRad = 10;
     var vColor = ['#feff9c', '#7afcff', '#ff7eb9'];
     var vRects;
     var vLines;
@@ -127,7 +127,7 @@
 
         // Move <g>s to Tabular Location
         vRects.transition().delay(vDelay).duration(vDuration)
-            .attr('transform', function(d, i) { return 'translate(40, ' + (i * 50 + 15) + ')'; } );
+            .attr('transform', function(d, i) { return 'translate(40, ' + (i * 60 + 20) + ')'; } );
 
         vRects.selectAll('.main').transition().delay(vDelay).duration(vDuration)
             .attr('width', vRad * 2).attr('height', vRad * 2);
