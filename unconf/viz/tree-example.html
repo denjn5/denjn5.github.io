@@ -66,8 +66,8 @@
 
         g.selectAll('text').data(vNodes).enter().append('text')
             .attr('transform', function (d) {
-                return 'translate(' + (d.y + 7) + ','
-                    + (d.x + (d.children ? -5 : 3)) + ')'; })
+                return 'translate(' + (d.y + 14) + ','
+                    + (d.x + (d.children ? -8 : 3)) + ')'; })
             .text(function(d) { return d.data.id }).style('opacity', 0)
             .transition().duration(1000).style('opacity', 1);
     }
