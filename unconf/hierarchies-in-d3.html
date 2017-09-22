@@ -160,17 +160,15 @@ When you understand your data, magic happens.
 <iframe width="400" height="500" frameborder="0" src="viz/tree-json-example.html"></iframe>
 ]
 
-Simplify hierarchical data<br>
-visualizations<br>
-by understanding
+Simplify<br>hierarchical data<br>visualizations<br>by perceiving:
 
-* the data
-* your options
-* _d3.stratify_
+* our data
+* our viz options
+* _d3.stratify()_
 
 ???
 
-Building this presentation, I had an epiphany.
+epiphany!
 To this date, I've built with carefully crafted json structured data.
 Now I build with tabular data and d3.stratify.
 But I had to really understand the "catches" before it became easy.
@@ -184,11 +182,11 @@ name: d3-examples
 
 <iframe style="display: block;" width="750" height="600" frameborder="0" src="viz/cluster-json-example.html"></iframe>
 
-.context-footer[Curran Kelleher @ bl.ocks.org/curran]
+.context-footer[Curran Kelleher @ bl.ocks.org/curran ([1356 lines of data](https://raw.githubusercontent.com/curran/data/gh-pages/un/placeHierarchy/countryHierarchy.json))]
 
 ???
 
-https://bl.ocks.org/curran/1dd7ab046a4ed32380b21e81a38447aa
+[https://bl.ocks.org/curran/1dd7ab046a4ed32380b21e81a38447aa](Kelleher)
 
 ---
 
@@ -197,11 +195,11 @@ name: d3-examples
 <iframe style="display: block;" width="750" height="500" frameborder="0" src="viz/sunburt-csv-sequences-example.html"></iframe>
 
 
-.context-footer[Kerry Rodden @ bl.ocks.org/kerryrodden]
+.context-footer[Kerry Rodden @ bl.ocks.org/kerryrodden ([9350 lines of data](https://gist.githubusercontent.com/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8/raw/9fc86efac379f228749b2de3537acd629c0867c8/visit-sequences.csv))]
 
 ???
 
-https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8
+[https://bl.ocks.org/kerryrodden/766f8f6d31f645c39f488a0befa1e3c8](Rodden)
 
 ---
 name: d3-examples
@@ -214,7 +212,7 @@ name: d3-examples
 
 ???
 
-https://bl.ocks.org/mbostock/raw/4063582/
+[https://bl.ocks.org/mbostock/raw/4063582/](Bostock)
 
 ---
 
@@ -228,13 +226,13 @@ name: d3-examples
 
 ???
 
-http://bl.ocks.org/aaizemberg/9e7c7c7762a58c1cd107af5f9235825b
+[http://bl.ocks.org/aaizemberg/9e7c7c7762a58c1cd107af5f9235825b](Aizemberg)
 
 ---
 
 name: d3-examples
 .context[<iframe width="125" height="125" frameborder="0" src="viz/icon.html"></iframe>]
-.context-footer[inspired by Peter Cook @ d3indepth.com]
+.context-footer[Other layout options: Cluster, Tree, Force. &nbsp;Asthetics by Peter Cook @ d3indepth.com.]
 # Hierarchies: Illustrated
 
 .right-column[
@@ -268,7 +266,7 @@ _plural_ __hierarchies__
 
 <mark>&nbsp;DATA&nbsp;</mark><br>
 a pyramid-like organization of ideas, people, items...
-* with a _single_, top-level item called the "__root__".
+* with a _single_, top-level item called the __root__.
 * every item has _one higher_ and _zero or more lower_ neighbors.
 * higher levels have greater inclusion, influence, or breadth.
 
@@ -691,7 +689,7 @@ g.selectAll('circle').data(vNodes).enter().append('circle')
 ---
 
 class: center, middle, white
-background-image: url(images/twisty-tree.jpg)
+background-image: url(images/extras.jpg)
 
 ## Cool Extras
 
@@ -700,7 +698,8 @@ background-image: url(images/twisty-tree.jpg)
 .context[extras]
 
 # Hierarchical Data -> Force Diagram
-.left-column[_Want to create a force diagram, but your data is set up hierarchically?_
+.left-column[
+_Want to create a force diagram, but your data is set up hierarchically?_
 
 
 `node.links()` returns an array of links for from your hierarchical dataset, where each link is an object that defines source and target properties. The source of each link is the parent node, and the target is a child node.
@@ -724,7 +723,7 @@ var vRoot = d3.hierarchy(vData);
 var vNodes = vRoot.descendants();
 var vLinks = vRoot.links();
 ```
-
+]
 .context-footer[Docs: [github.com/d3/d3-hierarchy#node_links](https://github.com/d3/d3-hierarchy#node_links)]
 
 ---
@@ -733,8 +732,7 @@ var vLinks = vRoot.links();
 
 # d3.linkHorizontal() - Draw Links Simply
 
-_Manually Drawing the Link as an SVG Path_<br>
-...requires setting your `<path>` 'd' attribute to a complex concatenation of source, target, and curves:
+__Manually Draw a Link with SVG Path__: Requires setting your `<path>` 'd' attribute to a complex concatenation of source, target, and curves:
 ``` javascript
 g.selectAll('path').data(vLinks).enter().append('path')
     .attr('d', function(d) {
@@ -746,8 +744,7 @@ g.selectAll('path').data(vLinks).enter().append('path')
 
 ```
 
-_Use D3's Shape Helper Function_<br>
-`.linkHorizontal()` returns a link generator. To visualize links in a horizontal tree diagram rooted on the left edge of the display:
+__D3's Shape `.linkHorizontal()`__ returns a link generator. To visualize links in a horizontal tree diagram rooted on the left edge of the display:
 ``` javascript
 g.selectAll('path').data(vLinks).enter().append('path')
     .attr('d', d3.linkHorizontal()
@@ -761,6 +758,7 @@ g.selectAll('path').data(vLinks).enter().append('path')
 ---
 
 .context[extras]
+.context-footer[d3-Unconf | 2017 | David Richards]
 
 # Helpful Documents
 
