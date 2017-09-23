@@ -136,7 +136,7 @@
 class: center, middle, white
 background-image: url(images/twisty-tree.jpg)
 
-.context-footer[d3-Unconf | 2017 | David Richards]
+.context-footer[d3-Unconf 2017 | David Richards | denjn5.github.io/unconf/hierarchy.html]
 
 # Visualizing<br>Hierarchical<br>Data in D3<br>_Efficiently_
 data is central<br>
@@ -401,7 +401,7 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 # My Sticky Notes & JSON
 
 .left-column[
-<img width="300" src="images/cars-sticky-notes.png" />
+<img width="325" src="images/cars-sticky-notes.png" />
 ]
 
 .right-column[
@@ -432,8 +432,9 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 ---
 
 .context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
+.context-footer[[bl.ocks.org/denjn5](https://bl.ocks.org/denjn5)]
 
-# Tree in 75 Lines (Part 1)
+# Tree in 62 Lines (Part 1)
 
 
 ``` html
@@ -442,20 +443,18 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 </svg>
 
 <script>
-    var vWidth = 175;
-    var vHeight = 125;
+    var vWidth = 300;
+    var vHeight = 200;
 
     // Prepare our physical space
     var g = d3.select('svg').attr('width', vWidth).attr('height', vHeight)
-        .select('g').attr('transform', 'translate(7,0)');
+        .select('g').attr('transform', 'translate(20,20)');
 
-    // Declare d3 layout
-    var vLayout = d3.tree().size([vHeight, vWidth * 0.6]);
-
-    // Get the data from our JSON file
-    d3.json('data-car.json', function(error, vData) {
+    // Get the data from our CSV file
+    d3.json('data.json', function(error, vData) {
         if (error) throw error;
-        drawTree(vData);
+
+        drawViz(vData);
     });
 </script>
 ```
@@ -466,16 +465,18 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
 ---
 
 .context[<iframe width="175" height="125" frameborder="0" src="viz/tree-icon.html"></iframe>]
+.context-footer[[bl.ocks.org/denjn5](https://bl.ocks.org/denjn5)]
 
-# Tree in 75 Lines (Part 2)
-
+# Tree in 62 Lines (Part 2)
 
 ``` html
 <script>
-    // Draw our sunburst
-    function drawTree(data) {
+    function drawViz(vData) {
+        // Declare d3 layout
+        var vLayout = d3.tree().size([vHeight * 0.9, vWidth * 0.8]);
+
         // Layout + Data
-        var vRoot = d3.hierarchy(data);
+        var vRoot = d3.hierarchy(vData);
         var vNodes = vRoot.descendants();
         var vLinks = vLayout(vRoot).links();
 
@@ -486,19 +487,11 @@ _Goal_: When we're done, you'll have ~6 items divided into ~3 categories all wri
             .y(function(d) { return d.x; }));
 
         g.selectAll('circle').data(vNodes).enter().append('circle')
-            .attr('transform', function (d) {
-                return 'translate(' + d.y + ',' + d.x + ')'; });
-
-        g.selectAll('text').data(vNodes).enter().append('text')
-            .attr('transform', function (d) {
-                return 'translate(' + (d.y + 7) + ','
-                    + (d.x + (d.children ? -5 : 3)) + ')'; })
-            .text(function(d) { return d.data.id }).style('opacity', 0)
-            .transition().duration(1000).style('opacity', 1);
+            .style('r', 10)
+            .attr('transform', function (d) { return 'translate(' + d.y + ',' + d.x + ')'; });
     }
 </script>
 ```
-
 
 
 <!-- #################################### -->
@@ -553,6 +546,7 @@ __Think links!__ Start with the _root_ / _topic_ node. Then branch out to _categ
 ---
 
 .context[`d3.stratify()(myData);`]
+.context-footer[[bl.ocks.org/denjn5](https://bl.ocks.org/denjn5)]
 
 .left-column[
 
@@ -628,7 +622,6 @@ Changes:
 ---
 
 .context[`d3.stratify()(myData);`]
-.context-footer[*We focus on CSV because it simplifies our dataset syntax.]
 
 # Columns have Different Names?
 
@@ -643,21 +636,6 @@ homer,simpsons
 bart,marge
 ...
 ```
-
-
-<br>
-.small.gray[
-__NOTE: Not Just for CSV__<br>
-d3.stratify() works with any _tabular_ shaped data, including JSON.*
-```
-var vJSONData = [
-  {"emp": "simpsons", "mgr": null},
-  {"emp": "marge", "mgr": "simpsons" },
-  {"emp": "homer", "mgr": "simpsons" },
-  {"emp": "bart", "mgr": "marge" }
-];
-```
-]
 
 ]
 
@@ -715,7 +693,6 @@ Options
 ---
 
 .context[`d3.stratify()(myData);`]
-.context-footer[For viz's that need size, add that as a column in your data, but refer to it as `d.data.size` now.]
 
 # Want to Add Metadata?
 
@@ -752,9 +729,27 @@ g.selectAll('circle').data(vNodes).enter().append('circle')
         return 'translate(' + d.y + ',' + d.x + ')'; });
 ```
 
+---
 
-???
+.context[`d3.stratify()(myData);`]
 
+# Keep in Mind
+
+
+__For viz's that need size,__ add that as a column in your data, but refer to it as `d.data.size` now.
+<br>&nbsp;<br>
+
+
+
+__d3.stratify() works for tabular data from the range of d3 data helpers__
+``` json
+var vJSONData = [
+  {"emp": "simpsons", "mgr": null},
+  {"emp": "marge", "mgr": "simpsons" },
+  {"emp": "homer", "mgr": "simpsons" },
+  {"emp": "bart", "mgr": "marge" }
+];
+```
 
 
 <!-- #################################### -->
@@ -844,7 +839,7 @@ _API Documents & Blocks_
 
 _Hierarchical Tutorials_
 * [d3indepth.com/layouts/](http://d3indepth.com/layouts/) - Peter Cook's D3 in Depth Layouts
-* [denjn5.github.io/unconf/hierarchies-in-d3.html](https://denjn5.github.io/unconf/hierarchies-in-d3.html) - This presentation
+* [denjn5.github.io/unconf/hierarchy.html](https://denjn5.github.io/unconf/hierarchy.html) - This presentation
 
 _David Richards (me)_
 * [denjn5.github.io/](https://denjn5.github.io/) - Sunbursts, Line-by-line
