@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>d3 & Templates</title>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body {
+            font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
+            font-weight: normal;
+        }
+
+        .remark-code, .remark-inline-code {
+            font-family: 'Ubuntu Mono', 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+        }
+
+        .small {
+            font-size: smaller;
+        }
+
+        .rotate {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            transform-origin: left top 0;
+        }
+
+        .white {
+            color: white;
+        }
+
+        .gray {
+            color: gray;
+        }
+
+        .pink {
+            color: pink;
+        }
+
+        .context {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            text-align: right;
+            color: lightgray;
+            font-size: larger;
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
+            font-weight: 100;
+            opacity: 0.8;
+        }
+
+        .context-footer {  /* lower left */
+            position: absolute;
+            bottom: 12px;
+            left: 20px;
+            text-align: right;
+            color: lightgray;
+            font-family: 'Yanone Kaffeesatz', "Helvetica Neue", arial, sans-serif;
+            font-weight: 100;
+            opacity: 0.8;
+        }
+
+        .author {
+            position: absolute;
+            right: 75px;
+            color: gray;
+            font-style: italic;
+        }
+
+        .right-column {
+            float: right;
+            width: 48%;
+        }
+
+        .left-column {
+            float: left;
+            width: 48%;
+        }
+
+        .right-column-narrow {
+            float: right;
+            width: 41%;
+        }
+
+        .left-column-wide {
+            float: left;
+            width: 55%;
+        }
+
+        .right-column-wide {
+            float: right;
+            width: 55%;
+        }
+
+        .left-column-narrow {
+            float: left;
+            width: 41%;
+        }
+
+        mark {
+            background: lightgray;
+        }
+
+        .mark-pink {
+            background: pink;
+        }
+
+        .mark-blue {
+            background: lightblue;
+        }
+
+        .mark-yellow {
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- #################################### -->
+<!-- ##  INTRODUCTION  ################## -->
+<!-- #################################### -->
+
+
+<textarea id="source">
+
+
+# UnConf Best Practices
+
+* We have 45 minutes; we won't get super deep
+* People Intro? (nearest neighbors)
+* Audience Poll (skills, interests, experiences)
+
+---
+
+# Templatize D3 Visualizations
+* What is it? Why would you do this?
+* How do you achieve it?
+* What are your goals?
+
+---
+# Ideas
+* html / style / javascript
+* send in querystrings
+*
+
+---
+
+# Links
+
+__Articles__
+* [bost.ocks.org/mike/chart/](https://bost.ocks.org/mike/chart/) - Towards Reusable Charts by Mike Bostock
+* [www.toptal.com/d3-js/towards-reusable-d3-js-charts](https://www.toptal.com/d3-js/towards-reusable-d3-js-charts) - Rob Moore
+
+__Examples__
+* [bl.ocks.org/ee2dev/](http://bl.ocks.org/ee2dev/264df2edf12a0b95577fee517d2ac139) - ee2dev
+* [bl.ocks.org/netzwerg/](https://bl.ocks.org/netzwerg/0e34645e7d34dae3a32143cddbd26af4) - Rahel Lüthy
+
+__Going Further__
+* [handlebarsjs.com/](http://handlebarsjs.com/) - javascript handlebars
+
+
+
+</textarea>
+<script src="../plugins/remark/remark-latest.min.js"></script>
+<script src="../plugins/mark/mark.min.js"></script>
+<script>
+    var slideshow = remark.create({
+        ratio: '4:3',
+
+        // Navigation options
+        navigation: {
+            scroll: true,
+            touch: true,
+            click: false
+        },
+        highlightLines: true,
+        highlightStyle: 'solarized-dark',  // arta, ir-black, solarized-dark, sunburst
+
+        // Enable or disable counting of incremental slides in the slide counting
+        countIncrementalSlides: false
+    });
+</script>
+</body>
+</html>
