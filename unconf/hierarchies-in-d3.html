@@ -138,7 +138,7 @@ background-image: url(images/twisty-tree.jpg)
 
 .context-footer[d3-Unconf | 2017 | David Richards]
 
-# Visualizing<br>Hierarchical<br>Data in D3
+# Visualizing<br>Hierarchical<br>Data in D3<br>_Efficiently_
 data is central<br>
 comprehend its structure first<br>
 the viz comes second
@@ -148,6 +148,14 @@ the viz comes second
 Who am I?
 Why this topic? (Text Analytics)
 When you understand your data, magic happens.
+
+---
+
+# Preface
+
+### _Pick your projects_ — Information Arbitrage
+### _Know your tools_ — Excellence = skillful application of great tools
+### _Tell your story_ — Context, Challenge, _Solution_, Resolution
 
 ---
 
@@ -549,12 +557,12 @@ __Think links!__ Start with the _root_ / _topic_ node. Then branch out to _categ
 .left-column[
 
 # d3.stratify() Hints
-* 1st row -> column headers (keep column headers & data in the same order)
-* 2nd row -> [Root],[null] (Our root; don't forget the comma)
-* Each ID must be _unique_
-* We can have only 1 Root
-* No blank lines
-* No spaces after commas
+1. 1st row -> column headers (keep column headers & data in the same order)
+2. 2nd row -> [Root],[null] (Our root; don't forget the comma)
+3. Each ID must be _unique_
+4. We can have only 1 Root
+5. No blank lines
+6. No spaces after commas
 
 
 ``` txt
@@ -620,6 +628,72 @@ Changes:
 ---
 
 .context[`d3.stratify()(myData);`]
+.context-footer[*We focus on CSV because it simplifies our dataset syntax.]
+
+# Columns have Different Names?
+
+.left-column-narrow[
+
+__New Data Set__
+``` txt
+emp,mgr
+simpsons,
+marge,simpsons
+homer,simpsons
+bart,marge
+...
+```
+
+
+<br>
+.small.gray[
+__NOTE: Not Just for CSV__<br>
+d3.stratify() works with any _tabular_ shaped data, including JSON.*
+```
+var vJSONData = [
+  {"emp": "simpsons", "mgr": null},
+  {"emp": "marge", "mgr": "simpsons" },
+  {"emp": "homer", "mgr": "simpsons" },
+  {"emp": "bart", "mgr": "marge" }
+];
+```
+]
+
+]
+
+.right-column-wide[
+__Good Column Names (Prev Code)__
+``` javascript
+d3.csv('data-car.csv',
+    function(error, vCsvData) {
+  if (error) throw error;
+
+  vData = d3.stratify()
+    (vCsvData);
+  drawTree(vData);
+});
+```
+
+__Other Column Names (Updated Code)__
+
+``` javascript
+d3.csv('data-car.csv',
+    function(error, vCsvData) {
+  if (error) throw error;
+
+  vData = d3.stratify()
+    .id(function(d) { return d.emp; })
+    .parentId(function(d) { return d.mgr; })
+    (vCsvData);
+  drawTree(vData);
+});
+```
+]
+
+
+---
+
+.context[`d3.stratify()(myData);`]
 
 # Want to Add Nodes?
 
@@ -641,6 +715,7 @@ Options
 ---
 
 .context[`d3.stratify()(myData);`]
+.context-footer[For viz's that need size, add that as a column in your data, but refer to it as `d.data.size` now.]
 
 # Want to Add Metadata?
 
